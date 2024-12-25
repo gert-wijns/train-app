@@ -1,0 +1,36 @@
+get:
+  operationId: query
+  tags:
+    - SearchTrainEngineersQuery
+  parameters:
+    - in: query
+      name: certificationCodes
+      schema:
+        type: array
+        items:
+          $ref: '../components.yaml#/components/schemas/CertificateCode'
+    - in: query
+      name: certificationValidFrom
+      schema:
+        type: string
+        format: date
+    - in: query
+      name: certificationValidUntil
+      schema:
+        type: string
+        format: date
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            title: SearchTrainEngineersQueryResponse
+            type: array
+            items:
+              type: object
+              title: SearchTrainEngineersQueryResponseItem
+              properties:
+                id:
+                  $ref: '../components.yaml#/components/schemas/EmployeeId'
+              required: [id]

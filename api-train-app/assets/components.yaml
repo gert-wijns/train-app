@@ -1,0 +1,17 @@
+components:
+  schemas:
+    AssetId:
+      type: string
+    WagonId:
+      type: string
+    LocomotiveId:
+      type: string
+    AssetType:
+      type: string
+      enum: [LOCOMOTIVE, WAGON]
+    AssetSubType:
+      type: string
+    LocomotiveModelTypeId:
+      type: string
+    WagonModelTypeId:
+      type: string

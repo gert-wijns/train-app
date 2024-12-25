@@ -1,0 +1,24 @@
+components:
+  schemas:
+    EmployeeId:
+      type: string
+    CertificateCode:
+      type: string
+    TrainId:
+      type: string
+    WagonId:
+      type: string
+    LocomotiveId:
+      type: string
+    LocalDateRangeBody:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+      required: [start, end]
+
+

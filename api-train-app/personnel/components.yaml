@@ -1,0 +1,20 @@
+components:
+  schemas:
+    EmployeeId:
+      type: string
+    FullNameBody:
+      type: object
+      properties:
+        firstName:
+          type: string
+          minLength: 1
+        lastName:
+          type: string
+          minLength: 1
+      required: [firstName, lastName]
+    EmployeeRole:
+      type: string
+      enum: [TRAIN_ENGINEER, TRAIN_CONDUCTOR, TRAIN_COOK, TRAIN_CREW_MEMBER,
+             DIESEL_MECHANIC, RAILWAY_MECHANIC, WELDER, DISPATCHER, TRAIN_YARD_MANAGER, SIGNAL_MAINTAINER, UTILITY_CLERK,
+             UNASSIGNED]
+

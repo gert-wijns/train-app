@@ -1,0 +1,20 @@
+post:
+  operationId: execute
+  tags:
+    - AddLocomotiveToTrainUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: AddLocomotiveToTrainRequest
+          properties:
+            trainId:
+              $ref: '../components.yaml#/components/schemas/TrainId'
+            locomotiveId:
+              $ref: '../components.yaml#/components/schemas/LocomotiveId'
+          required: [ trainId, lcomotiveId ]
+  responses:
+    204:
+      description: Success

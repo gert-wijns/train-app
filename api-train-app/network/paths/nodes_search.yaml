@@ -1,0 +1,19 @@
+get:
+  operationId: query
+  tags:
+    - SearchNetworkNodesQuery
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            title: SearchNetworkNodesQueryResponse
+            type: array
+            items:
+              type: object
+              title: SearchNetworkNodesQueryResponseItem
+              properties:
+                id:
+                  $ref: '../components.yaml#/components/schemas/NodeId'
+              required: [id]

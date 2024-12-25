@@ -1,0 +1,22 @@
+post:
+  operationId: execute
+  tags:
+    - RegisterTrainEngineerCertificationUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: RegisterTrainEngineerCertificationRequest
+          properties:
+            employeeId:
+              $ref: '../components.yaml#/components/schemas/EmployeeId'
+            certificateCode:
+              $ref: '../components.yaml#/components/schemas/CertificateCode'
+            certificationPeriod:
+              $ref: '../components.yaml#/components/schemas/LocalDateRangeBody'
+          required: [ employeeId, certificateCode, certificationPeriod ]
+  responses:
+    204:
+      description: Success

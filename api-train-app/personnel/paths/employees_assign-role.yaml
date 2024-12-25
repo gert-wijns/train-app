@@ -1,0 +1,20 @@
+post:
+  operationId: execute
+  tags:
+    - AssignEmployeeRoleUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: AssignEmployeeRoleRequest
+          properties:
+            employeeId:
+              $ref: '../components.yaml#/components/schemas/EmployeeId'
+            role:
+              $ref: '../components.yaml#/components/schemas/EmployeeRole'
+          required: [employeeId, role]
+  responses:
+    204:
+      description: Success

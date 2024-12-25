@@ -1,0 +1,17 @@
+openapi: 3.0.2
+info:
+  title: Assets context rest api definition
+  version: '1'
+  description: |
+    Defines the rest paths which can be used to interact with the application.
+servers:
+  - url: http://localhost:5173
+security:
+  - x-auth-token: []
+paths:
+  /api/assets/search:
+    $ref: './paths/search.yaml'
+  /api/assets/locomotive/add:
+    $ref: './paths/locomotive_add.yaml'
+  /api/assets/wagon/add:
+    $ref: './paths/wagon_add.yaml'

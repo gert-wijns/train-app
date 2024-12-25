@@ -1,0 +1,23 @@
+openapi: 3.0.2
+info:
+  title: Planning context rest api definition
+  version: '1'
+  description: |
+    Defines the rest paths which can be used to interact with the application.
+servers:
+  - url: http://localhost:5173
+security:
+  - x-auth-token: []
+paths:
+  /api/planning/trains/create:
+    $ref: './paths/trains_create.yaml'
+  /api/planning/trains/add-wagon:
+    $ref: './paths/trains_add-wagon.yaml'
+  /api/planning/trains/add-locomotive:
+    $ref: './paths/trains_add-locomotive.yaml'
+
+  /api/planning/train-engineers/certifications/search:
+    $ref: './paths/train-engineers_certifications_search.yaml'
+  /api/planning/train-engineers/certifications/register:
+    $ref: './paths/train-engineers_certifications_register.yaml'
+

@@ -1,0 +1,30 @@
+get:
+  operationId: query
+  tags:
+    - SearchEmployeesQuery
+  parameters:
+    - in: query
+      name: employeeId
+      schema:
+        type: array
+        items:
+          type: string
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            title: SearchEmployeesQueryResponse
+            type: array
+            items:
+              type: object
+              title: SearchEmployeesQueryResponseItem
+              properties:
+                id:
+                  $ref: '../components.yaml#/components/schemas/EmployeeId'
+                fullName:
+                  $ref: '../components.yaml#/components/schemas/FullNameBody'
+                role:
+                  $ref: '../components.yaml#/components/schemas/EmployeeRole'
+              required: [id, fullName, role]

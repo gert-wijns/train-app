@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.1</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.github.gert-wijns</groupId>
+	<artifactId>train-app-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>6.3.0</version>
+				<configuration>
+					<generatorName>spring</generatorName>
+					<configOptions>
+						<library>spring-boot</library>
+						<interfaceOnly>true</interfaceOnly>
+						<jsr310>true</jsr310>
+						<dateLibrary>java8</dateLibrary>
+						<skipDefaultInterface>true</skipDefaultInterface>
+						<useTags>true</useTags>
+						<useSpringBoot3>true</useSpringBoot3>
+					</configOptions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>Generate Assets Api</id>
+						<goals><goal>generate</goal></goals>
+						<configuration>
+							<inputSpec>${project.basedir}/assets/AssetsApiSpec.yaml</inputSpec>
+							<apiPackage>be.gert.trainapp.api.assets.generated</apiPackage>
+							<modelPackage>be.gert.trainapp.api.assets.generated.model</modelPackage>
+						</configuration>
+					</execution>
+					<execution>
+						<id>Generate Personnel Api</id>
+						<goals><goal>generate</goal></goals>
+						<configuration>
+							<inputSpec>${project.basedir}/personnel/PersonnelApiSpec.yaml</inputSpec>
+							<apiPackage>be.gert.trainapp.api.personnel.generated</apiPackage>
+							<modelPackage>be.gert.trainapp.api.personnel.generated.model</modelPackage>
+						</configuration>
+					</execution>
+					<execution>
+						<id>Generate Planning Api</id>
+						<goals><goal>generate</goal></goals>
+						<configuration>
+							<inputSpec>${project.basedir}/planning/PlanningApiSpec.yaml</inputSpec>
+							<apiPackage>be.gert.trainapp.api.planning.generated</apiPackage>
+							<modelPackage>be.gert.trainapp.api.planning.generated.model</modelPackage>
+						</configuration>
+					</execution>
+					<execution>
+						<id>Generate Network Api</id>
+						<goals><goal>generate</goal></goals>
+						<configuration>
+							<inputSpec>${project.basedir}/network/NetworkApiSpec.yaml</inputSpec>
+							<apiPackage>be.gert.trainapp.api.network.generated</apiPackage>
+							<modelPackage>be.gert.trainapp.api.network.generated.model</modelPackage>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>3.0.33</version>
+				<executions>
+					<execution>
+						<id>PersonnelApiSpec</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/personnel/PersonnelApiSpec.yaml</inputSpec>
+
+							<!-- Use 'openapi-yaml' to get resolved YAML or 'openapi' to get resolved JSON -->
+							<language>openapi-yaml</language>
+
+							<!-- Default is ${project.build.directory}/generated-sources/swagger -->
+							<output>${project.basedir}/target/openapi</output>
+
+							<configOptions>
+								<!-- Default output file name is 'openapi.yaml' or 'openapi.json' -->
+								<outputFile>PersonnelApiSpec-merged.yaml</outputFile>
+							</configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>PlanningApiSpec</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/planning/PlanningApiSpec.yaml</inputSpec>
+
+							<!-- Use 'openapi-yaml' to get resolved YAML or 'openapi' to get resolved JSON -->
+							<language>openapi-yaml</language>
+
+							<!-- Default is ${project.build.directory}/generated-sources/swagger -->
+							<output>${project.basedir}/target/openapi</output>
+
+							<configOptions>
+								<!-- Default output file name is 'openapi.yaml' or 'openapi.json' -->
+								<outputFile>PlanningApiSpec-merged.yaml</outputFile>
+							</configOptions>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>AssetsApiSpec</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/assets/AssetsApiSpec.yaml</inputSpec>
+
+							<!-- Use 'openapi-yaml' to get resolved YAML or 'openapi' to get resolved JSON -->
+							<language>openapi-yaml</language>
+
+							<!-- Default is ${project.build.directory}/generated-sources/swagger -->
+							<output>${project.basedir}/target/openapi</output>
+
+							<configOptions>
+								<!-- Default output file name is 'openapi.yaml' or 'openapi.json' -->
+								<outputFile>AssetsApiSpec-merged.yaml</outputFile>
+							</configOptions>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>NetworkApiSpec</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/network/NetworkApiSpec.yaml</inputSpec>
+
+							<!-- Use 'openapi-yaml' to get resolved YAML or 'openapi' to get resolved JSON -->
+							<language>openapi-yaml</language>
+
+							<!-- Default is ${project.build.directory}/generated-sources/swagger -->
+							<output>${project.basedir}/target/openapi</output>
+
+							<configOptions>
+								<!-- Default output file name is 'openapi.yaml' or 'openapi.json' -->
+								<outputFile>NetworkApiSpec-merged.yaml</outputFile>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

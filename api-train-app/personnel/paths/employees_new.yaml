@@ -1,0 +1,20 @@
+post:
+  operationId: execute
+  tags:
+    - NewEmployeeUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: NewEmployeeRequest
+          properties:
+            employeeId:
+              $ref: '../components.yaml#/components/schemas/EmployeeId'
+            fullName:
+              $ref: '../components.yaml#/components/schemas/FullNameBody'
+          required: [employeeId, fullName]
+  responses:
+    204:
+      description: Success

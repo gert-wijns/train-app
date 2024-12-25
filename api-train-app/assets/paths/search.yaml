@@ -1,0 +1,25 @@
+get:
+  operationId: query
+  tags:
+    - SearchAssetsQuery
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            title: SearchAssetsQueryResponse
+            type: array
+            items:
+              type: object
+              title: SearchAssetsQueryResponseItem
+              properties:
+                id:
+                  $ref: '../components.yaml#/components/schemas/AssetId'
+                type:
+                  $ref: '../components.yaml#/components/schemas/AssetType'
+                name:
+                  type: string
+                subtype:
+                  $ref: '../components.yaml#/components/schemas/AssetSubType'
+              required: [id, type]

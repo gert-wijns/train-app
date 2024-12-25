@@ -1,0 +1,18 @@
+post:
+  operationId: execute
+  tags:
+    - CreateTrainUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: CreateTrainRequest
+          properties:
+            trainId:
+              $ref: '../components.yaml#/components/schemas/TrainId'
+          required: [ trainId ]
+  responses:
+    204:
+      description: Success

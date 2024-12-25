@@ -1,0 +1,20 @@
+post:
+  operationId: execute
+  tags:
+    - AddWagonToTrainUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: AddWagonToTrainRequest
+          properties:
+            trainId:
+              $ref: '../components.yaml#/components/schemas/TrainId'
+            wagonId:
+              $ref: '../components.yaml#/components/schemas/WagonId'
+          required: [ trainId, wagonId ]
+  responses:
+    204:
+      description: Success

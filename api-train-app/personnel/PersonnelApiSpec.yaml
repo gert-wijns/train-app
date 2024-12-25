@@ -1,0 +1,17 @@
+openapi: 3.0.2
+info:
+  title: Personnel context rest api definition
+  version: '1'
+  description: |
+    Defines the rest paths which can be used to interact with the application.
+servers:
+  - url: http://localhost:5173
+security:
+  - x-auth-token: []
+paths:
+  /api/personnel/employees/new:
+    $ref: './paths/employees_new.yaml'
+  /api/personnel/employees/assign-role:
+    $ref: './paths/employees_assign-role.yaml'
+  /api/personnel/employees/search:
+    $ref: './paths/employees_search.yaml'

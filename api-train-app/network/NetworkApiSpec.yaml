@@ -1,0 +1,13 @@
+openapi: 3.0.2
+info:
+  title: Network context rest api definition
+  version: '1'
+  description: |
+    Defines the rest paths which can be used to interact with the application.
+servers:
+  - url: http://localhost:5173
+security:
+  - x-auth-token: []
+paths:
+  /api/network/nodes/search:
+    $ref: "./paths/nodes_search.yaml"

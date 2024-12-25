@@ -1,0 +1,14 @@
+{
+    "name": "generate_apis",
+    "version": "1.0.0",
+    "description": "",
+    "main": "generateApis.ts",
+    "scripts": {
+        "generate": "node ./generate-apis.js"
+    },
+    "devDependencies": {
+        "node-fetch": "^2.6.6",
+        "openapi-typescript-codegen": "^0.29.0"
+    },
+    "license": "UNLICENSED"
+}

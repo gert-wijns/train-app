@@ -1,0 +1,5 @@
+components:
+  schemas:
+    NodeId:
+      type: string
+
