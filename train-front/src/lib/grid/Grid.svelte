@@ -10,9 +10,7 @@
   }
 </script>
 
-<script lang="ts">
-  type T = $$Generic
-
+<script lang="ts" generics="T">
   interface Props<T> {
     columns: Column<T>[]
     rows: Promise<T[]>

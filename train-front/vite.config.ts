@@ -6,7 +6,7 @@ import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-	plugins: [tailwindcss(), sveltekit(), kitRoutes<KIT_ROUTES>({
+	plugins: [sveltekit(), tailwindcss(), kitRoutes<KIT_ROUTES>({
 		PAGES: {
 		}
 	})],

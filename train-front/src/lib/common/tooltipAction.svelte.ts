@@ -9,24 +9,23 @@ export let tooltipData = $state({
     tooltipClass: ""
 })
 
-export type TooltipParams = { 
-    class?: string, 
-    message: string
+export type TooltipParams = {
+    class?: string,
+    messages: string[]
 }
 
 export function tooltip(element: HTMLElement, paramsFn: () => TooltipParams) {
     function onMouseEnter() {
         const params = paramsFn();
-        const message = params.message.trim();
-        if (message.length > 0) {
+        if (params.messages.length > 0) {
             const rect = element.getBoundingClientRect()
             tooltipData.top = rect.top
             tooltipData.right = rect.right
             tooltipData.bottom = rect.bottom
             tooltipData.left = rect.left
-            tooltipData.tooltipText = message
+            tooltipData.tooltipText = params.messages.join('\n')
             tooltipData.visibility = "visible"
-            tooltipData.tooltipClass = params.class || "tooltip-info"
+            tooltipData.tooltipClass = (params.class || "tooltip-info")
         }
     }
     function onMouseExit() {

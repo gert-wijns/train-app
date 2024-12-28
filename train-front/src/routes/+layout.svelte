@@ -1,10 +1,24 @@
 <script lang="ts">
   import '../app.css'
+  import Tooltip from '$lib/common/Tooltip.svelte'
+  import { toasts } from '$lib/common/toasts.svelte'
 
   let { children } = $props()
 </script>
 
+<div class="toast">
+  {#each toasts as toast (toast.id)}
+    <div class="alert alert-success">
+      <div class="grid">
+        <div>{toast.message}</div>
+      </div>
+    </div>
+  {/each}
+</div>
+
 {@render children()}
+
+<Tooltip />
 
 <style>
   :global(::-webkit-scrollbar) {

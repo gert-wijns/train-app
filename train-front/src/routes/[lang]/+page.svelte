@@ -8,10 +8,10 @@
   <div class="text-2xl font-bold">Menu</div>
 
   <div>
-    <a class="link hover:link-primary" href={route('/[lang]/assets', { lang: page.params.plant })}>{m('ASSETS')}</a>
+    <a class="link hover:link-primary" href={route('/[lang]/assets', { lang: page.params.lang })}>{m('ASSETS')}</a>
   </div>
   <div>
-    <a class="link hover:link-primary" href={route('/[lang]/employees', { lang: page.params.plant })}>
+    <a class="link hover:link-primary" href={route('/[lang]/employees', { lang: page.params.lang })}>
       {m('EMPLOYEES')}
     </a>
   </div>
