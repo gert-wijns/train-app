@@ -4,6 +4,7 @@ import static be.gert.trainapp.sm._shared.message.TranslatableMessage.info;
 import static be.gert.trainapp.sm._shared.message.TranslatableMessage.warn;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -37,6 +38,14 @@ class TranslatableMessageTest {
 				.withParam("weather", "great")
 				.toFormattedString())
 				.isEqualTo("[INFO|MSG_KEY] Hello Bob, the weather is great today, right?!");
+	}
+
+	@Test
+	void testInfoWithNumberParam() {
+		assertThat(info("MSG_KEY", "Param: ${param}")
+				.withParam("param", BigDecimal.TEN)
+				.toFormattedString())
+				.isEqualTo("[INFO|MSG_KEY] Param: 10");
 	}
 
 	@Test

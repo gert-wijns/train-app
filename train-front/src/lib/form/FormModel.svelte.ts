@@ -18,11 +18,12 @@ export class FormModel<M extends FormField<any>> {
     }
 
     public async onSubmit(): Promise<boolean> {
+        this.error = undefined
         if (await this.model.hasErrors()) {
+            this.error = "Form has unresolved errors"
             return false;
         }
         try {
-            this.error = undefined
             return await this.submit()
         } catch (e: unknown) {
             this.error = "" + e

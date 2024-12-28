@@ -1,0 +1,69 @@
+package be.gert.trainapp.sm.personnel.employee;
+
+import static be.gert.trainapp.sm.personnel.given.EmployeeDefaults.employeeChristineGonzales;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import be.gert.trainapp.api.personnel.generated.model.SearchEmployeesQueryResponseItem;
+import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.TestEntities;
+import be.gert.trainapp.sm.personnel.EmployeeId;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+@ModuleTest
+class SearchEmployeesQueryTest {
+	@Autowired
+	TestEntities testEntities;
+	@Autowired
+	SearchEmployeesQuery query;
+
+	static EmployeeId employee1Id = EmployeeId.newEmployeeId();
+	static EmployeeId employee2Id = EmployeeId.newEmployeeId();
+
+	@Data @Accessors(chain = true, fluent = true)
+	static class TestFilterInput {
+		List<EmployeeId> filterEmployeeIds;
+		List<EmployeeId> expectedEmployeeIds;
+	}
+
+	@BeforeEach
+	void setup() {
+		testEntities.save(employeeChristineGonzales().withId(employee1Id));
+		testEntities.save(employeeChristineGonzales().withId(employee2Id));
+	}
+
+	@ParameterizedTest
+	@MethodSource("testFilterInputs")
+	void testFilter(TestFilterInput filter) {
+		// when
+		var result = query.query(filter.filterEmployeeIds.stream().map(EmployeeId::id).toList()).getBody();
+
+		// then
+		assertThat(result)
+				.map(SearchEmployeesQueryResponseItem::getId)
+				.map(EmployeeId::new)
+				.containsExactlyInAnyOrderElementsOf(filter.expectedEmployeeIds());
+	}
+
+	private static Stream<TestFilterInput> testFilterInputs() {
+		return Stream.of(
+				new TestFilterInput()
+						.filterEmployeeIds(List.of())
+						.expectedEmployeeIds(List.of(employee1Id, employee2Id)),
+				new TestFilterInput()
+						.filterEmployeeIds(List.of(employee1Id, employee2Id))
+						.expectedEmployeeIds(List.of(employee1Id, employee2Id)),
+				new TestFilterInput()
+						.filterEmployeeIds(List.of(employee1Id, EmployeeId.newEmployeeId()))
+						.expectedEmployeeIds(List.of(employee1Id))
+		);
+	}
+}

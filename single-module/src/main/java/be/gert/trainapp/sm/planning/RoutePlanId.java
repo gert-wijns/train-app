@@ -1,4 +1,8 @@
 package be.gert.trainapp.sm.planning;
 
-public record RoutePlanId() {
+
+import jakarta.persistence.Embeddable;
+
+@Embeddable
+public record RoutePlanId(String id) {
 }

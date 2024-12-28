@@ -2,7 +2,6 @@
   import type { HTMLFormAttributes } from 'svelte/elements'
   import type { FormModel } from './FormModel.svelte'
   import type { FormField } from './FormField.svelte'
-  import OpenDialog from '$lib/dialog/OpenDialog.svelte'
 
   let {
     formModel,
@@ -12,19 +11,19 @@
 
   let showError = $state(false)
   const onsubmit = async () => {
+    showError = false
     await formModel.onSubmit()
-    showError = !!formModel.error
+    if (!!formModel.error) {
+      showError = true
+    }
   }
 </script>
-
-{#if showError}
-  <OpenDialog class="modal ml-auto min-w-24 mr-auto [&>div]:bg-error [&>div]:w-min" cancel={() => (showError = false)}>
-    <div class="whitespace-nowrap text-error-content">
-      {formModel.error}
-    </div>
-  </OpenDialog>
-{/if}
 
 <form {...rest} {onsubmit}>
   {@render children()}
 </form>
+{#if showError}
+  <div role="alert" class="alert alert-error mt-2">
+    <span>{formModel.error}</span>
+  </div>
+{/if}

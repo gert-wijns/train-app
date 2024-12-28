@@ -12,7 +12,7 @@
   }
 </script>
 
-<OpenDialog {cancel}>
+<div class="card shadow-lg border border-primary p-5 bg-base-100 max-w-lg ml-auto mr-auto">
   <div class="py-3 w-full grid">
     <ul class="steps ml-auto mr-auto">
       <li class="step px-5" class:step-primary={page.params.employeeId === undefined}>{m('ENTER_BIO')}</li>
@@ -20,4 +20,4 @@
     </ul>
   </div>
   {@render children()}
-</OpenDialog>
+</div>

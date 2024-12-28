@@ -1,8 +1,10 @@
 package be.gert.trainapp.sm.personnel.employee;
 
+import static be.gert.trainapp.sm.personnel.employee.model.EmployeeExceptions.notFound;
 import static be.gert.trainapp.sm.personnel.employee.model.EmployeeRole.DIESEL_MECHANIC;
 import static be.gert.trainapp.sm.personnel.given.EmployeeDefaults.employeeChristineGonzales;
 import static be.gert.trainapp.sm.personnel.given.EmployeeDefaults.employeeChristineGonzalesId;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +36,12 @@ public class AssignEmployeeRoleUseCaseTest {
 		// then
 		testEntities.assertState(employeeChristineGonzales()
 				.withRole(DIESEL_MECHANIC));
+	}
+
+	@Test
+	void throwsNotFound() {
+		// when
+		assertThatThrownBy(() ->usecase.execute(request))
+				.isEqualTo(notFound(employeeChristineGonzalesId));
 	}
 }
