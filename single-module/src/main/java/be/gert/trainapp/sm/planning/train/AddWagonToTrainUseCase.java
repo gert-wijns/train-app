@@ -27,9 +27,9 @@ public class AddWagonToTrainUseCase implements AddWagonToTrainUseCaseApi {
 		var trainId = new TrainId(request.getTrainId());
 		var wagonId = new WagonId(request.getWagonId());
 		var train = jpa.findById(trainId)
-				.orElseThrow(() -> notFound(trainId))
-				.addWagon(wagonId);
-		jpa.save(train);
+				.orElseThrow(() -> notFound(trainId));
+
+		jpa.save(train.addWagon(wagonId));
 
 		return noContent().build();
 	}

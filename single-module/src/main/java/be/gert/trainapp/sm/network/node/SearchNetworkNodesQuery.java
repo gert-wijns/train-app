@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.network.node;
 
+import static be.gert.trainapp.sm.network._mapper.GeoPositionMapper.toGeoPositionBody;
 import static be.gert.trainapp.sm.network.node.model.QNode.node;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -13,7 +14,6 @@ import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import be.gert.trainapp.api.network.generated.SearchNetworkNodesQueryApi;
-import be.gert.trainapp.api.network.generated.model.GeoPositionBody;
 import be.gert.trainapp.api.network.generated.model.SearchNetworkNodesQueryResponseItem;
 import lombok.RequiredArgsConstructor;
 
@@ -28,8 +28,7 @@ public class SearchNetworkNodesQuery implements SearchNetworkNodesQueryApi {
 		var query = queryFactory.from(node)
 				.select(node.id.id,
 						node.name,
-						node.geoPosition.longitude,
-						node.geoPosition.latitude);
+						node.geoPosition);
 
 		return ok(query.fetch().stream().map(this::toResponseItem).toList());
 	}
@@ -38,9 +37,7 @@ public class SearchNetworkNodesQuery implements SearchNetworkNodesQueryApi {
 		return new SearchNetworkNodesQueryResponseItem()
 				.id(tuple.get(node.id.id))
 				.name(tuple.get(node.name))
-				.geoPosition(new GeoPositionBody()
-						.longitude(tuple.get(node.geoPosition.longitude))
-						.latitude(tuple.get(node.geoPosition.latitude)));
+				.geoPosition(toGeoPositionBody(tuple.get(node.geoPosition)));
 	}
 }
 

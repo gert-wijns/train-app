@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.planning.trainengineer;
 
+import static be.gert.trainapp.sm.planning._mapper.LocalDateRangeMapper.toLocalDateRange;
 import static be.gert.trainapp.sm.planning.trainengineer.model.TrainEngineer.newTrainEngineer;
 import static org.springframework.http.ResponseEntity.noContent;
 
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import be.gert.trainapp.api.planning.generated.RegisterTrainEngineerCertificationUseCaseApi;
 import be.gert.trainapp.api.planning.generated.model.RegisterTrainEngineerCertificationRequest;
-import be.gert.trainapp.sm._shared.values.LocalDateRange;
 import be.gert.trainapp.sm.personnel.EmployeeId;
 import be.gert.trainapp.sm.planning.certification.CertificateCode;
 import be.gert.trainapp.sm.planning.trainengineer.jpa.TrainEngineerJpaRepository;
@@ -37,9 +37,7 @@ public class RegisterTrainEngineerCertificationUseCase implements RegisterTrainE
 		var certificateCode = new CertificateCode(request.getCertificateCode());
 		var certification = new TrainEngineerCertification(
 				new TrainEngineerCertificationId(employeeId, certificateCode),
-				new LocalDateRange(
-						request.getCertificationPeriod().getStart(),
-						request.getCertificationPeriod().getEnd()));
+				toLocalDateRange(request.getCertificationPeriod()));
 		trainEngineer.certifications().add(certification);
 		jpa.save(trainEngineer);
 

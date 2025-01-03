@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.network.node;
 
+import static be.gert.trainapp.sm.network._mapper.GeoPositionMapper.toGeoPosition;
 import static be.gert.trainapp.sm.network.node.model.Node.newNode;
 import static be.gert.trainapp.sm.network.node.model.NodeExceptions.alreadyExists;
 import static org.springframework.http.ResponseEntity.noContent;
@@ -29,9 +30,7 @@ public class AddNodeUseCase implements AddNodeUseCaseApi {
 		if (jpa.findById(id).isPresent()) {
 			throw alreadyExists(id);
 		}
-		GeoPosition geoPosition = new GeoPosition(
-				request.getGeoPosition().getLongitude(),
-				request.getGeoPosition().getLatitude());
+		GeoPosition geoPosition = toGeoPosition(request.getGeoPosition());
 		jpa.save(newNode(id, request.getName(), geoPosition));
 		return noContent().build();
 	}

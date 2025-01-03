@@ -34,7 +34,8 @@ public class AddWagonUseCase implements AddWagonUseCaseApi {
 				new WagonId(request.getWagonId()),
 				new WagonModelId(request.getModelTypeId()),
 				new SerialNumber(request.getSerialNumber())));
-		eventPublisher.publishEvent(new WagonAddedEvent(wagon.id(), wagon.modelId(), wagon.serialNumber()));
+		eventPublisher.publishEvent(new WagonAddedEvent(
+				wagon.id(), wagon.modelId(), wagon.serialNumber()));
 		return noContent().build();
 	}
 

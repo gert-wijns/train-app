@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.network.track;
 
+import static be.gert.trainapp.sm.network._mapper.SpeedMapper.toSpeedBody;
 import static be.gert.trainapp.sm.network.track.model.QTrack.track;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -14,8 +15,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import be.gert.trainapp.api.network.generated.SearchNetworkTracksQueryApi;
 import be.gert.trainapp.api.network.generated.model.SearchNetworkTracksQueryResponseItem;
-import be.gert.trainapp.api.network.generated.model.SpeedBody;
-import be.gert.trainapp.api.network.generated.model.SpeedBody.MeasurementEnum;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -32,8 +31,7 @@ public class SearchNetworkTracksQuery implements SearchNetworkTracksQueryApi {
 						track.electrified,
 						track.gauge.type,
 						track.slope,
-						track.speedLimit.speed,
-						track.speedLimit.measurement);
+						track.speedLimit);
 
 		return ok(query.fetch().stream().map(this::toResponseItem).toList());
 	}
@@ -45,9 +43,7 @@ public class SearchNetworkTracksQuery implements SearchNetworkTracksQueryApi {
 				.electrified(tuple.get(track.electrified))
 				.gauge(tuple.get(track.gauge.type))
 				.slope(tuple.get(track.slope))
-				.speedLimit(new SpeedBody()
-						.speed(tuple.get(track.speedLimit.speed))
-						.measurement(MeasurementEnum.fromValue(tuple.get(track.speedLimit.measurement).name())));
+				.speedLimit(toSpeedBody(tuple.get(track.speedLimit)));
 	}
 }
 

@@ -1,6 +1,7 @@
 package be.gert.trainapp.sm.personnel.employee;
 
 import static be.gert.trainapp.sm.personnel.EmployeeId.asEmployeeId;
+import static be.gert.trainapp.sm.personnel._mapper.FullNameMapper.toFullName;
 import static be.gert.trainapp.sm.personnel.employee.model.Employee.newEmployee;
 import static be.gert.trainapp.sm.personnel.employee.model.EmployeeExceptions.alreadyExists;
 import static org.springframework.http.ResponseEntity.noContent;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import be.gert.trainapp.api.personnel.generated.NewEmployeeUseCaseApi;
 import be.gert.trainapp.api.personnel.generated.model.NewEmployeeRequest;
-import be.gert.trainapp.sm._shared.values.FullName;
 import be.gert.trainapp.sm.personnel.EmployeeId;
 import be.gert.trainapp.sm.personnel.employee.jpa.EmployeeJpaRepository;
 import be.gert.trainapp.sm.personnel.employee.model.events.EmployeeHired;
@@ -33,11 +33,8 @@ public class NewEmployeeUseCase implements NewEmployeeUseCaseApi {
 		if (jpa.findById(employeeId).isPresent()) {
 			throw alreadyExists(employeeId);
 		}
-		var employee = jpa.save(
-				newEmployee(employeeId)
-						.fullName(new FullName(
-								request.getFullName().getFirstName(),
-								request.getFullName().getLastName())));
+		var employee = jpa.save(newEmployee(employeeId)
+				.fullName(toFullName(request.getFullName())));
 		eventPublisher.publishEvent(new EmployeeHired(employee.id()));
 		return noContent().build();
 	}

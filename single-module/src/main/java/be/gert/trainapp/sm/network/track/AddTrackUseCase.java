@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.network.track;
 
+import static be.gert.trainapp.sm.network._mapper.SpeedMapper.toSpeed;
 import static be.gert.trainapp.sm.network.track.model.Track.newTrack;
 import static be.gert.trainapp.sm.network.track.model.TrackExceptions.alreadyExists;
 import static org.springframework.http.ResponseEntity.noContent;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import be.gert.trainapp.api.network.generated.AddTrackUseCaseApi;
 import be.gert.trainapp.api.network.generated.model.AddTrackRequest;
 import be.gert.trainapp.sm.network.NodeId;
-import be.gert.trainapp.sm.network.Speed;
-import be.gert.trainapp.sm.network.Speed.SpeedMeasurement;
 import be.gert.trainapp.sm.network.TrackGauge;
 import be.gert.trainapp.sm.network.TrackId;
 import be.gert.trainapp.sm.network.track.jpa.TrackJpaRepository;
@@ -42,9 +41,7 @@ public class AddTrackUseCase implements AddTrackUseCaseApi {
 			track.electrify();
 		}
 
-		track.adjustSpeedLimit(new Speed(
-				request.getSpeedLimit().getSpeed(),
-				SpeedMeasurement.valueOf(request.getSpeedLimit().getMeasurement().name())));
+		track.adjustSpeedLimit(toSpeed(request.getSpeedLimit()));
 
 		jpa.save(track);
 
