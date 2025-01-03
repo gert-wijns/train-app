@@ -4,6 +4,7 @@ import be.gert.trainapp.sm._shared.entity.JpaEntity;
 import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.assets.WagonModelId;
+import be.gert.trainapp.sm.network.TrackGauge;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -32,9 +33,17 @@ public class Wagon extends JpaEntity<WagonId> {
 	private @EmbeddedId WagonId id;
 	private @Embedded WagonModelId modelId;
 	private @Embedded SerialNumber serialNumber;
+	private @Embedded TrackGauge gauge;
 
-	public static Wagon newWagon(WagonId wagonId, WagonModelId wagonModelId, SerialNumber serialNumber) {
-		return new Wagon().id(wagonId).modelId(wagonModelId).serialNumber(serialNumber);
+	public static Wagon newWagon(WagonId wagonId,
+	                             WagonModelId wagonModelId,
+	                             SerialNumber serialNumber,
+	                             TrackGauge gauge) {
+		return new Wagon()
+				.id(wagonId)
+				.modelId(wagonModelId)
+				.serialNumber(serialNumber)
+				.gauge(gauge);
 	}
 
 }

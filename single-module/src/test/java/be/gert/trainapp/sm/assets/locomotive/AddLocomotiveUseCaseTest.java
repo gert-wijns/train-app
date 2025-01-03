@@ -2,8 +2,12 @@ package be.gert.trainapp.sm.assets.locomotive;
 
 import static be.gert.trainapp.sm.assets.given.LocomotiveDefaults.locomotive1937Id;
 import static be.gert.trainapp.sm.assets.given.LocomotiveDefaults.locomotiveModelLMSStainierBlack5;
+import static be.gert.trainapp.sm.assets.given.LocomotiveDefaults.locomotiveStainier;
 import static be.gert.trainapp.sm.assets.given.LocomotiveDefaults.serialNumberStainier;
+import static be.gert.trainapp.sm.assets.locomotive.model.LocomotiveExceptions.serialNumberAlreadyExists;
+import static be.gert.trainapp.sm.network.given.TrackDefaults.standardGauge;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +16,6 @@ import org.springframework.test.context.event.ApplicationEvents;
 import be.gert.trainapp.api.assets.generated.model.AddLocomotiveRequest;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
-import be.gert.trainapp.sm.assets.locomotive.model.Locomotive;
 import be.gert.trainapp.sm.assets.locomotive.model.events.LocomotiveAddedEvent;
 
 @ModuleTest
@@ -28,7 +31,8 @@ class AddLocomotiveUseCaseTest {
 			.id(locomotive1937Id.id())
 			.modelTypeId(locomotiveModelLMSStainierBlack5.id())
 			.serialNumber(serialNumberStainier.sn())
-			.name("Stainier");
+			.name("Stainier")
+			.gauge(standardGauge.type());
 
 	@Test
 	void success() {
@@ -36,11 +40,7 @@ class AddLocomotiveUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(new Locomotive(
-				locomotive1937Id,
-				locomotiveModelLMSStainierBlack5,
-				"Stainier",
-				serialNumberStainier));
+		testEntities.assertState(locomotiveStainier());
 
 		assertThat(events.stream(LocomotiveAddedEvent.class))
 				.containsExactly(new LocomotiveAddedEvent(
@@ -50,4 +50,12 @@ class AddLocomotiveUseCaseTest {
 						"Stainier"));
 	}
 
+	@Test
+	void throwSerialNumberAlreadyExists() {
+		testEntities.save(locomotiveStainier());
+
+		// when
+		assertThatThrownBy(() -> usecase.execute(request))
+				.isEqualTo(serialNumberAlreadyExists(serialNumberStainier));
+	}
 }

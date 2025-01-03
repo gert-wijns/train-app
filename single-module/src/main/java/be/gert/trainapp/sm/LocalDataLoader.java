@@ -27,6 +27,7 @@ import be.gert.trainapp.sm.assets.WagonModelId;
 import be.gert.trainapp.sm.assets.locomotive.AddLocomotiveUseCase;
 import be.gert.trainapp.sm.assets.wagon.AddWagonUseCase;
 import be.gert.trainapp.sm.network.NodeId;
+import be.gert.trainapp.sm.network.TrackGauge;
 import be.gert.trainapp.sm.network.node.AddNodeUseCase;
 import be.gert.trainapp.sm.network.track.AddTrackUseCase;
 import be.gert.trainapp.sm.personnel.EmployeeId;
@@ -65,6 +66,7 @@ public class LocalDataLoader {
 	public static final WagonModelId wagonModelCovered = new WagonModelId("Covered");
 	public static final WagonModelId wagonModelTanker = new WagonModelId("Tanker");
 	public static final WagonModelId wagonModelBox = new WagonModelId("Box");
+	public static final TrackGauge standardGauge = new TrackGauge("1435mm");
 
 	@EventListener(ApplicationStartedEvent.class)
 	public void onApplicationStarted() {
@@ -90,17 +92,20 @@ public class LocalDataLoader {
 				.id(locomotiveAHaroldBibby.id())
 				.modelTypeId(locomotiveModelLNERB1.id())
 				.name("A HAROLD BIBBY")
-				.serialNumber("364-0600-01"));
+				.serialNumber("2024-364-0600-01")
+				.gauge(standardGauge.type()));
 		addLocomotiveUseCase.execute(new AddLocomotiveRequest()
 				.id(locomotiveAbbotsburyCastle.id())
 				.modelTypeId(locomotiveModel_GWR4073.id())
 				.name("ABBOTSBURY CASTLE")
-				.serialNumber("364-0600-02"));
+				.serialNumber("2024-364-0600-02")
+				.gauge(standardGauge.type()));
 		addLocomotiveUseCase.execute(new AddLocomotiveRequest()
 				.id(locomotiveAbberleyHall.id())
 				.modelTypeId(locomotiveModel_Gwr4900.id())
 				.name("ABBERLEY HALL")
-				.serialNumber("364-0600-03"));
+				.serialNumber("2024-364-0600-03")
+				.gauge(standardGauge.type()));
 
 		addWagons(wagonModelCoach, 5);
 		addWagons(wagonModelCovered, 4);
@@ -115,7 +120,8 @@ public class LocalDataLoader {
 			addWagonUseCase.execute(new AddWagonRequest()
 					.wagonId(modelId.id() + "-" + i)
 					.modelTypeId(modelId.id())
-					.serialNumber("364-0700-" + (i > 9 ? i: "0" + i)));
+					.gauge(standardGauge.type())
+					.serialNumber("2024-364-0700-" + (i > 9 ? i: "0" + i)));
 		}
 	}
 
@@ -176,8 +182,8 @@ public class LocalDataLoader {
 			addNode("Mechelen-Nekkerspoel", 2571, 5669),
 			addNode("Sint-Katelijne-Waver", 2662, 4555),
 			addNode("Sint-Katelijne-Waver_Duffel_1", 2664, 4249),
-			addNode("Waver", 2610, 3977),
-			addNode("Waver_Kontich_1", 2497, 3287),
+			addNode("Duffel", 2610, 3977),
+			addNode("Duffel_Kontich_1", 2497, 3287),
 			addNode("Kontich", 2335, 2803),
 			addNode("Hove", 2139, 2262),
 			addNode("Mortsel-Deurnsesteenweg", 1815, 1450),
@@ -196,6 +202,7 @@ public class LocalDataLoader {
 					.speedLimit(new SpeedBody()
 							.speed(new BigDecimal(70))
 							.measurement(MeasurementEnum.KPH))
+							.gauge(standardGauge.type())
 					.electrified(true));
 		}
 	}

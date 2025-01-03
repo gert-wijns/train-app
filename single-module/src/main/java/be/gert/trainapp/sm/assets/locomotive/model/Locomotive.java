@@ -4,6 +4,7 @@ import be.gert.trainapp.sm._shared.entity.JpaEntity;
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.LocomotiveModelId;
 import be.gert.trainapp.sm.assets.SerialNumber;
+import be.gert.trainapp.sm.network.TrackGauge;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
@@ -34,8 +35,18 @@ public class Locomotive extends JpaEntity<LocomotiveId> {
 	private @Embedded LocomotiveModelId modelId;
 	private @Column(length = 30) String name;
 	private @Embedded SerialNumber serialNumber;
+	private @Embedded TrackGauge gauge;
 
-	public static Locomotive newLocomotive(LocomotiveId id, String name, LocomotiveModelId modelId, SerialNumber serialNumber) {
-		return new Locomotive().id(id).modelId(modelId).name(name).serialNumber(serialNumber);
+	public static Locomotive newLocomotive(LocomotiveId id,
+	                                       String name,
+	                                       LocomotiveModelId modelId,
+	                                       SerialNumber serialNumber,
+	                                       TrackGauge gauge) {
+		return new Locomotive()
+				.id(id)
+				.modelId(modelId)
+				.name(name)
+				.serialNumber(serialNumber)
+				.gauge(gauge);
 	}
 }

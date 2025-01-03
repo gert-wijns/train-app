@@ -22,7 +22,7 @@ export function generateFromPattern(pattern: string): string {
 
 export function dayOfYearMinutesOfDayAndSeconds(): string {
     const date = new Date()
-    return ("" + daysIntoYear(date)).padStart(3, "0") + "-" +
+    return date.getFullYear() + "-" + ("" + daysIntoYear(date)).padStart(3, "0") + "-" +
         ("" + (date.getHours() * 60 + date.getMinutes())).padStart(4, "0") + "-" +
         ("" + date.getSeconds()).padStart(2, "0")
 }

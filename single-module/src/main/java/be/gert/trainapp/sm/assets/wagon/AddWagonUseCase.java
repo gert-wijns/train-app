@@ -1,6 +1,7 @@
 package be.gert.trainapp.sm.assets.wagon;
 
 import static be.gert.trainapp.sm.assets.wagon.model.Wagon.newWagon;
+import static be.gert.trainapp.sm.assets.wagon.model.WagonExceptions.serialNumberAlreadyExists;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -16,6 +17,7 @@ import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.assets.WagonModelId;
 import be.gert.trainapp.sm.assets.wagon.jpa.WagonJpaRepository;
 import be.gert.trainapp.sm.assets.wagon.model.events.WagonAddedEvent;
+import be.gert.trainapp.sm.network.TrackGauge;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -30,10 +32,15 @@ public class AddWagonUseCase implements AddWagonUseCaseApi {
 	@Override
 	@Transactional
 	public ResponseEntity<Void> execute(AddWagonRequest request) {
+		var serialNumber = new SerialNumber(request.getSerialNumber());
+		if (jpa.existsBySerialNumberIs(serialNumber)) {
+			throw serialNumberAlreadyExists(serialNumber);
+		}
 		var wagon = jpa.save(newWagon(
 				new WagonId(request.getWagonId()),
 				new WagonModelId(request.getModelTypeId()),
-				new SerialNumber(request.getSerialNumber())));
+				serialNumber,
+				new TrackGauge(request.getGauge())));
 		eventPublisher.publishEvent(new WagonAddedEvent(
 				wagon.id(), wagon.modelId(), wagon.serialNumber()));
 		return noContent().build();
