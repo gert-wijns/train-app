@@ -50,7 +50,7 @@
 
 <div class="grid gap-5">
   <div class="text-2xl font-bold">{m('EMPLOYEES')}</div>
-  <div class="max-h-[300px]"><Grid {columns} rows={data.employees} /></div>
+  <div class="max-h-[calc(100vh-250px)]"><Grid {columns} rows={data.employees} /></div>
   <div class="grid">
     <button class="ml-auto btn btn-primary" onclick={gotoNew}>{m('NEW')}</button>
   </div>

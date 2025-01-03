@@ -8,7 +8,8 @@ import com.tngtech.archunit.core.domain.JavaClass;
 
 class SpringModulithTests {
 
-   ApplicationModules modules = ApplicationModules.of(TrainAppApplication.class, JavaClass.Predicates.type(LocalDataLoader.class));
+   ApplicationModules modules = ApplicationModules.of(TrainAppApplication.class,
+           JavaClass.Predicates.type(LocalDataLoader.class));
 
    @Test
    void shouldBeCompliant() {

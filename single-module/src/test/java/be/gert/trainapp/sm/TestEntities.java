@@ -32,6 +32,10 @@ public class TestEntities {
 				.isEqualTo(entity);
 	}
 
+	public <ID, E extends JpaEntity<ID>> void assertNotExists(E entity) {
+		assertThat(entityManager.find(entity.getClass(), entity.id())).isNull();
+	}
+
 	public <ID, E extends JpaEntity<ID>> E save(E entity) {
 		entityManager.persist(entity);
 		return entity;

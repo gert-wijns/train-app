@@ -16,4 +16,8 @@ get:
               properties:
                 id:
                   $ref: '../components.yaml#/components/schemas/NodeId'
-              required: [id]
+                name:
+                  type: string
+                geoPosition:
+                  $ref: '../components.yaml#/components/schemas/GeoPositionBody'
+              required: [id, name, geoPosition]

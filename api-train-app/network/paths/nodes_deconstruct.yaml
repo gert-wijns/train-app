@@ -1,0 +1,18 @@
+post:
+  operationId: execute
+  tags:
+    - DeconstructNodeUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: DeconstructNodeRequest
+          properties:
+            id:
+              $ref: '../components.yaml#/components/schemas/NodeId'
+          required: [id]
+  responses:
+    204:
+      description: Success

@@ -5,10 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.io.Serializable;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public record EmployeeId(String id) implements Serializable {
+public record EmployeeId(@Column(length = 36) String id) {
 	public EmployeeId {
 		requireNonNull(id);
 	}

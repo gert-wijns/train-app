@@ -9,6 +9,7 @@ import be.gert.trainapp.api.assets.generated.model.SearchAssetsQueryResponseItem
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm.assets.AssetId;
+import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.asset.model.Asset;
 import be.gert.trainapp.sm.assets.asset.model.AssetType;
 
@@ -24,11 +25,13 @@ class SearchAssetsQueryTest {
 		AssetId id = new AssetId("locomotive-1");
 		String name = "locomotive-1-name";
 		String subtype = "model-id";
+		SerialNumber serialNumber = new SerialNumber("SN-123");
 		testEntities.save(new Asset(
 				id,
 				AssetType.LOCOMOTIVE,
 				name,
-				subtype));
+				subtype,
+				serialNumber));
 
 		var result = query.query().getBody();
 
@@ -36,6 +39,7 @@ class SearchAssetsQueryTest {
 				.id(id.id())
 				.type(be.gert.trainapp.api.assets.generated.model.AssetType.LOCOMOTIVE)
 				.name(name)
-				.subtype(subtype));
+				.subtype(subtype)
+				.serialNumber(serialNumber.sn()));
 	}
 }

@@ -11,6 +11,8 @@ components:
       enum: [LOCOMOTIVE, WAGON]
     AssetSubType:
       type: string
+    SerialNumber:
+      type: string
     LocomotiveModelTypeId:
       type: string
     WagonModelTypeId:

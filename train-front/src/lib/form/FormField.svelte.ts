@@ -1,4 +1,5 @@
 import { m } from "$lib/i18n/translate.svelte"
+import { v4 as uuidv4 } from 'uuid'
 
 export type FormFieldValidator<V> = (formField: InputFormField<V>) => string | undefined
 export type Model = Record<string, FormField<any>>
@@ -22,7 +23,7 @@ export interface FormField<V> {
 }
 
 export class ObjectFormField<V extends Model> implements FormField<V> {
-    private id = ""
+    private id = uuidv4()
 
     constructor(readonly model: V) { }
 
@@ -41,7 +42,7 @@ export class ObjectFormField<V extends Model> implements FormField<V> {
             .filter(hasError => hasError).length > 0
     }
 
-    toValue() {
+    toValue(): FormFields<V> {
         const value = {} as any
         Object.entries(this.model)
             .forEach(([name, field]) => value[name] = field.toValue())
@@ -50,7 +51,7 @@ export class ObjectFormField<V extends Model> implements FormField<V> {
 }
 
 export abstract class InputFormField<V> implements FormField<V> {
-    private id = ""
+    private id = uuidv4()
     input = $state("")
     validators = $state<Array<FormFieldValidator<V>>>([])
     errors = $derived(this.validators
@@ -67,6 +68,9 @@ export abstract class InputFormField<V> implements FormField<V> {
         return this.errors.length > 0
     }
 
+    focus() {
+        document.getElementById(this.id)?.focus()
+    }
 
     required(): InputFormField<NonNullable<V>> {
         this.validators.push(field => field.input.length === 0 ? m("VALIDATE_REQUIRED") : undefined)

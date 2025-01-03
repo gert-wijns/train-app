@@ -10,7 +10,8 @@
   const submit = async (role: EmployeeRole) => {
     await AssignEmployeeRoleUseCaseApi.execute({ requestBody: { employeeId: page.params.employeeId, role } })
     goto(employeesRoute, { invalidateAll: true })
+    return true
   }
 </script>
 
-<AssignRoleForm role={EmployeeRole.UNASSIGNED} onSubmit={submit} />
+<AssignRoleForm role={EmployeeRole.UNASSIGNED} {submit} />

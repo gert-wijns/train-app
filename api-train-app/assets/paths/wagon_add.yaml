@@ -14,7 +14,9 @@ post:
               $ref: '../components.yaml#/components/schemas/WagonId'
             modelTypeId:
               $ref: '../components.yaml#/components/schemas/WagonModelTypeId'
-          required: [wagonId, modelTypeId]
+            serialNumber:
+              $ref: '../components.yaml#/components/schemas/SerialNumber'
+          required: [wagonId, modelTypeId, serialNumber]
   responses:
     204:
       description: Success

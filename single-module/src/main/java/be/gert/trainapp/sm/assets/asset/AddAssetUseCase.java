@@ -20,11 +20,21 @@ public class AddAssetUseCase {
 
 	@EventListener
 	void onLocomotiveAdded(LocomotiveAddedEvent event) {
-		assetJpaRepository.save(newAsset(new AssetId(event.id().id()), LOCOMOTIVE, event.name(), event.modelId().id()));
+		assetJpaRepository.save(newAsset(
+				new AssetId(event.id().id()),
+				LOCOMOTIVE,
+				event.name(),
+				event.modelId().id(),
+				event.serialNumber()));
 	}
 
 	@EventListener
 	void onWagonAdded(WagonAddedEvent event) {
-		assetJpaRepository.save(newAsset(new AssetId(event.id().id()), WAGON, "", event.modelId().id()));
+		assetJpaRepository.save(newAsset(
+				new AssetId(event.id().id()),
+				WAGON,
+				"",
+				event.modelId().id(),
+				event.serialNumber()));
 	}
 }

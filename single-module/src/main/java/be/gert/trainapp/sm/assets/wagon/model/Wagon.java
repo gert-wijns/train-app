@@ -1,6 +1,7 @@
 package be.gert.trainapp.sm.assets.wagon.model;
 
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
+import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.assets.WagonModelId;
 import jakarta.persistence.Embedded;
@@ -30,9 +31,10 @@ import lombok.With;
 public class Wagon extends JpaEntity<WagonId> {
 	private @EmbeddedId WagonId id;
 	private @Embedded WagonModelId modelId;
+	private @Embedded SerialNumber serialNumber;
 
-	public static Wagon newWagon(WagonId wagonId, WagonModelId wagonModelId) {
-		return new Wagon().withId(wagonId).withModelId(wagonModelId);
+	public static Wagon newWagon(WagonId wagonId, WagonModelId wagonModelId, SerialNumber serialNumber) {
+		return new Wagon().id(wagonId).modelId(wagonModelId).serialNumber(serialNumber);
 	}
 
 }

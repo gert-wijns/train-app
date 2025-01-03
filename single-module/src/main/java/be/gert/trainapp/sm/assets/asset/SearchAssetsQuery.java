@@ -26,16 +26,22 @@ public class SearchAssetsQuery implements SearchAssetsQueryApi {
 	@Override
 	public ResponseEntity<List<SearchAssetsQueryResponseItem>> query() {
 		var query = queryFactory.from(asset)
-				.select(asset.id, asset.type, asset.name, asset.subtype);
+				.select(asset.id.id,
+						asset.type,
+						asset.name,
+						asset.subtype,
+						asset.serialNumber.sn)
+				.orderBy(asset.serialNumber.sn.asc());
 
 		return ok(query.fetch().stream().map(this::toResponseItem).toList());
 	}
 
 	private SearchAssetsQueryResponseItem toResponseItem(Tuple tuple) {
 		return new SearchAssetsQueryResponseItem()
-				.id(tuple.get(asset.id).id())
+				.id(tuple.get(asset.id.id))
 				.type(AssetType.fromValue(tuple.get(asset.type).name()))
 				.subtype(tuple.get(asset.subtype))
-				.name(tuple.get(asset.name));
+				.name(tuple.get(asset.name))
+				.serialNumber(tuple.get(asset.serialNumber.sn));
 	}
 }

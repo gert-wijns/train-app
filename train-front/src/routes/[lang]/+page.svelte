@@ -15,6 +15,10 @@
       {m('EMPLOYEES')}
     </a>
   </div>
-  <div>{m('NETWORK')}</div>
+  <div>
+    <a class="link hover:link-primary" href={route('/[lang]/network', { lang: page.params.lang })}>
+      {m('NETWORK')}
+    </a>
+  </div>
   <div>{m('PLANNING')}</div>
 </div>

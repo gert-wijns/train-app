@@ -1,0 +1,29 @@
+get:
+  operationId: query
+  tags:
+    - SearchNetworkTracksQuery
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            title: SearchNetworkTracksQueryResponse
+            type: array
+            items:
+              type: object
+              title: SearchNetworkTracksQueryResponseItem
+              properties:
+                fromNodeId:
+                  $ref: '../components.yaml#/components/schemas/NodeId'
+                toNodeId:
+                  $ref: '../components.yaml#/components/schemas/NodeId'
+                electrified:
+                  type: boolean
+                slope:
+                  type: number
+                speedLimit:
+                  $ref: '../components.yaml#/components/schemas/SpeedBody'
+                gauge:
+                  type: string
+              required: [fromNodeId, toNodeId, electrified, slope, speedLimit, gauge]

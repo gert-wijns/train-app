@@ -6,6 +6,7 @@
     "TYPE": "Type",
     "ENROLL": "Enroll",
     "SAVE": "Save",
+    "MODEL_TYPE": "Model Type",
     "EMPLOYEES": "Employees",
     "FIRST_NAME": "First Name",
     "LAST_NAME": "Last Name",
@@ -15,6 +16,7 @@
     "PLANNING": "Planning",
     "SUB_TYPE": "Subtype",
     "LOCOMOTIVE": "Locomotive",
+    "SERIAL_NUMBER": "Serial Number (SN)",
     "NEW_EMPLOYEE": "New Employee",
     "TEXT_TOO_SHORT": "Minimum ${minLength} characters",
     "TEXT_TOO_LONG": "Maximum ${maxLength} characters",
@@ -36,5 +38,7 @@
     "TRAIN_YARD_MANAGER": "Train Yard Manager",
     "SIGNAL_MAINTAINER": "Signal Maintainer",
     "UTILITY_CLERK": "Utility Clerk",
-    "UNASSIGNED": "Unassigned"
+    "UNASSIGNED": "Unassigned",
+    "CHOOSE_ASSET_TYPE": "Choose asset type",
+    "CONFIGURE_ASSET": "Configure asset"
 }

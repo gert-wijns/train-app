@@ -1,0 +1,20 @@
+post:
+  operationId: execute
+  tags:
+    - RenameNodeUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: RenameNodeRequest
+          properties:
+            id:
+              $ref: '../components.yaml#/components/schemas/NodeId'
+            newName:
+              type: string
+          required: [id, newName]
+  responses:
+    204:
+      description: Success

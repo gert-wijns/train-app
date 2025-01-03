@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import be.gert.trainapp.api.assets.generated.AddWagonUseCaseApi;
 import be.gert.trainapp.api.assets.generated.model.AddWagonRequest;
+import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.assets.WagonModelId;
 import be.gert.trainapp.sm.assets.wagon.jpa.WagonJpaRepository;
@@ -29,8 +30,11 @@ public class AddWagonUseCase implements AddWagonUseCaseApi {
 	@Override
 	@Transactional
 	public ResponseEntity<Void> execute(AddWagonRequest request) {
-		var wagon = jpa.save(newWagon(new WagonId(request.getWagonId()), new WagonModelId(request.getModelTypeId())));
-		eventPublisher.publishEvent(new WagonAddedEvent(wagon.id(), wagon.modelId()));
+		var wagon = jpa.save(newWagon(
+				new WagonId(request.getWagonId()),
+				new WagonModelId(request.getModelTypeId()),
+				new SerialNumber(request.getSerialNumber())));
+		eventPublisher.publishEvent(new WagonAddedEvent(wagon.id(), wagon.modelId(), wagon.serialNumber()));
 		return noContent().build();
 	}
 

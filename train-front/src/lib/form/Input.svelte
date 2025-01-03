@@ -6,8 +6,9 @@
 </script>
 
 <input
-  class="input"
+  class="input block min-w-full"
   class:input-error={formField.errors.length > 0}
   id={formField.getId()}
   bind:value={formField.input}
   {...rest} />
+  

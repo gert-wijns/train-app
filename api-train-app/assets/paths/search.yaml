@@ -22,4 +22,6 @@ get:
                   type: string
                 subtype:
                   $ref: '../components.yaml#/components/schemas/AssetSubType'
+                serialNumber:
+                  $ref: '../components.yaml#/components/schemas/SerialNumber'
               required: [id, type]

@@ -1,0 +1,20 @@
+post:
+  operationId: execute
+  tags:
+    - DeconstructTrackUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: DeconstructTrackRequest
+          properties:
+            fromNodeId:
+              $ref: '../components.yaml#/components/schemas/NodeId'
+            toNodeId:
+              $ref: '../components.yaml#/components/schemas/NodeId'
+          required: [fromNodeId, toNodeId]
+  responses:
+    204:
+      description: Success

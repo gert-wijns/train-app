@@ -1,0 +1,28 @@
+post:
+  operationId: execute
+  tags:
+    - AddTrackUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: AddTrackRequest
+          properties:
+            fromNodeId:
+              $ref: '../components.yaml#/components/schemas/NodeId'
+            toNodeId:
+              $ref: '../components.yaml#/components/schemas/NodeId'
+            electrified:
+              type: boolean
+            slope:
+              type: number
+            speedLimit:
+              $ref: '../components.yaml#/components/schemas/SpeedBody'
+            gauge:
+              type: string
+          required: [fromNodeId, toNodeId, electrified, slope, speedLimit, gauge]
+  responses:
+    204:
+      description: Success

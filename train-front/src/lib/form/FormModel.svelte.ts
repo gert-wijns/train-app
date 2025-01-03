@@ -1,19 +1,13 @@
-import type { ApiError } from "$assets-api";
-import { ObjectFormField, type FormField, type Model } from "./FormField.svelte";
+import { ObjectFormField, type FormField, type FormFields, type Model } from "./FormField.svelte";
 
-export function createFormModel<M extends Model>(id: string, model: M) {
-    const formModel = new ObjectFormField(model)
-    formModel.setId(id)
-    return formModel
-}
-
-export class FormModel<M extends FormField<any>> {
-    public model: M;
+export class FormModel<M extends Model> {
+    public model: ObjectFormField<M>;
     private readonly submit: () => Promise<boolean>
     public error = $state<string>()
 
-    constructor({ model, submit }: { model: M, submit: () => Promise<boolean> }) {
-        this.model = model
+    constructor(id: string, model: M, { submit }: { submit: () => Promise<boolean> }) {
+        this.model = new ObjectFormField(model)
+        this.model.setId(id)
         this.submit = submit
     }
 
@@ -29,5 +23,9 @@ export class FormModel<M extends FormField<any>> {
             this.error = "" + e
             return false;
         }
+    }
+
+    toValue(): FormFields<M> {
+        return this.model.toValue()
     }
 }

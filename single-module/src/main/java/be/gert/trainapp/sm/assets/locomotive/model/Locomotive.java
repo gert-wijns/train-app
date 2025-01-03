@@ -3,6 +3,7 @@ package be.gert.trainapp.sm.assets.locomotive.model;
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.LocomotiveModelId;
+import be.gert.trainapp.sm.assets.SerialNumber;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
@@ -31,9 +32,10 @@ import lombok.With;
 public class Locomotive extends JpaEntity<LocomotiveId> {
 	private @EmbeddedId LocomotiveId id;
 	private @Embedded LocomotiveModelId modelId;
-	private @Column String name;
+	private @Column(length = 30) String name;
+	private @Embedded SerialNumber serialNumber;
 
-	public static Locomotive newLocomotive(LocomotiveId id, String name, LocomotiveModelId modelId) {
-		return new Locomotive(id, modelId, name);
+	public static Locomotive newLocomotive(LocomotiveId id, String name, LocomotiveModelId modelId, SerialNumber serialNumber) {
+		return new Locomotive().id(id).modelId(modelId).name(name).serialNumber(serialNumber);
 	}
 }

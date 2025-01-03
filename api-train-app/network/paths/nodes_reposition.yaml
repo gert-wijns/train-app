@@ -1,0 +1,20 @@
+post:
+  operationId: execute
+  tags:
+    - RepositionNodeUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: RepositionNodeRequest
+          properties:
+            id:
+              $ref: '../components.yaml#/components/schemas/NodeId'
+            newGeoPosition:
+              $ref: '../components.yaml#/components/schemas/GeoPositionBody'
+          required: [id, newGeoPosition]
+  responses:
+    204:
+      description: Success

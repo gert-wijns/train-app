@@ -12,6 +12,7 @@ import be.gert.trainapp.api.assets.generated.AddLocomotiveUseCaseApi;
 import be.gert.trainapp.api.assets.generated.model.AddLocomotiveRequest;
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.LocomotiveModelId;
+import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.locomotive.jpa.LocomotiveJpaRepository;
 import be.gert.trainapp.sm.assets.locomotive.model.events.LocomotiveAddedEvent;
 import jakarta.transaction.Transactional;
@@ -30,8 +31,13 @@ public class AddLocomotiveUseCase implements AddLocomotiveUseCaseApi {
 		var locomotive = jpa.save(newLocomotive(new LocomotiveId(
 				request.getId()),
 				request.getName(),
-				new LocomotiveModelId(request.getModelTypeId())));
-		eventPublisher.publishEvent(new LocomotiveAddedEvent(locomotive.id(), locomotive.modelId(), locomotive.name()));
+				new LocomotiveModelId(request.getModelTypeId()),
+				new SerialNumber(request.getSerialNumber())));
+		eventPublisher.publishEvent(new LocomotiveAddedEvent(
+				locomotive.id(),
+				locomotive.modelId(),
+				locomotive.serialNumber(),
+				locomotive.name()));
 		return noContent().build();
 	}
 }

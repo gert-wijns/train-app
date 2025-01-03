@@ -5,10 +5,18 @@
   import type { SearchAssetsQueryResponseItem } from '$assets-api/models/SearchAssetsQueryResponseItem.js'
   import { AssetType } from '$assets-api'
   import { route } from '$lib/ROUTES.js'
+  import { onMount } from 'svelte'
+  import { goto } from '$app/navigation'
 
   let { data }: { data: LoadData } = $props()
 
+  const addAssetHref = route('/[lang]/assets/add', { lang: 'en' })
+
   let columns: Column<SearchAssetsQueryResponseItem>[] = [
+    {
+      title: m('SERIAL_NUMBER'),
+      get: row => row.serialNumber,
+    },
     {
       title: m('TYPE'),
       get: row => row.type,
@@ -24,6 +32,16 @@
       get: row => row.name,
     },
   ]
+
+  onMount(() => {
+    const listener = (event: KeyboardEvent) => {
+      if (event.key === 'a') {
+        goto(addAssetHref)
+      }
+    }
+    document.addEventListener('keypress', listener)
+    return () => document.removeEventListener('keypress', listener)
+  })
 </script>
 
 {#snippet assetType(value: AssetType)}
@@ -35,8 +53,8 @@
 
 <div class="grid gap-5">
   <div class="text-2xl font-bold">{m('ASSETS')}</div>
-  <div class="max-h-[300px]"><Grid {columns} rows={data.assets} /></div>
+  <div class="max-h-[calc(100vh-250px)]"><Grid {columns} rows={data.assets} /></div>
   <div class="grid">
-    <a href={route('/[lang]/assets/add', { lang: 'en' })} class="ml-auto btn btn-primary">{m('ADD_ASSET')}</a>
+    <a href={addAssetHref} class="ml-auto btn btn-primary">{m('ADD_ASSET')}</a>
   </div>
 </div>

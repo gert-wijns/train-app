@@ -44,7 +44,7 @@ public class Train extends JpaEntity<TrainId> {
 	private boolean readyForUse;
 
 	public static Train newTrain(TrainId id) {
-		return new Train().withId(id);
+		return new Train().id(id);
 	}
 
 	public Train addLocomotive(LocomotiveId locomotiveId) {

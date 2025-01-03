@@ -1,0 +1,22 @@
+post:
+  operationId: execute
+  tags:
+    - AddNodeUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: AddNodeRequest
+          properties:
+            id:
+              $ref: '../components.yaml#/components/schemas/NodeId'
+            name:
+              type: string
+            geoPosition:
+              $ref: '../components.yaml#/components/schemas/GeoPositionBody'
+          required: [id, name, geoPosition]
+  responses:
+    204:
+      description: Success

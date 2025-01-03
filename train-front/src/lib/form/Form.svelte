@@ -1,7 +1,9 @@
-<script lang="ts" generics="T extends FormField<any>">
+<script lang="ts" generics="T extends Model">
   import type { HTMLFormAttributes } from 'svelte/elements'
   import type { FormModel } from './FormModel.svelte'
-  import type { FormField } from './FormField.svelte'
+  import type { Model } from './FormField.svelte'
+  import { registerDevAutofill } from '$lib/dev/DevAutofillHook.svelte'
+  import { onMount } from 'svelte'
 
   let {
     formModel,
@@ -17,9 +19,18 @@
       showError = true
     }
   }
+
+  let hiddenInputEl: HTMLInputElement
+  onMount(() =>
+    registerDevAutofill(() => {
+      // focus hidden input at auto fill so we can submit with enter after
+      hiddenInputEl?.focus()
+    }),
+  )
 </script>
 
-<form {...rest} {onsubmit}>
+<form id={formModel.model.getId()} {...rest} {onsubmit}>
+  <input bind:this={hiddenInputEl} tabindex={-1} class="absolute opacity-0 pointer-events-none" />
   {@render children()}
 </form>
 {#if showError}

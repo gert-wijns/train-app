@@ -2,4 +2,20 @@ components:
   schemas:
     NodeId:
       type: string
-
+    SpeedBody:
+      type: object
+      properties:
+        speed:
+          type: number
+        measurement:
+          type: string
+          enum: [KPH, MPH]
+      required: [speed, measurement]
+    GeoPositionBody:
+      type: object
+      properties:
+        longitude:
+          type: number
+        latitude:
+          type: number
+      required: [longitude, latitude]

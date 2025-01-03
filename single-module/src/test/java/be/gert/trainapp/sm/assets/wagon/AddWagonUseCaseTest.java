@@ -11,9 +11,7 @@ import org.springframework.test.context.event.ApplicationEvents;
 import be.gert.trainapp.api.assets.generated.model.AddWagonRequest;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
-import be.gert.trainapp.sm.assets.WagonId;
-import be.gert.trainapp.sm.assets.WagonModelId;
-import be.gert.trainapp.sm.assets.given.WagonDefaults;
+import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.wagon.model.Wagon;
 import be.gert.trainapp.sm.assets.wagon.model.events.WagonAddedEvent;
 
@@ -26,17 +24,19 @@ class AddWagonUseCaseTest {
 	@Autowired
 	AddWagonUseCase usecase;
 
+	SerialNumber serialNumber = new SerialNumber("sn-1");
 	AddWagonRequest request = new AddWagonRequest()
 			.wagonId(wagonId.id())
-			.modelTypeId(wagonModelXs.id());
+			.modelTypeId(wagonModelXs.id())
+			.serialNumber(serialNumber.sn());
 
 	@Test
 	void success() {
 		usecase.execute(request);
 
-		testEntities.assertState(new Wagon(wagonId, wagonModelXs));
+		testEntities.assertState(new Wagon(wagonId, wagonModelXs, serialNumber));
 		assertThat(events.stream(WagonAddedEvent.class))
-				.containsExactly(new WagonAddedEvent(wagonId, wagonModelXs));
+				.containsExactly(new WagonAddedEvent(wagonId, wagonModelXs, serialNumber));
 	}
 
 }

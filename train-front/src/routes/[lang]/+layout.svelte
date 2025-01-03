@@ -1,6 +1,21 @@
-<script>
+<script lang="ts">
   import { route } from '$lib/ROUTES'
   import Icon from '@iconify/svelte'
+  import { dev } from '$app/environment'
+  import { applyRegisteredDevAutoFills } from '$lib/dev/DevAutofillHook.svelte'
+  import { onMount } from 'svelte'
+
+  if (dev) {
+    onMount(() => {
+      const listener = (event: KeyboardEvent) => {
+        if (event.key === 'a' && event.altKey) {
+          applyRegisteredDevAutoFills()
+        }
+      }
+      document.addEventListener('keydown', listener)
+      return () => document.removeEventListener('keydown', listener)
+    })
+  }
 </script>
 
 <div class="navbar bg-base-200 shadow-sm">
@@ -13,6 +28,26 @@
   </div>
   <div class="navbar-center"></div>
   <div class="navbar-end">
+    {#if dev}
+      <span class="tooltip tooltip-primary tooltip-bottom">
+        <button
+          class="btn btn-ghost btn-circle"
+          aria-label="auto-fill-toggle"
+          onclick={() => applyRegisteredDevAutoFills()}>
+          <Icon class="h-5 w-5" icon="game-icons:fairy-wand" />
+        </button>
+        <div class="tooltip-content grid">
+          <span>Autofill on forms.</span>
+          <span>Only available in dev/test.</span>
+          <span>
+            <kbd class="kbd">alt</kbd>
+            +
+            <kbd class="kbd">a</kbd>
+            anywhere
+          </span>
+        </div>
+      </span>
+    {/if}
     <button class="btn btn-ghost btn-circle" aria-label="search">
       <Icon class="h-5 w-5" icon="tabler:search" />
     </button>

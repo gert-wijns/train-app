@@ -20,7 +20,7 @@
 </script>
 
 <div class="h-full w-full overflow-auto shadow">
-  <table class="table table-sm table-pin-rows rounded-none border border-collapse border-base-300 overflow-hidden">
+  <table class="table table-sm table-pin-rows rounded-none border border-collapse border-base-300">
     <thead class="border-b-2 border-base-300">
       <tr class="bg-base-200">
         {#each props.columns as column}

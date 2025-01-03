@@ -23,4 +23,5 @@ public class DomainException extends RuntimeException {
 	public String getFormattedMessage() {
 		return message.toFormattedString();
 	}
+
 }
