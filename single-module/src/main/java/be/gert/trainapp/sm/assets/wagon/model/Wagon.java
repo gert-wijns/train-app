@@ -16,7 +16,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.With;
 
 //<editor-fold desc="EntityDef">
 @Table(name = "WAGON", schema = "ASSETS")
@@ -24,7 +23,6 @@ import lombok.With;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
 @Setter(AccessLevel.PRIVATE)
-@With
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString

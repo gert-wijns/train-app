@@ -32,6 +32,8 @@ public class RegisterTrainEngineerCertificationUseCase implements RegisterTrainE
 	@Transactional
 	public ResponseEntity<Void> execute(RegisterTrainEngineerCertificationRequest request) {
 		var employeeId = new EmployeeId(request.getEmployeeId());
+		// employeeId should be valid
+
 		var trainEngineer = findOrCreateTrainEngineer(employeeId);
 
 		var certificateCode = new CertificateCode(request.getCertificateCode());

@@ -21,6 +21,7 @@ public class TrackDefaults {
 				true,
 				new BigDecimal(3).setScale(2, RoundingMode.UP),
 				kilometersPerHour(50),
-				standardGauge);
+				standardGauge,
+				false);
 	}
 }

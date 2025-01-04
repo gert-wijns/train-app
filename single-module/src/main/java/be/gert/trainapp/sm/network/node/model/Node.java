@@ -10,23 +10,23 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.With;
 
 //<editor-fold desc="EntityDef">
 @Table(name = "NODE", schema = "NETWORK")
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
-@Setter(AccessLevel.PRIVATE)
-@With
+@Setter(AccessLevel.PACKAGE)
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder(toBuilder = true)
 //</editor-fold>
 public class Node extends JpaEntity<NodeId> {
 	private @EmbeddedId NodeId id;

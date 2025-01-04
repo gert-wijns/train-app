@@ -25,7 +25,7 @@ class RenameNodeUseCaseTest {
 
 	@Test
 	void success() {
-		testEntities.save(stationAntwerp().withName("XX"));
+		testEntities.save(stationAntwerp().toBuilder().name("XX").build());
 
 		// when
 		usecase.execute(request);

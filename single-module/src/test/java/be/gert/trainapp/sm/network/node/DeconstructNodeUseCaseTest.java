@@ -8,18 +8,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import be.gert.trainapp.api.network.generated.model.DeconstructNodeRequest;
+import be.gert.trainapp.api.network.generated.model.DecommissionNodeRequest;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
 
 @ModuleTest
-class DeconstructNodeUseCaseTest {
+class DecommissionNodeUseCaseTest {
 	@Autowired
 	TestEntities testEntities;
 	@Autowired
-	DeconstructNodeUseCase usecase;
+	DecommissionNodeUseCase usecase;
 
-	DeconstructNodeRequest request = new DeconstructNodeRequest()
+	DecommissionNodeRequest request = new DecommissionNodeRequest()
 			.id(stationAntwerpId.id());
 
 	@Test

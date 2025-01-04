@@ -13,15 +13,15 @@ paths:
     $ref: "./paths/nodes_add.yaml"
   /api/network/nodes/search:
     $ref: "./paths/nodes_search.yaml"
-  /api/network/nodes/deconstruct:
-    $ref: "./paths/nodes_deconstruct.yaml"
+  /api/network/nodes/decommission:
+    $ref: "./paths/nodes_decommission.yaml"
   /api/network/nodes/rename:
     $ref: "./paths/nodes_rename.yaml"
   /api/network/nodes/reposition:
     $ref: "./paths/nodes_reposition.yaml"
   /api/network/tracks/add:
     $ref: "./paths/tracks_add.yaml"
-  /api/network/tracks/deconstruct:
-    $ref: "./paths/tracks_deconstruct.yaml"
+  /api/network/tracks/decommission:
+    $ref: "./paths/tracks_decommission.yaml"
   /api/network/tracks/search:
     $ref: "./paths/tracks_search.yaml"

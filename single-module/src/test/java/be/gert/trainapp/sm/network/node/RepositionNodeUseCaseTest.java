@@ -35,7 +35,9 @@ class RepositionNodeUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(stationAntwerp().withGeoPosition(stationBrusselsGeoPosition));
+		testEntities.assertState(stationAntwerp().toBuilder()
+				.geoPosition(stationBrusselsGeoPosition)
+				.build());
 	}
 
 	@Test

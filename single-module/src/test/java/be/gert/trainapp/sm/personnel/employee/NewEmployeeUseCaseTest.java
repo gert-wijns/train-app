@@ -31,7 +31,10 @@ class NewEmployeeUseCaseTest {
 	void success() {
 		usecase.execute(request);
 
-		testEntities.assertState(employeeChristineGonzales().withRole(UNASSIGNED));
+		testEntities.assertState(employeeChristineGonzales()
+				.toBuilder()
+				.role(UNASSIGNED)
+				.build());
 	}
 
 	@Test

@@ -36,8 +36,8 @@ class SearchEmployeesQueryTest {
 
 	@BeforeEach
 	void setup() {
-		testEntities.save(employeeChristineGonzales().withId(employee1Id));
-		testEntities.save(employeeChristineGonzales().withId(employee2Id));
+		testEntities.save(employeeChristineGonzales().toBuilder().id(employee1Id).build());
+		testEntities.save(employeeChristineGonzales().toBuilder().id(employee2Id).build());
 	}
 
 	@ParameterizedTest

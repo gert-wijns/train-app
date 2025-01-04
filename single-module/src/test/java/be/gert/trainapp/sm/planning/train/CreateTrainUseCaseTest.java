@@ -29,7 +29,7 @@ class CreateTrainUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(new Train().withId(trainOrientExpressId));
+		testEntities.assertState(Train.builder().id(trainOrientExpressId).build());
 	}
 
 	@Test

@@ -13,11 +13,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.With;
 
 //<editor-fold desc="EntityDef">
 @Table(name = "EMPLOYEE", schema = "PERSONNEL")
@@ -25,9 +25,9 @@ import lombok.With;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
 @Setter(AccessLevel.PRIVATE)
-@With
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder(toBuilder = true)
 //</editor-fold>
 public class Employee extends JpaEntity<EmployeeId> {
 	private @EmbeddedId EmployeeId id;

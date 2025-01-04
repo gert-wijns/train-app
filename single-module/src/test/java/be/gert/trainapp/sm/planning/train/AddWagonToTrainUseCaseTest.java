@@ -27,8 +27,9 @@ class AddWagonToTrainUseCaseTest {
 	AddWagonToTrainRequest request = new AddWagonToTrainRequest()
 			.trainId(trainOrientExpressId.id())
 			.wagonId(trainOrientExpressFirstCoachId.id());
-	Train orientExpressWithWagon = emptyOrientExpress()
-			.withWagonIds(List.of(trainOrientExpressFirstCoachId));
+	Train orientExpressWithWagon = emptyOrientExpress().toBuilder()
+			.wagonIds(List.of(trainOrientExpressFirstCoachId))
+			.build();
 
 	@Test
 	void success() {

@@ -11,9 +11,10 @@ public final class EmployeeDefaults {
 	public static EmployeeId employeeChristineGonzalesId = new EmployeeId("christina");
 
 	public static Employee employeeChristineGonzales() {
-		return new Employee()
-				.withId(employeeChristineGonzalesId)
-				.withRole(TRAIN_ENGINEER)
-				.withFullName(new FullName("Christina" , "Gonzales"));
+		return Employee.builder()
+				.id(employeeChristineGonzalesId)
+				.role(TRAIN_ENGINEER)
+				.fullName(new FullName("Christina" , "Gonzales"))
+				.build();
 	}
 }

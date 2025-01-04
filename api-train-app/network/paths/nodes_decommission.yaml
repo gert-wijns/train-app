@@ -1,14 +1,14 @@
 post:
   operationId: execute
   tags:
-    - DeconstructNodeUseCase
+    - DecommissionNodeUseCase
   requestBody:
     required: true
     content:
       application/json:
         schema:
           type: object
-          title: DeconstructNodeRequest
+          title: DecommissionNodeRequest
           properties:
             id:
               $ref: '../components.yaml#/components/schemas/NodeId'

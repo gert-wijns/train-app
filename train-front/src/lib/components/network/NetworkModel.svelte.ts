@@ -1,4 +1,4 @@
-import { AddNodeUseCaseApi, AddTrackUseCaseApi, DeconstructNodeUseCaseApi, DeconstructTrackUseCaseApi, RepositionNodeUseCaseApi } from "$network-api"
+import { AddNodeUseCaseApi, AddTrackUseCaseApi, DecommissionNodeUseCaseApi, DecommissionTrackUseCaseApi } from "$network-api"
 import type { GeoPositionBody } from "$network-api/models/GeoPositionBody"
 import type { NodeId } from "$network-api/models/NodeId"
 import { SpeedBody } from "$network-api/models/SpeedBody"
@@ -44,19 +44,19 @@ export class NetworkModel {
         return [fromGeoPosition, toGeoPosition]
     }
 
-    deconstructSelectedNode(): void {
+    decommissionSelectedNode(): void {
         const id = this.selectedNodeId
         if (id) {
             this.nodes.splice(this.nodes.findIndex(entry => entry.id === id), 1)
 
-            DeconstructNodeUseCaseApi.execute({
+            DecommissionNodeUseCaseApi.execute({
                 requestBody: { id }
             })
             this.selectedNodeId = undefined
         }
     }
 
-    deconstructSelectTrack(): void {
+    decommissionSelectTrack(): void {
         const selectedTrackId = this.selectedTrackId
         if (selectedTrackId) {
             const { fromNodeId, toNodeId } = selectedTrackId
@@ -64,7 +64,7 @@ export class NetworkModel {
                 entry.fromNodeId === fromNodeId &&
                 entry.toNodeId === toNodeId), 1)
 
-            DeconstructTrackUseCaseApi.execute({
+            DecommissionTrackUseCaseApi.execute({
                 requestBody: {
                     fromNodeId,
                     toNodeId

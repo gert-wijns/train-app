@@ -34,18 +34,21 @@ class AddLocomotiveToTrainUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(emptyOrientExpress().withLocomotiveId(locomotiveOrientExpressId));
+		testEntities.assertState(emptyOrientExpress().toBuilder()
+				.locomotiveId(locomotiveOrientExpressId)
+				.build());
 	}
 
 	@Test
 	void exceptionWhenSettingLocomotiveAgain() {
 		// given
-		testEntities.save(emptyOrientExpress().withLocomotiveId(locomotiveOrientExpressId));
+		testEntities.save(emptyOrientExpress().toBuilder()
+				.locomotiveId(locomotiveOrientExpressId)
+				.build());
 
 		// when
 		assertThatThrownBy(() -> usecase.execute(request))
 				.isEqualTo(locomotiveAlreadySet(trainOrientExpressId, locomotiveOrientExpressId));
-
 	}
 
 	@Test

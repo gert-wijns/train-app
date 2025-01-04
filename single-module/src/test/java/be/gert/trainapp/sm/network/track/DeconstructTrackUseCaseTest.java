@@ -9,19 +9,19 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import be.gert.trainapp.api.network.generated.model.DeconstructTrackRequest;
+import be.gert.trainapp.api.network.generated.model.DecommissionTrackRequest;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm.network.track.model.TrackExceptions;
 
 @ModuleTest
-class DeconstructTrackUseCaseTest {
+class DecommissionTrackUseCaseTest {
 	@Autowired
 	TestEntities testEntities;
 	@Autowired
-	DeconstructTrackUseCase usecase;
+	DecommissionTrackUseCase usecase;
 
-	DeconstructTrackRequest request = new DeconstructTrackRequest()
+	DecommissionTrackRequest request = new DecommissionTrackRequest()
 			.fromNodeId(stationAntwerpId.id())
 			.toNodeId(stationBrusselsId.id());
 
@@ -33,7 +33,9 @@ class DeconstructTrackUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		testEntities.assertNotExists(trackAntwerpBrussels());
+		testEntities.assertState(trackAntwerpBrussels().toBuilder()
+				.decomissioned(true)
+				.build());
 	}
 
 	@Test

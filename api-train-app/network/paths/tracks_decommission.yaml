@@ -1,14 +1,14 @@
 post:
   operationId: execute
   tags:
-    - DeconstructTrackUseCase
+    - DecommissionTrackUseCase
   requestBody:
     required: true
     content:
       application/json:
         schema:
           type: object
-          title: DeconstructTrackRequest
+          title: DecommissionTrackRequest
           properties:
             fromNodeId:
               $ref: '../components.yaml#/components/schemas/NodeId'

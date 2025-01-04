@@ -35,7 +35,9 @@ public class AssignEmployeeRoleUseCaseTest {
 
 		// then
 		testEntities.assertState(employeeChristineGonzales()
-				.withRole(DIESEL_MECHANIC));
+				.toBuilder()
+				.role(DIESEL_MECHANIC)
+				.build());
 	}
 
 	@Test

@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
-import be.gert.trainapp.api.network.generated.DeconstructNodeUseCaseApi;
-import be.gert.trainapp.api.network.generated.model.DeconstructNodeRequest;
+import be.gert.trainapp.api.network.generated.DecommissionNodeUseCaseApi;
+import be.gert.trainapp.api.network.generated.model.DecommissionNodeRequest;
 import be.gert.trainapp.sm.network.NodeId;
 import be.gert.trainapp.sm.network.node.jpa.NodeJpaRepository;
 import jakarta.transaction.Transactional;
@@ -17,12 +17,12 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 @RestController
-public class DeconstructNodeUseCase implements DeconstructNodeUseCaseApi {
+public class DecommissionNodeUseCase implements DecommissionNodeUseCaseApi {
 	private final NodeJpaRepository jpa;
 
 	@Override
 	@Transactional
-	public ResponseEntity<Void> execute(DeconstructNodeRequest request) {
+	public ResponseEntity<Void> execute(DecommissionNodeRequest request) {
 		NodeId id = new NodeId(request.getId());
 		var node = jpa.findById(id).orElseThrow(() -> notFound(id));
 

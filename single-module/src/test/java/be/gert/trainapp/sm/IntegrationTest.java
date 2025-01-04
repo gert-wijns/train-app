@@ -13,6 +13,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(TYPE)
 @SpringBootTest
-//@WithKafkaContainer
 public @interface IntegrationTest {
 }

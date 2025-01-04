@@ -53,8 +53,7 @@ class SearchTrainEngineersQueryTest {
 		// given driver with certificates
 		var tsiLoc = certificate(certificateCodeTsiLoc, tsiLocStart, tsiLocEnd);
 		var tsiWag = certificate(certificateCodeTsiWag, tsiWagStart, tsiWagEnd);
-		testEntities.save(new TrainEngineer()
-				.withId(employeeId));
+		testEntities.save(TrainEngineer.builder().id(employeeId).build());
 		testEntities.save(tsiLoc);
 		testEntities.save(tsiWag);
 	}

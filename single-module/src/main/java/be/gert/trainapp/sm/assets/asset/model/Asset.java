@@ -25,7 +25,6 @@ import lombok.With;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
 @Setter(AccessLevel.PRIVATE)
-@With
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString

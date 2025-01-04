@@ -18,12 +18,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import lombok.With;
 
 //<editor-fold desc="EntityDef">
 @Table(name = "TRAIN", schema = "PLANNING")
@@ -31,10 +30,9 @@ import lombok.With;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
 @Setter(AccessLevel.PRIVATE)
-@With
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
+@Builder(toBuilder = true)
 //</editor-fold>
 public class Train extends JpaEntity<TrainId> {
 	private @EmbeddedId TrainId id;

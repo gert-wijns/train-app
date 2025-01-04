@@ -12,12 +12,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.With;
 
 //<editor-fold desc="EntityDef">
 @Table(name = "NODE_RELATION", schema = "NETWORK")
@@ -25,10 +25,10 @@ import lombok.With;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
 @Setter(AccessLevel.PRIVATE)
-@With
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder(toBuilder = true)
 //</editor-fold>
 public class Track extends JpaEntity<TrackId> {
 	private @EmbeddedId TrackId id;
@@ -36,6 +36,7 @@ public class Track extends JpaEntity<TrackId> {
 	private BigDecimal slope;
 	private @Embedded Speed speedLimit;
 	private @Embedded TrackGauge gauge;
+	private boolean decomissioned;
 
 	public static Track newTrack(TrackId id, TrackGauge gauge, BigDecimal slope) {
 		return new Track().id(id).gauge(gauge).slope(slope);
@@ -49,5 +50,9 @@ public class Track extends JpaEntity<TrackId> {
 	public Track adjustSpeedLimit(Speed speedLimit) {
 		this.speedLimit = speedLimit;
 		return this;
+	}
+
+	public Track decomission() {
+		return decomissioned(true);
 	}
 }
