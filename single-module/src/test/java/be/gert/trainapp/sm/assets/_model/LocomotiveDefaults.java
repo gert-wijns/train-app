@@ -1,6 +1,11 @@
 package be.gert.trainapp.sm.assets._model;
 
+import static be.gert.trainapp.sm.EntityAssertionDefaults.AUDIT_FIELDS;
+import static be.gert.trainapp.sm.EntityAssertionDefaults.NESTED_AUDIT_FIELDS;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.assertj.core.api.RecursiveComparisonAssert;
 
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.LocomotiveModelId;
@@ -21,5 +26,12 @@ public class LocomotiveDefaults {
 				"Stainier",
 				serialNumberStainier,
 				standardGauge);
+	}
+
+	public static RecursiveComparisonAssert<?> assertLocomotive(Locomotive entity) {
+		return assertThat(entity)
+				.usingRecursiveComparison()
+				.ignoringFieldsMatchingRegexes(NESTED_AUDIT_FIELDS)
+				.ignoringFields(AUDIT_FIELDS);
 	}
 }

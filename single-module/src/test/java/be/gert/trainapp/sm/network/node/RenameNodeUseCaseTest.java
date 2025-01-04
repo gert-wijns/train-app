@@ -1,8 +1,9 @@
 package be.gert.trainapp.sm.network.node;
 
+import static be.gert.trainapp.sm.network._model.NodeDefaults.assertNode;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerp;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
-import static be.gert.trainapp.sm.network._model.NodeExceptions.notFound;
+import static be.gert.trainapp.sm.network._repository.NodeJpaRepository.notFound;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
@@ -10,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.network.generated.model.RenameNodeRequest;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
+import be.gert.trainapp.sm.network._repository.NodeJpaRepository;
 
 @ModuleTest
 class RenameNodeUseCaseTest {
 	@Autowired
-	TestEntities testEntities;
+	NodeJpaRepository jpa;
 	@Autowired
 	RenameNodeUseCase usecase;
 
@@ -25,13 +26,14 @@ class RenameNodeUseCaseTest {
 
 	@Test
 	void success() {
-		testEntities.save(stationAntwerp().toBuilder().name("XX").build());
+		jpa.save(stationAntwerp().toBuilder().name("XX").build());
 
 		// when
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(stationAntwerp());
+		assertNode(jpa.getById(stationAntwerpId))
+				.isEqualTo(stationAntwerp());
 	}
 
 	@Test

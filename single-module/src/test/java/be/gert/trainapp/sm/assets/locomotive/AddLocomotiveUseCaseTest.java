@@ -1,10 +1,11 @@
 package be.gert.trainapp.sm.assets.locomotive;
 
+import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.assertLocomotive;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotive1937Id;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotiveModelLMSStainierBlack5;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotiveStainier;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.serialNumberStainier;
-import static be.gert.trainapp.sm.assets._model.LocomotiveExceptions.serialNumberAlreadyExists;
+import static be.gert.trainapp.sm.assets.locomotive.AddLocomotiveUseCase.serialNumberAlreadyExists;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -15,13 +16,13 @@ import org.springframework.test.context.event.ApplicationEvents;
 
 import be.gert.trainapp.api.assets.generated.model.AddLocomotiveRequest;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm.assets._events.LocomotiveAddedEvent;
+import be.gert.trainapp.sm.assets._repository.LocomotiveJpaRepository;
 
 @ModuleTest
 class AddLocomotiveUseCaseTest {
 	@Autowired
-	TestEntities testEntities;
+	LocomotiveJpaRepository jpa;
 	@Autowired
 	ApplicationEvents events;
 	@Autowired
@@ -40,7 +41,8 @@ class AddLocomotiveUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(locomotiveStainier());
+		assertLocomotive(jpa.getById(locomotive1937Id))
+				.isEqualTo(locomotiveStainier());
 
 		assertThat(events.stream(LocomotiveAddedEvent.class))
 				.containsExactly(new LocomotiveAddedEvent(
@@ -52,7 +54,7 @@ class AddLocomotiveUseCaseTest {
 
 	@Test
 	void throwSerialNumberAlreadyExists() {
-		testEntities.save(locomotiveStainier());
+		jpa.save(locomotiveStainier());
 
 		// when
 		assertThatThrownBy(() -> usecase.execute(request))

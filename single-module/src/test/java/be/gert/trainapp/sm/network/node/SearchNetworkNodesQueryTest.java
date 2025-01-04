@@ -10,18 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import be.gert.trainapp.api.network.generated.model.GeoPositionBody;
 import be.gert.trainapp.api.network.generated.model.SearchNetworkNodesQueryResponseItem;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
+import be.gert.trainapp.sm.network._repository.NodeJpaRepository;
 
 @ModuleTest
  class SearchNetworkNodesQueryTest {
 	@Autowired
-	TestEntities testEntities;
+	NodeJpaRepository jpa;
 	@Autowired
 	SearchNetworkNodesQuery query;
 
 	@Test
 	void selectsWhenQuerying() {
-		testEntities.save(stationAntwerp());
+		jpa.save(stationAntwerp());
 
 		var result = query.query().getBody();
 

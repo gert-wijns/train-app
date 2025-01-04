@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.assets.generated.model.SearchAssetsQueryResponseItem;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm.assets.AssetId;
 import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets._model.Asset;
 import be.gert.trainapp.sm.assets._model.AssetType;
+import be.gert.trainapp.sm.assets._repository.AssetJpaRepository;
 
 @ModuleTest
 class SearchAssetsQueryTest {
 	@Autowired
-	TestEntities testEntities;
+	AssetJpaRepository jpa;
 	@Autowired
 	SearchAssetsQuery query;
 
@@ -26,7 +26,7 @@ class SearchAssetsQueryTest {
 		String name = "locomotive-1-name";
 		String subtype = "model-id";
 		SerialNumber serialNumber = new SerialNumber("SN-123");
-		testEntities.save(new Asset(
+		jpa.save(new Asset(
 				id,
 				AssetType.LOCOMOTIVE,
 				name,

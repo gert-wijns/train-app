@@ -1,6 +1,5 @@
 package be.gert.trainapp.sm.network.track;
 
-import static be.gert.trainapp.sm.network._model.TrackExceptions.notFound;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.http.ResponseEntity;
@@ -27,9 +26,8 @@ public class DecommissionTrackUseCase implements DecommissionTrackUseCaseApi {
 		TrackId id = new TrackId(
 				new NodeId(request.getFromNodeId()),
 				new NodeId(request.getToNodeId()));
-		var track = jpa.findById(id).orElseThrow(() -> notFound(id));
 
-		jpa.save(track.decomission());
+		jpa.save(jpa.getById(id).decomission());
 
 		return noContent().build();
 	}

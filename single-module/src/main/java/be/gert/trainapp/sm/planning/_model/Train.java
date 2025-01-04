@@ -1,20 +1,23 @@
 package be.gert.trainapp.sm.planning._model;
 
-import static be.gert.trainapp.sm.planning._model.TrainExceptions.locomotiveAlreadySet;
-import static be.gert.trainapp.sm.planning._model.TrainExceptions.wagonAlreadyAdded;
+import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.FetchType.EAGER;
 
 import java.util.List;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
+import be.gert.trainapp.sm._shared.exception.DomainException;
+import be.gert.trainapp.sm._shared.values.GeoPosition;
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.WagonId;
+import be.gert.trainapp.sm.network.TrackGauge;
 import be.gert.trainapp.sm.planning.TrainId;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -36,28 +39,48 @@ import lombok.Setter;
 //</editor-fold>
 public class Train extends JpaEntity<TrainId> {
 	private @EmbeddedId TrainId id;
-	private @Embedded LocomotiveId locomotiveId;
-	@JdbcTypeCode(SqlTypes.JSON)
-	private List<WagonId> wagonIds;
+	private @OneToOne TrainLocomotive locomotive;
+	private @OneToMany(mappedBy = "train", cascade = ALL, fetch = EAGER) List<TrainWagon> wagons;
+	private @Embedded TrackGauge gauge;
+	private @Embedded GeoPosition position;
+	//private @Embedded RoutePlan planId;
 	private boolean readyForUse;
 
 	public static Train newTrain(TrainId id) {
 		return new Train().id(id);
 	}
 
-	public Train addLocomotive(LocomotiveId locomotiveId) {
-		if (this.locomotiveId != null) {
-			throw locomotiveAlreadySet(id, this.locomotiveId);
+	public static DomainException locomotiveAlreadySet(TrainId trainId, LocomotiveId locomotiveId) {
+		return error("PLANNING_TRAIN_LOCOMOTIVE_ALREADY_SET",
+				"Train '${id}' already has a locomotive with id '${locomotiveId}'.")
+				.withParam("id", trainId.id())
+				.withParam("locomotiveId", locomotiveId.id())
+				.asException();
+	}
+
+	public Train addLocomotive(TrainLocomotive locomotive) {
+		if (this.locomotive != null) {
+			throw locomotiveAlreadySet(id, this.locomotive.id());
 		}
-		this.locomotiveId = locomotiveId;
+		this.locomotive = locomotive;
+		locomotive.attachToTrain(this);
 		return this;
 	}
 
-	public Train addWagon(WagonId wagonId) {
-		if (wagonIds.contains(wagonId)) {
-			throw wagonAlreadyAdded(id, wagonId);
+	public static DomainException wagonAlreadyAdded(TrainId trainId, WagonId wagonId) {
+		return error("PLANNING_TRAIN_WAGON_ALREADY_ADDED",
+				"Train '${id}' already has wagon with id '${wagonId}'.")
+				.withParam("id", trainId.id())
+				.withParam("wagonId", wagonId.id())
+				.asException();
+	}
+
+	public Train addWagon(TrainWagon wagon) {
+		if (wagons.contains(wagon)) {
+			throw wagonAlreadyAdded(id, wagon.id());
 		}
-		wagonIds.add(wagonId);
+		wagons.add(wagon);
+		wagon.attachToTrain(this);
 		return this;
 	}
 }

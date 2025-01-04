@@ -1,8 +1,9 @@
 package be.gert.trainapp.sm.planning.train;
 
+import static be.gert.trainapp.sm.planning._model.TrainDefaults.assertTrain;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.emptyOrientExpress;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.trainOrientExpressId;
-import static be.gert.trainapp.sm.planning._model.TrainExceptions.alreadyExists;
+import static be.gert.trainapp.sm.planning.train.CreateTrainUseCase.alreadyExists;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
@@ -10,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.planning.generated.model.CreateTrainRequest;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm.planning._model.Train;
+import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 
 @ModuleTest
 class CreateTrainUseCaseTest {
 	@Autowired
-	TestEntities testEntities;
+	TrainJpaRepository jpa;
 	@Autowired
 	CreateTrainUseCase usecase;
 
@@ -29,13 +30,16 @@ class CreateTrainUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(Train.builder().id(trainOrientExpressId).build());
+		assertTrain(jpa.getById(trainOrientExpressId))
+				.isEqualTo(Train.builder()
+						.id(trainOrientExpressId)
+						.build());
 	}
 
 	@Test
 	void exceptionWhenAlreadyExists() {
 		// given
-		testEntities.save(emptyOrientExpress());
+		jpa.save(emptyOrientExpress());
 
 		// when
 		assertThatThrownBy(() -> usecase.execute(request))

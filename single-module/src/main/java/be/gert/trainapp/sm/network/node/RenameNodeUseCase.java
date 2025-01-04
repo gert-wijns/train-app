@@ -1,7 +1,6 @@
 package be.gert.trainapp.sm.network.node;
 
 
-import static be.gert.trainapp.sm.network._model.NodeExceptions.notFound;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.http.ResponseEntity;
@@ -24,8 +23,7 @@ public class RenameNodeUseCase implements RenameNodeUseCaseApi {
 	@Override
 	@Transactional
 	public ResponseEntity<Void> execute(RenameNodeRequest request) {
-		NodeId id = new NodeId(request.getId());
-		var node = jpa.findById(id).orElseThrow(() -> notFound(id));
+		var node = jpa.getById(new NodeId(request.getId()));
 
 		jpa.save(node.rename(request.getNewName()));
 

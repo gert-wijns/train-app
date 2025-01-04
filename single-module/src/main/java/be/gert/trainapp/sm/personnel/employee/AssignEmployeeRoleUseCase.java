@@ -1,7 +1,6 @@
 package be.gert.trainapp.sm.personnel.employee;
 
 import static be.gert.trainapp.sm.personnel.EmployeeId.asEmployeeId;
-import static be.gert.trainapp.sm.personnel._model.EmployeeExceptions.notFound;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import be.gert.trainapp.api.personnel.generated.AssignEmployeeRoleUseCaseApi;
 import be.gert.trainapp.api.personnel.generated.model.AssignEmployeeRoleRequest;
 import be.gert.trainapp.sm.personnel.EmployeeId;
-import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
-import be.gert.trainapp.sm.personnel._model.EmployeeRole;
 import be.gert.trainapp.sm.personnel._events.EmployeeRoleAssigned;
+import be.gert.trainapp.sm.personnel._model.EmployeeRole;
+import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -29,7 +28,7 @@ public class AssignEmployeeRoleUseCase implements AssignEmployeeRoleUseCaseApi {
 	@Transactional
 	public ResponseEntity<Void> execute(AssignEmployeeRoleRequest request) {
 		EmployeeId employeeId = asEmployeeId(request.getEmployeeId());
-		var employee = jpa.findById(employeeId).orElseThrow(() -> notFound(employeeId));
+		var employee = jpa.getById(employeeId);
 		employee.assignRole(EmployeeRole.valueOf(request.getRole().getValue()));
 		jpa.save(employee);
 

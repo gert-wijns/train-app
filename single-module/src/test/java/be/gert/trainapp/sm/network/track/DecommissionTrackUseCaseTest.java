@@ -2,8 +2,10 @@ package be.gert.trainapp.sm.network.track;
 
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationBrusselsId;
+import static be.gert.trainapp.sm.network._model.TrackDefaults.assertTrack;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrussels;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrusselsId;
+import static be.gert.trainapp.sm.network._repository.TrackJpaRepository.notFound;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
@@ -11,13 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.network.generated.model.DecommissionTrackRequest;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
-import be.gert.trainapp.sm.network._model.TrackExceptions;
+import be.gert.trainapp.sm.network._repository.TrackJpaRepository;
 
 @ModuleTest
 class DecommissionTrackUseCaseTest {
 	@Autowired
-	TestEntities testEntities;
+	TrackJpaRepository jpa;
 	@Autowired
 	DecommissionTrackUseCase usecase;
 
@@ -27,22 +28,23 @@ class DecommissionTrackUseCaseTest {
 
 	@Test
 	void success() {
-		testEntities.save(trackAntwerpBrussels());
+		jpa.save(trackAntwerpBrussels());
 
 		// when
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(trackAntwerpBrussels().toBuilder()
-				.decomissioned(true)
-				.build());
+		assertTrack(jpa.getById(trackAntwerpBrusselsId))
+				.isEqualTo(trackAntwerpBrussels().toBuilder()
+					.decomissioned(true)
+					.build());
 	}
 
 	@Test
 	void throwsNotFound() {
 		// when
 		assertThatThrownBy(() -> usecase.execute(request))
-				.isEqualTo(TrackExceptions.notFound(trackAntwerpBrusselsId));
+				.isEqualTo(notFound(trackAntwerpBrusselsId));
 	}
 
 }

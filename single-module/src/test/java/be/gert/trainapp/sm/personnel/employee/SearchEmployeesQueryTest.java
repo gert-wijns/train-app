@@ -13,15 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.personnel.generated.model.SearchEmployeesQueryResponseItem;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm.personnel.EmployeeId;
+import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 @ModuleTest
 class SearchEmployeesQueryTest {
 	@Autowired
-	TestEntities testEntities;
+	EmployeeJpaRepository jpa;
 	@Autowired
 	SearchEmployeesQuery query;
 
@@ -36,8 +36,8 @@ class SearchEmployeesQueryTest {
 
 	@BeforeEach
 	void setup() {
-		testEntities.save(employeeChristineGonzales().toBuilder().id(employee1Id).build());
-		testEntities.save(employeeChristineGonzales().toBuilder().id(employee2Id).build());
+		jpa.save(employeeChristineGonzales().toBuilder().id(employee1Id).build());
+		jpa.save(employeeChristineGonzales().toBuilder().id(employee2Id).build());
 	}
 
 	@ParameterizedTest

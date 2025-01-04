@@ -18,19 +18,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.planning.generated.model.SearchTrainEngineersQueryResponseItem;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm._shared.values.LocalDateRange;
 import be.gert.trainapp.sm.personnel.EmployeeId;
 import be.gert.trainapp.sm.planning._model.CertificateCode;
 import be.gert.trainapp.sm.planning._model.TrainEngineer;
 import be.gert.trainapp.sm.planning._model.TrainEngineerCertification;
 import be.gert.trainapp.sm.planning._model.TrainEngineerCertificationId;
+import be.gert.trainapp.sm.planning._repository.TrainEngineerJpaRepository;
 import lombok.With;
 
 @ModuleTest
 class SearchTrainEngineersQueryTest {
 	@Autowired
-	TestEntities testEntities;
+	TrainEngineerJpaRepository jpa;
 	@Autowired
 	SearchTrainEngineersQuery query;
 
@@ -53,9 +53,10 @@ class SearchTrainEngineersQueryTest {
 		// given driver with certificates
 		var tsiLoc = certificate(certificateCodeTsiLoc, tsiLocStart, tsiLocEnd);
 		var tsiWag = certificate(certificateCodeTsiWag, tsiWagStart, tsiWagEnd);
-		testEntities.save(TrainEngineer.builder().id(employeeId).build());
-		testEntities.save(tsiLoc);
-		testEntities.save(tsiWag);
+		jpa.save(TrainEngineer.builder()
+				.id(employeeId)
+				.certifications(List.of(tsiLoc, tsiWag))
+				.build());
 	}
 
 	@ParameterizedTest

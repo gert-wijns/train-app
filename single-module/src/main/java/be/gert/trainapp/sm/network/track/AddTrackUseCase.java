@@ -1,8 +1,8 @@
 package be.gert.trainapp.sm.network.track;
 
+import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 import static be.gert.trainapp.sm.network._mapper.SpeedMapper.toSpeed;
 import static be.gert.trainapp.sm.network._model.Track.newTrack;
-import static be.gert.trainapp.sm.network._model.TrackExceptions.alreadyExists;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.http.ResponseEntity;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import be.gert.trainapp.api.network.generated.AddTrackUseCaseApi;
 import be.gert.trainapp.api.network.generated.model.AddTrackRequest;
+import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm.network.NodeId;
 import be.gert.trainapp.sm.network.TrackGauge;
 import be.gert.trainapp.sm.network.TrackId;
@@ -23,6 +24,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 public class AddTrackUseCase implements AddTrackUseCaseApi {
+	public static DomainException alreadyExists(TrackId trackId) {
+		return error("NETWORK_TRACK_ALREADY_EXISTS",
+				"Track already exists between '${fromId}' and '${toId}'.")
+				.withParam("fromId", trackId.from().id())
+				.withParam("toId", trackId.to().id())
+				.asException();
+	}
+
 	private final TrackJpaRepository jpa;
 
 	@Override

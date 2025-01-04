@@ -2,9 +2,10 @@ package be.gert.trainapp.sm.network.track;
 
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationBrusselsId;
+import static be.gert.trainapp.sm.network._model.TrackDefaults.assertTrack;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrussels;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrusselsId;
-import static be.gert.trainapp.sm.network._model.TrackExceptions.alreadyExists;
+import static be.gert.trainapp.sm.network.track.AddTrackUseCase.alreadyExists;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
@@ -14,12 +15,12 @@ import be.gert.trainapp.api.network.generated.model.AddTrackRequest;
 import be.gert.trainapp.api.network.generated.model.SpeedBody;
 import be.gert.trainapp.api.network.generated.model.SpeedBody.MeasurementEnum;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
+import be.gert.trainapp.sm.network._repository.TrackJpaRepository;
 
 @ModuleTest
 class AddTrackUseCaseTest {
 	@Autowired
-	TestEntities testEntities;
+	TrackJpaRepository jpa;
 	@Autowired
 	AddTrackUseCase usecase;
 
@@ -39,13 +40,14 @@ class AddTrackUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(trackAntwerpBrussels());
+		assertTrack(jpa.getById(trackAntwerpBrusselsId))
+				.isEqualTo(trackAntwerpBrussels());
 	}
 
 	@Test
 	void throwsAlreadyExists() {
 		// given
-		testEntities.save(trackAntwerpBrussels());
+		jpa.save(trackAntwerpBrussels());
 
 		// when
 		assertThatThrownBy(() -> usecase.execute(request))

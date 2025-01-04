@@ -1,8 +1,9 @@
 package be.gert.trainapp.sm.network.node;
 
+import static be.gert.trainapp.sm.network._model.NodeDefaults.assertNode;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerp;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
-import static be.gert.trainapp.sm.network._model.NodeExceptions.alreadyExists;
+import static be.gert.trainapp.sm.network.node.AddNodeUseCase.alreadyExists;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
@@ -11,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import be.gert.trainapp.api.network.generated.model.AddNodeRequest;
 import be.gert.trainapp.api.network.generated.model.GeoPositionBody;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
+import be.gert.trainapp.sm.network._repository.NodeJpaRepository;
 
 @ModuleTest
 class AddNodeUseCaseTest {
 	@Autowired
-	TestEntities testEntities;
+	NodeJpaRepository jpa;
 	@Autowired
 	AddNodeUseCase usecase;
 
@@ -33,13 +34,14 @@ class AddNodeUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(stationAntwerp());
+		assertNode(jpa.getById(stationAntwerpId))
+				.isEqualTo(stationAntwerp());
 	}
 
 	@Test
 	void throwsAlreadyExists() {
 		// given
-		testEntities.save(stationAntwerp());
+		jpa.save(stationAntwerp());
 
 		// when
 		assertThatThrownBy(() -> usecase.execute(request))

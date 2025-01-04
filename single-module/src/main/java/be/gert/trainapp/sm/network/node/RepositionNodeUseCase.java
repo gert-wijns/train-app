@@ -1,7 +1,6 @@
 package be.gert.trainapp.sm.network.node;
 
 import static be.gert.trainapp.sm.network._mapper.GeoPositionMapper.toGeoPosition;
-import static be.gert.trainapp.sm.network._model.NodeExceptions.notFound;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.http.ResponseEntity;
@@ -24,8 +23,7 @@ public class RepositionNodeUseCase implements RepositionNodeUseCaseApi {
 	@Override
 	@Transactional
 	public ResponseEntity<Void> execute(RepositionNodeRequest request) {
-		NodeId id = new NodeId(request.getId());
-		var node = jpa.findById(id).orElseThrow(() -> notFound(id));
+		var node = jpa.getById(new NodeId(request.getId()));
 
 		jpa.save(node.reposition(toGeoPosition(request.getNewGeoPosition())));
 

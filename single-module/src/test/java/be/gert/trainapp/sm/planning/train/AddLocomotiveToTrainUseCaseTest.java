@@ -1,10 +1,11 @@
 package be.gert.trainapp.sm.planning.train;
 
+import static be.gert.trainapp.sm.planning._model.Train.locomotiveAlreadySet;
+import static be.gert.trainapp.sm.planning._model.TrainDefaults.assertTrain;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.emptyOrientExpress;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.locomotiveOrientExpressId;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.trainOrientExpressId;
-import static be.gert.trainapp.sm.planning._model.TrainExceptions.locomotiveAlreadySet;
-import static be.gert.trainapp.sm.planning._model.TrainExceptions.notFound;
+import static be.gert.trainapp.sm.planning._repository.TrainJpaRepository.notFound;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
@@ -12,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.planning.generated.model.AddLocomotiveToTrainRequest;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
+import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 
 @ModuleTest
 class AddLocomotiveToTrainUseCaseTest {
 	@Autowired
-	TestEntities testEntities;
+	TrainJpaRepository jpa;
 	@Autowired
 	AddLocomotiveToTrainUseCase usecase;
 
@@ -28,23 +29,22 @@ class AddLocomotiveToTrainUseCaseTest {
 	@Test
 	void success() {
 		// given
-		testEntities.save(emptyOrientExpress());
+		jpa.save(emptyOrientExpress().toBuilder()
+				.locomotive(null)
+				.build());
 
 		// when
 		usecase.execute(request);
 
 		// then
-		testEntities.assertState(emptyOrientExpress().toBuilder()
-				.locomotiveId(locomotiveOrientExpressId)
-				.build());
+		assertTrain(jpa.getById(trainOrientExpressId))
+				.isEqualTo(emptyOrientExpress());
 	}
 
 	@Test
 	void exceptionWhenSettingLocomotiveAgain() {
 		// given
-		testEntities.save(emptyOrientExpress().toBuilder()
-				.locomotiveId(locomotiveOrientExpressId)
-				.build());
+		jpa.save(emptyOrientExpress());
 
 		// when
 		assertThatThrownBy(() -> usecase.execute(request))

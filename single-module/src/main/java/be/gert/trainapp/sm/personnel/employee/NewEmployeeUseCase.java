@@ -1,9 +1,9 @@
 package be.gert.trainapp.sm.personnel.employee;
 
+import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 import static be.gert.trainapp.sm.personnel.EmployeeId.asEmployeeId;
 import static be.gert.trainapp.sm.personnel._mapper.FullNameMapper.toFullName;
 import static be.gert.trainapp.sm.personnel._model.Employee.newEmployee;
-import static be.gert.trainapp.sm.personnel._model.EmployeeExceptions.alreadyExists;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import be.gert.trainapp.api.personnel.generated.NewEmployeeUseCaseApi;
 import be.gert.trainapp.api.personnel.generated.model.NewEmployeeRequest;
+import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm.personnel.EmployeeId;
 import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 import be.gert.trainapp.sm.personnel._events.EmployeeHired;
@@ -25,6 +26,13 @@ import lombok.RequiredArgsConstructor;
 public class NewEmployeeUseCase implements NewEmployeeUseCaseApi {
 	private final EmployeeJpaRepository jpa;
 	private final ApplicationEventPublisher eventPublisher;
+
+	public static DomainException alreadyExists(EmployeeId employeeId) {
+		return error("PERSONNEL_EMPLOYEE_ALREADY_EXISTS",
+				"Employee already exists for id '${id}'.")
+				.withParam("id", employeeId.id())
+				.asException();
+	}
 
 	@Override
 	@Transactional

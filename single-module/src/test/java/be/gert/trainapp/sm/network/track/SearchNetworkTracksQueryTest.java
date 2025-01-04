@@ -12,19 +12,19 @@ import be.gert.trainapp.api.network.generated.model.SearchNetworkTracksQueryResp
 import be.gert.trainapp.api.network.generated.model.SpeedBody;
 import be.gert.trainapp.api.network.generated.model.SpeedBody.MeasurementEnum;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm.network._model.Track;
+import be.gert.trainapp.sm.network._repository.TrackJpaRepository;
 
 @ModuleTest
-public class SearchNetworkTracksQueryTest {
+class SearchNetworkTracksQueryTest {
 	@Autowired
-	TestEntities testEntities;
+	TrackJpaRepository jpa;
 	@Autowired
 	SearchNetworkTracksQuery query;
 
 	@Test
 	void selectsWhenQuerying() {
-		Track track = testEntities.save(trackAntwerpBrussels());
+		Track track = jpa.save(trackAntwerpBrussels());
 
 		var result = query.query().getBody();
 

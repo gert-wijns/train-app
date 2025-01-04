@@ -32,6 +32,7 @@ public class Node extends JpaEntity<NodeId> {
 	private @EmbeddedId NodeId id;
 	private @Embedded GeoPosition geoPosition;
 	private String name;
+	private boolean decommissioned;
 
 	public static Node newNode(NodeId id, String name, GeoPosition geoPosition) {
 		return new Node().id(id).name(name).geoPosition(geoPosition);
@@ -43,5 +44,9 @@ public class Node extends JpaEntity<NodeId> {
 
 	public Node reposition(GeoPosition geoPosition) {
 		return geoPosition(geoPosition);
+	}
+
+	public Node decommission() {
+		return decommissioned(true);
 	}
 }
