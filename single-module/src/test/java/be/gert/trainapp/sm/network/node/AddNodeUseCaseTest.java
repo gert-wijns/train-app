@@ -1,8 +1,8 @@
 package be.gert.trainapp.sm.network.node;
 
-import static be.gert.trainapp.sm.network.given.NodeDefaults.stationAntwerp;
-import static be.gert.trainapp.sm.network.given.NodeDefaults.stationAntwerpId;
-import static be.gert.trainapp.sm.network.node.model.NodeExceptions.alreadyExists;
+import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerp;
+import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
+import static be.gert.trainapp.sm.network._model.NodeExceptions.alreadyExists;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;

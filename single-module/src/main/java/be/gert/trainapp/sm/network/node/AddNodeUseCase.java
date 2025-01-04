@@ -1,8 +1,8 @@
 package be.gert.trainapp.sm.network.node;
 
 import static be.gert.trainapp.sm.network._mapper.GeoPositionMapper.toGeoPosition;
-import static be.gert.trainapp.sm.network.node.model.Node.newNode;
-import static be.gert.trainapp.sm.network.node.model.NodeExceptions.alreadyExists;
+import static be.gert.trainapp.sm.network._model.Node.newNode;
+import static be.gert.trainapp.sm.network._model.NodeExceptions.alreadyExists;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.http.ResponseEntity;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import be.gert.trainapp.api.network.generated.AddNodeUseCaseApi;
 import be.gert.trainapp.api.network.generated.model.AddNodeRequest;
-import be.gert.trainapp.sm.network.GeoPosition;
+import be.gert.trainapp.sm._shared.values.GeoPosition;
 import be.gert.trainapp.sm.network.NodeId;
-import be.gert.trainapp.sm.network.node.jpa.NodeJpaRepository;
+import be.gert.trainapp.sm.network._repository.NodeJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

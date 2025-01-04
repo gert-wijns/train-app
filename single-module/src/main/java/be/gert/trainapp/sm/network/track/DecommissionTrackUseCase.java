@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.network.track;
 
-import static be.gert.trainapp.sm.network.track.model.TrackExceptions.notFound;
+import static be.gert.trainapp.sm.network._model.TrackExceptions.notFound;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import be.gert.trainapp.api.network.generated.DecommissionTrackUseCaseApi;
 import be.gert.trainapp.api.network.generated.model.DecommissionTrackRequest;
 import be.gert.trainapp.sm.network.NodeId;
 import be.gert.trainapp.sm.network.TrackId;
-import be.gert.trainapp.sm.network.track.jpa.TrackJpaRepository;
+import be.gert.trainapp.sm.network._repository.TrackJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

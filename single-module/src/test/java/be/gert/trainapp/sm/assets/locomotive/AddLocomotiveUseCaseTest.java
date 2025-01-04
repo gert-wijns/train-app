@@ -1,11 +1,11 @@
 package be.gert.trainapp.sm.assets.locomotive;
 
-import static be.gert.trainapp.sm.assets.given.LocomotiveDefaults.locomotive1937Id;
-import static be.gert.trainapp.sm.assets.given.LocomotiveDefaults.locomotiveModelLMSStainierBlack5;
-import static be.gert.trainapp.sm.assets.given.LocomotiveDefaults.locomotiveStainier;
-import static be.gert.trainapp.sm.assets.given.LocomotiveDefaults.serialNumberStainier;
-import static be.gert.trainapp.sm.assets.locomotive.model.LocomotiveExceptions.serialNumberAlreadyExists;
-import static be.gert.trainapp.sm.network.given.TrackDefaults.standardGauge;
+import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotive1937Id;
+import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotiveModelLMSStainierBlack5;
+import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotiveStainier;
+import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.serialNumberStainier;
+import static be.gert.trainapp.sm.assets._model.LocomotiveExceptions.serialNumberAlreadyExists;
+import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -16,7 +16,7 @@ import org.springframework.test.context.event.ApplicationEvents;
 import be.gert.trainapp.api.assets.generated.model.AddLocomotiveRequest;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
-import be.gert.trainapp.sm.assets.locomotive.model.events.LocomotiveAddedEvent;
+import be.gert.trainapp.sm.assets._events.LocomotiveAddedEvent;
 
 @ModuleTest
 class AddLocomotiveUseCaseTest {

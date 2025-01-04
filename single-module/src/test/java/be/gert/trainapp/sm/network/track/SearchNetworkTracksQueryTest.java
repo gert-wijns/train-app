@@ -1,8 +1,8 @@
 package be.gert.trainapp.sm.network.track;
 
-import static be.gert.trainapp.sm.network.given.NodeDefaults.stationAntwerpId;
-import static be.gert.trainapp.sm.network.given.NodeDefaults.stationBrusselsId;
-import static be.gert.trainapp.sm.network.given.TrackDefaults.trackAntwerpBrussels;
+import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
+import static be.gert.trainapp.sm.network._model.NodeDefaults.stationBrusselsId;
+import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrussels;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import be.gert.trainapp.api.network.generated.model.SpeedBody;
 import be.gert.trainapp.api.network.generated.model.SpeedBody.MeasurementEnum;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
-import be.gert.trainapp.sm.network.track.model.Track;
+import be.gert.trainapp.sm.network._model.Track;
 
 @ModuleTest
 public class SearchNetworkTracksQueryTest {

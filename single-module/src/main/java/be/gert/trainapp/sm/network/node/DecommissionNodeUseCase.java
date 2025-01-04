@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.network.node;
 
-import static be.gert.trainapp.sm.network.node.model.NodeExceptions.notFound;
+import static be.gert.trainapp.sm.network._model.NodeExceptions.notFound;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import be.gert.trainapp.api.network.generated.DecommissionNodeUseCaseApi;
 import be.gert.trainapp.api.network.generated.model.DecommissionNodeRequest;
 import be.gert.trainapp.sm.network.NodeId;
-import be.gert.trainapp.sm.network.node.jpa.NodeJpaRepository;
+import be.gert.trainapp.sm.network._repository.NodeJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

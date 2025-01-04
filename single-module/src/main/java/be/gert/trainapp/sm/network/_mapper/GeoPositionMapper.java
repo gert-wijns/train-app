@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.network._mapper;
 
 import be.gert.trainapp.api.network.generated.model.GeoPositionBody;
-import be.gert.trainapp.sm.network.GeoPosition;
+import be.gert.trainapp.sm._shared.values.GeoPosition;
 
 public class GeoPositionMapper {
 	public static GeoPositionBody toGeoPositionBody(GeoPosition geoPosition) {

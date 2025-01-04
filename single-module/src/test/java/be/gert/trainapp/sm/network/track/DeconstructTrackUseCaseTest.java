@@ -1,9 +1,9 @@
 package be.gert.trainapp.sm.network.track;
 
-import static be.gert.trainapp.sm.network.given.NodeDefaults.stationAntwerpId;
-import static be.gert.trainapp.sm.network.given.NodeDefaults.stationBrusselsId;
-import static be.gert.trainapp.sm.network.given.TrackDefaults.trackAntwerpBrussels;
-import static be.gert.trainapp.sm.network.given.TrackDefaults.trackAntwerpBrusselsId;
+import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
+import static be.gert.trainapp.sm.network._model.NodeDefaults.stationBrusselsId;
+import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrussels;
+import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrusselsId;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import be.gert.trainapp.api.network.generated.model.DecommissionTrackRequest;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
-import be.gert.trainapp.sm.network.track.model.TrackExceptions;
+import be.gert.trainapp.sm.network._model.TrackExceptions;
 
 @ModuleTest
 class DecommissionTrackUseCaseTest {

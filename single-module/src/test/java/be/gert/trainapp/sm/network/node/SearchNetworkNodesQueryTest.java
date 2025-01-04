@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.network.node;
 
-import static be.gert.trainapp.sm.network.given.NodeDefaults.stationAntwerp;
-import static be.gert.trainapp.sm.network.given.NodeDefaults.stationAntwerpId;
+import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerp;
+import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;

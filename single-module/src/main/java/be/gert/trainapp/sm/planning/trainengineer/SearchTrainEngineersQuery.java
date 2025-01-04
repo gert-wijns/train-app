@@ -18,7 +18,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import be.gert.trainapp.api.planning.generated.SearchTrainEngineersQueryApi;
 import be.gert.trainapp.api.planning.generated.model.SearchTrainEngineersQueryResponseItem;
 import be.gert.trainapp.sm.personnel.EmployeeId;
-import be.gert.trainapp.sm.planning.certification.CertificateCode;
+import be.gert.trainapp.sm.planning._model.CertificateCode;
 import lombok.RequiredArgsConstructor;
 
 @Component

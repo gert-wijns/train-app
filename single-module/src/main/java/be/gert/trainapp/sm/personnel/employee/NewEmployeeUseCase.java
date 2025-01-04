@@ -2,8 +2,8 @@ package be.gert.trainapp.sm.personnel.employee;
 
 import static be.gert.trainapp.sm.personnel.EmployeeId.asEmployeeId;
 import static be.gert.trainapp.sm.personnel._mapper.FullNameMapper.toFullName;
-import static be.gert.trainapp.sm.personnel.employee.model.Employee.newEmployee;
-import static be.gert.trainapp.sm.personnel.employee.model.EmployeeExceptions.alreadyExists;
+import static be.gert.trainapp.sm.personnel._model.Employee.newEmployee;
+import static be.gert.trainapp.sm.personnel._model.EmployeeExceptions.alreadyExists;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import be.gert.trainapp.api.personnel.generated.NewEmployeeUseCaseApi;
 import be.gert.trainapp.api.personnel.generated.model.NewEmployeeRequest;
 import be.gert.trainapp.sm.personnel.EmployeeId;
-import be.gert.trainapp.sm.personnel.employee.jpa.EmployeeJpaRepository;
-import be.gert.trainapp.sm.personnel.employee.model.events.EmployeeHired;
+import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
+import be.gert.trainapp.sm.personnel._events.EmployeeHired;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

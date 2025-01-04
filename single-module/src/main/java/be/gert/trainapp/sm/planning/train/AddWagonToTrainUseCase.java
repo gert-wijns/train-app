@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.planning.train;
 
-import static be.gert.trainapp.sm.planning.train.model.TrainExceptions.notFound;
+import static be.gert.trainapp.sm.planning._model.TrainExceptions.notFound;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import be.gert.trainapp.api.planning.generated.AddWagonToTrainUseCaseApi;
 import be.gert.trainapp.api.planning.generated.model.AddWagonToTrainRequest;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.planning.TrainId;
-import be.gert.trainapp.sm.planning.train.jpa.TrainJpaRepository;
+import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

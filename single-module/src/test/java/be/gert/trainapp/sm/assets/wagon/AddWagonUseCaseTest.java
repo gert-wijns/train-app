@@ -1,12 +1,12 @@
 package be.gert.trainapp.sm.assets.wagon;
 
-import static be.gert.trainapp.sm.assets.given.LocomotiveDefaults.serialNumberStainier;
-import static be.gert.trainapp.sm.assets.given.WagonDefaults.serialNumber;
-import static be.gert.trainapp.sm.assets.given.WagonDefaults.testWagon;
-import static be.gert.trainapp.sm.assets.given.WagonDefaults.wagonId;
-import static be.gert.trainapp.sm.assets.given.WagonDefaults.wagonModelXs;
-import static be.gert.trainapp.sm.assets.wagon.model.WagonExceptions.serialNumberAlreadyExists;
-import static be.gert.trainapp.sm.network.given.TrackDefaults.standardGauge;
+import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.serialNumberStainier;
+import static be.gert.trainapp.sm.assets._model.WagonDefaults.serialNumber;
+import static be.gert.trainapp.sm.assets._model.WagonDefaults.testWagon;
+import static be.gert.trainapp.sm.assets._model.WagonDefaults.wagonId;
+import static be.gert.trainapp.sm.assets._model.WagonDefaults.wagonModelXs;
+import static be.gert.trainapp.sm.assets._model.WagonExceptions.serialNumberAlreadyExists;
+import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -17,7 +17,7 @@ import org.springframework.test.context.event.ApplicationEvents;
 import be.gert.trainapp.api.assets.generated.model.AddWagonRequest;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
-import be.gert.trainapp.sm.assets.wagon.model.events.WagonAddedEvent;
+import be.gert.trainapp.sm.assets._events.WagonAddedEvent;
 
 @ModuleTest
 class AddWagonUseCaseTest {

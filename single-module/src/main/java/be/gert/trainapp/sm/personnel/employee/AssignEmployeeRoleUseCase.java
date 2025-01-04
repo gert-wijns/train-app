@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.personnel.employee;
 
 import static be.gert.trainapp.sm.personnel.EmployeeId.asEmployeeId;
-import static be.gert.trainapp.sm.personnel.employee.model.EmployeeExceptions.notFound;
+import static be.gert.trainapp.sm.personnel._model.EmployeeExceptions.notFound;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import be.gert.trainapp.api.personnel.generated.AssignEmployeeRoleUseCaseApi;
 import be.gert.trainapp.api.personnel.generated.model.AssignEmployeeRoleRequest;
 import be.gert.trainapp.sm.personnel.EmployeeId;
-import be.gert.trainapp.sm.personnel.employee.jpa.EmployeeJpaRepository;
-import be.gert.trainapp.sm.personnel.employee.model.EmployeeRole;
-import be.gert.trainapp.sm.personnel.employee.model.events.EmployeeRoleAssigned;
+import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
+import be.gert.trainapp.sm.personnel._model.EmployeeRole;
+import be.gert.trainapp.sm.personnel._events.EmployeeRoleAssigned;
 import lombok.RequiredArgsConstructor;
 
 @Component

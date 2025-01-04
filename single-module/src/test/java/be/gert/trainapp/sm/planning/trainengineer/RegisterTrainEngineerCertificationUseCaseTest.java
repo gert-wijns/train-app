@@ -1,8 +1,8 @@
 package be.gert.trainapp.sm.planning.trainengineer;
 
 import static be.gert.trainapp.sm._shared.clock.AppClock.clock;
-import static be.gert.trainapp.sm.personnel.given.EmployeeDefaults.employeeChristineGonzalesId;
-import static be.gert.trainapp.sm.planning.given.CertificationDefaults.certificateCodeTsiLoc;
+import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzalesId;
+import static be.gert.trainapp.sm.planning._model.CertificationDefaults.certificateCodeTsiLoc;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,9 +15,9 @@ import be.gert.trainapp.api.planning.generated.model.RegisterTrainEngineerCertif
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm._shared.values.LocalDateRange;
-import be.gert.trainapp.sm.planning.trainengineer.model.TrainEngineer;
-import be.gert.trainapp.sm.planning.trainengineer.model.TrainEngineerCertification;
-import be.gert.trainapp.sm.planning.trainengineer.model.TrainEngineerCertificationId;
+import be.gert.trainapp.sm.planning._model.TrainEngineer;
+import be.gert.trainapp.sm.planning._model.TrainEngineerCertification;
+import be.gert.trainapp.sm.planning._model.TrainEngineerCertificationId;
 
 @ModuleTest
 class RegisterTrainEngineerCertificationUseCaseTest {

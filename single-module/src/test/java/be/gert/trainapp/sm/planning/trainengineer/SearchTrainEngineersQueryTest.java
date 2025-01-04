@@ -1,9 +1,9 @@
 package be.gert.trainapp.sm.planning.trainengineer;
 
 import static be.gert.trainapp.sm._shared.clock.AppClock.clock;
-import static be.gert.trainapp.sm.personnel.given.EmployeeDefaults.employeeChristineGonzales;
-import static be.gert.trainapp.sm.planning.given.CertificationDefaults.certificateCodeTsiLoc;
-import static be.gert.trainapp.sm.planning.given.CertificationDefaults.certificateCodeTsiWag;
+import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzales;
+import static be.gert.trainapp.sm.planning._model.CertificationDefaults.certificateCodeTsiLoc;
+import static be.gert.trainapp.sm.planning._model.CertificationDefaults.certificateCodeTsiWag;
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,10 +21,10 @@ import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm._shared.values.LocalDateRange;
 import be.gert.trainapp.sm.personnel.EmployeeId;
-import be.gert.trainapp.sm.planning.certification.CertificateCode;
-import be.gert.trainapp.sm.planning.trainengineer.model.TrainEngineer;
-import be.gert.trainapp.sm.planning.trainengineer.model.TrainEngineerCertification;
-import be.gert.trainapp.sm.planning.trainengineer.model.TrainEngineerCertificationId;
+import be.gert.trainapp.sm.planning._model.CertificateCode;
+import be.gert.trainapp.sm.planning._model.TrainEngineer;
+import be.gert.trainapp.sm.planning._model.TrainEngineerCertification;
+import be.gert.trainapp.sm.planning._model.TrainEngineerCertificationId;
 import lombok.With;
 
 @ModuleTest

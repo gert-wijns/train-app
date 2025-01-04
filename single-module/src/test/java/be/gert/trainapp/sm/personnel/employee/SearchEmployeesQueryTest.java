@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.personnel.employee;
 
-import static be.gert.trainapp.sm.personnel.given.EmployeeDefaults.employeeChristineGonzales;
+import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzales;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;

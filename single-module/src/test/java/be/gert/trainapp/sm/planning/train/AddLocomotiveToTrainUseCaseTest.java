@@ -1,10 +1,10 @@
 package be.gert.trainapp.sm.planning.train;
 
-import static be.gert.trainapp.sm.planning.given.TrainDefaults.emptyOrientExpress;
-import static be.gert.trainapp.sm.planning.given.TrainDefaults.locomotiveOrientExpressId;
-import static be.gert.trainapp.sm.planning.given.TrainDefaults.trainOrientExpressId;
-import static be.gert.trainapp.sm.planning.train.model.TrainExceptions.locomotiveAlreadySet;
-import static be.gert.trainapp.sm.planning.train.model.TrainExceptions.notFound;
+import static be.gert.trainapp.sm.planning._model.TrainDefaults.emptyOrientExpress;
+import static be.gert.trainapp.sm.planning._model.TrainDefaults.locomotiveOrientExpressId;
+import static be.gert.trainapp.sm.planning._model.TrainDefaults.trainOrientExpressId;
+import static be.gert.trainapp.sm.planning._model.TrainExceptions.locomotiveAlreadySet;
+import static be.gert.trainapp.sm.planning._model.TrainExceptions.notFound;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;

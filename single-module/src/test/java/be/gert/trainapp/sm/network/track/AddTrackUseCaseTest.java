@@ -1,10 +1,10 @@
 package be.gert.trainapp.sm.network.track;
 
-import static be.gert.trainapp.sm.network.given.NodeDefaults.stationAntwerpId;
-import static be.gert.trainapp.sm.network.given.NodeDefaults.stationBrusselsId;
-import static be.gert.trainapp.sm.network.given.TrackDefaults.trackAntwerpBrussels;
-import static be.gert.trainapp.sm.network.given.TrackDefaults.trackAntwerpBrusselsId;
-import static be.gert.trainapp.sm.network.track.model.TrackExceptions.alreadyExists;
+import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
+import static be.gert.trainapp.sm.network._model.NodeDefaults.stationBrusselsId;
+import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrussels;
+import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrusselsId;
+import static be.gert.trainapp.sm.network._model.TrackExceptions.alreadyExists;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;

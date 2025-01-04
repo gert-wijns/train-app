@@ -1,0 +1,11 @@
+package be.gert.trainapp.sm.network._repository;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import be.gert.trainapp.sm.network.NodeId;
+import be.gert.trainapp.sm.network._model.Node;
+
+@Repository
+public interface NodeJpaRepository extends CrudRepository<Node, NodeId> {
+}

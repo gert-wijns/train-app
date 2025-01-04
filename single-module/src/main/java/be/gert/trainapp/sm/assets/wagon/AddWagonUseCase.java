@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.assets.wagon;
 
-import static be.gert.trainapp.sm.assets.wagon.model.Wagon.newWagon;
-import static be.gert.trainapp.sm.assets.wagon.model.WagonExceptions.serialNumberAlreadyExists;
+import static be.gert.trainapp.sm.assets._model.Wagon.newWagon;
+import static be.gert.trainapp.sm.assets._model.WagonExceptions.serialNumberAlreadyExists;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -15,8 +15,8 @@ import be.gert.trainapp.api.assets.generated.model.AddWagonRequest;
 import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.assets.WagonModelId;
-import be.gert.trainapp.sm.assets.wagon.jpa.WagonJpaRepository;
-import be.gert.trainapp.sm.assets.wagon.model.events.WagonAddedEvent;
+import be.gert.trainapp.sm.assets._repository.WagonJpaRepository;
+import be.gert.trainapp.sm.assets._events.WagonAddedEvent;
 import be.gert.trainapp.sm.network.TrackGauge;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

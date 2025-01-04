@@ -10,8 +10,8 @@ import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.TestEntities;
 import be.gert.trainapp.sm.assets.AssetId;
 import be.gert.trainapp.sm.assets.SerialNumber;
-import be.gert.trainapp.sm.assets.asset.model.Asset;
-import be.gert.trainapp.sm.assets.asset.model.AssetType;
+import be.gert.trainapp.sm.assets._model.Asset;
+import be.gert.trainapp.sm.assets._model.AssetType;
 
 @ModuleTest
 class SearchAssetsQueryTest {

@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.assets.locomotive;
 
-import static be.gert.trainapp.sm.assets.locomotive.model.Locomotive.newLocomotive;
-import static be.gert.trainapp.sm.assets.locomotive.model.LocomotiveExceptions.serialNumberAlreadyExists;
+import static be.gert.trainapp.sm.assets._model.Locomotive.newLocomotive;
+import static be.gert.trainapp.sm.assets._model.LocomotiveExceptions.serialNumberAlreadyExists;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -14,8 +14,8 @@ import be.gert.trainapp.api.assets.generated.model.AddLocomotiveRequest;
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.LocomotiveModelId;
 import be.gert.trainapp.sm.assets.SerialNumber;
-import be.gert.trainapp.sm.assets.locomotive.jpa.LocomotiveJpaRepository;
-import be.gert.trainapp.sm.assets.locomotive.model.events.LocomotiveAddedEvent;
+import be.gert.trainapp.sm.assets._repository.LocomotiveJpaRepository;
+import be.gert.trainapp.sm.assets._events.LocomotiveAddedEvent;
 import be.gert.trainapp.sm.network.TrackGauge;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

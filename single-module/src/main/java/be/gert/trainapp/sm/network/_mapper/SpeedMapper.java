@@ -2,8 +2,8 @@ package be.gert.trainapp.sm.network._mapper;
 
 import be.gert.trainapp.api.network.generated.model.SpeedBody;
 import be.gert.trainapp.api.network.generated.model.SpeedBody.MeasurementEnum;
-import be.gert.trainapp.sm.network.Speed;
-import be.gert.trainapp.sm.network.Speed.SpeedMeasurement;
+import be.gert.trainapp.sm._shared.values.Speed;
+import be.gert.trainapp.sm._shared.values.Speed.SpeedMeasurement;
 
 public class SpeedMapper {
 	public static SpeedBody toSpeedBody(Speed speed) {
