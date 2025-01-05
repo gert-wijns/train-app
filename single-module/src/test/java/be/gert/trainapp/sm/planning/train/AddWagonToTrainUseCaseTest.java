@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.planning.train;
 
-import static be.gert.trainapp.sm.planning._model.Train.wagonAlreadyAdded;
+import static be.gert.trainapp.sm.planning.PlanningExceptions.wagonAlreadyAdded;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.assertTrain;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.emptyOrientExpress;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.orientExpressFirstCoach;

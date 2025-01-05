@@ -1,0 +1,22 @@
+post:
+  operationId: execute
+  tags:
+    - AddWagonModelUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: AddWagonModelRequest
+          properties:
+            id:
+              $ref: '../components.yaml#/components/schemas/WagonModelTypeId'
+            name:
+              type: string
+            gauge:
+              type: string
+          required: [id, name, gauge]
+  responses:
+    204:
+      description: Success

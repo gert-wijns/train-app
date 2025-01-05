@@ -2,6 +2,7 @@ package be.gert.trainapp.sm.assets.locomotive;
 
 import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 import static be.gert.trainapp.sm.assets._model.Locomotive.newLocomotive;
+import static be.gert.trainapp.sm.assets._repository.LocomotiveModelJpaRepository.notFound;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -17,7 +18,7 @@ import be.gert.trainapp.sm.assets.LocomotiveModelId;
 import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets._events.LocomotiveAddedEvent;
 import be.gert.trainapp.sm.assets._repository.LocomotiveJpaRepository;
-import be.gert.trainapp.sm.network.TrackGauge;
+import be.gert.trainapp.sm.assets._repository.LocomotiveModelJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +33,7 @@ public class AddLocomotiveUseCase implements AddLocomotiveUseCaseApi {
 				.asException();
 	}
 
+	private final LocomotiveModelJpaRepository modelJpa;
 	private final LocomotiveJpaRepository jpa;
 	private final ApplicationEventPublisher eventPublisher;
 
@@ -42,12 +44,15 @@ public class AddLocomotiveUseCase implements AddLocomotiveUseCaseApi {
 		if (jpa.existsBySerialNumberIs(serialNumber)) {
 			throw serialNumberAlreadyExists(serialNumber);
 		}
+		LocomotiveModelId modelId = new LocomotiveModelId(request.getModelTypeId());
+		if (!modelJpa.existsById(modelId)) {
+			throw notFound(modelId);
+		}
 		var locomotive = jpa.save(newLocomotive(new LocomotiveId(
 				request.getId()),
 				request.getName(),
-				new LocomotiveModelId(request.getModelTypeId()),
-				serialNumber,
-				new TrackGauge(request.getGauge())));
+				modelId,
+				serialNumber));
 		eventPublisher.publishEvent(new LocomotiveAddedEvent(
 				locomotive.id(),
 				locomotive.modelId(),

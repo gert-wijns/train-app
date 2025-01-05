@@ -23,10 +23,10 @@ get:
               properties:
                 id:
                   $ref: '../components.yaml#/components/schemas/WagonId'
-                modelTypeId:
-                  $ref: '../components.yaml#/components/schemas/WagonModelTypeId'
+                model:
+                  $ref: '../components.yaml#/components/schemas/WagonModelResponse'
                 serialNumber:
                   $ref: '../components.yaml#/components/schemas/SerialNumber'
-                gauge:
-                  type: string
-              required: [id, modelTypeId, serialNumber, gauge]
+                decommissioned:
+                  type: boolean
+              required: [id, modelTypeId, serialNumber, model, decommissioned]

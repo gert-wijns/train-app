@@ -11,10 +11,18 @@ security:
 paths:
   /api/assets/search:
     $ref: './paths/search.yaml'
+
+  /api/assets/locomotive-models/add:
+    $ref: './paths/locomotive-models_add.yaml'
+
   /api/assets/locomotives/add:
     $ref: './paths/locomotives_add.yaml'
   /api/assets/locomotives/search:
     $ref: './paths/locomotives_search.yaml'
+
+  /api/assets/wagon-models/add:
+    $ref: './paths/wagon-models_add.yaml'
+
   /api/assets/wagons/add:
     $ref: './paths/wagons_add.yaml'
   /api/assets/wagons/search:

@@ -18,9 +18,7 @@ post:
               $ref: '../components.yaml#/components/schemas/LocomotiveId'
             serialNumber:
               $ref: '../components.yaml#/components/schemas/SerialNumber'
-            gauge:
-              type: string
-          required: [locomotiveId, modelTypeId, name, serialNumber, gauge]
+          required: [locomotiveId, modelTypeId, name, serialNumber]
   responses:
     204:
       description: Success

@@ -1,24 +1,23 @@
 package be.gert.trainapp.sm.planning._model;
 
-import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
+import static be.gert.trainapp.sm._shared.entity.EntityList.entityList;
+import static be.gert.trainapp.sm.assets.LocomotivePowerType.ELECTRIC;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.EAGER;
+import static org.apache.commons.lang3.ObjectUtils.notEqual;
 
 import java.util.List;
 
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
-import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm._shared.values.GeoPosition;
-import be.gert.trainapp.sm.assets.LocomotiveId;
-import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.network.TrackGauge;
+import be.gert.trainapp.sm.planning.PlanningExceptions;
 import be.gert.trainapp.sm.planning.RoutePlanId;
 import be.gert.trainapp.sm.planning.TrainId;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -40,7 +39,7 @@ import lombok.Setter;
 //</editor-fold>
 public class Train extends JpaEntity<TrainId> {
 	private @EmbeddedId TrainId id;
-	private @OneToOne TrainLocomotive locomotive;
+	private @Embedded TrainLocomotive locomotive;
 	private @OneToMany(mappedBy = "train", cascade = ALL, fetch = EAGER) List<TrainWagon> wagons;
 	private @Embedded TrackGauge gauge;
 	private @Embedded GeoPosition position;
@@ -51,37 +50,25 @@ public class Train extends JpaEntity<TrainId> {
 		return new Train().id(id);
 	}
 
-	public static DomainException locomotiveAlreadySet(TrainId trainId, LocomotiveId locomotiveId) {
-		return error("PLANNING_TRAIN_LOCOMOTIVE_ALREADY_SET",
-				"Train '${id}' already has a locomotive with id '${locomotiveId}'.")
-				.withParam("id", trainId.id())
-				.withParam("locomotiveId", locomotiveId.id())
-				.asException();
-	}
-
-	public Train usingLocomotive(TrainLocomotive locomotive) {
+	public Train useLocomotive(Locomotive locomotive) {
 		if (this.locomotive != null) {
-			throw locomotiveAlreadySet(id, this.locomotive.id());
+			throw PlanningExceptions.trainLocomotiveAlreadySet(id, this.locomotive.id());
 		}
-		this.locomotive = locomotive;
-		locomotive.attachToTrain(this);
+		if (notEqual(gauge, locomotive.gauge())) {
+			throw PlanningExceptions.trainLocomotiveGaugeNotCompatible(id, gauge, locomotive.id(), locomotive.gauge());
+		}
+		this.locomotive = new TrainLocomotive(
+				locomotive.id(),
+				locomotive.powerType() == ELECTRIC,
+				locomotive.decommissioned());
 		return this;
 	}
 
-	public static DomainException wagonAlreadyAdded(TrainId trainId, WagonId wagonId) {
-		return error("PLANNING_TRAIN_WAGON_ALREADY_ADDED",
-				"Train '${id}' already has wagon with id '${wagonId}'.")
-				.withParam("id", trainId.id())
-				.withParam("wagonId", wagonId.id())
-				.asException();
-	}
-
-	public Train attachWagon(TrainWagon wagon) {
-		if (wagons.contains(wagon)) {
-			throw wagonAlreadyAdded(id, wagon.id());
+	public Train attachWagon(Wagon wagon) {
+		if (entityList(wagons).contains(wagon.id())) {
+			throw PlanningExceptions.wagonAlreadyAdded(id, wagon.id());
 		}
-		wagons.add(wagon);
-		wagon.attachToTrain(this);
+		wagons.add(new TrainWagon(wagon.id(), wagon.decommissioned(), this));
 		return this;
 	}
 }

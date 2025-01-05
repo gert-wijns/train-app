@@ -2,6 +2,7 @@ package be.gert.trainapp.sm.assets.wagon;
 
 import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 import static be.gert.trainapp.sm.assets._model.Wagon.newWagon;
+import static be.gert.trainapp.sm.assets._repository.WagonModelJpaRepository.notFound;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -16,9 +17,9 @@ import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.assets.WagonModelId;
-import be.gert.trainapp.sm.assets._repository.WagonJpaRepository;
 import be.gert.trainapp.sm.assets._events.WagonAddedEvent;
-import be.gert.trainapp.sm.network.TrackGauge;
+import be.gert.trainapp.sm.assets._repository.WagonJpaRepository;
+import be.gert.trainapp.sm.assets._repository.WagonModelJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -34,6 +35,7 @@ public class AddWagonUseCase implements AddWagonUseCaseApi {
 				.asException();
 	}
 
+	private final WagonModelJpaRepository modelJpa;
 	private final WagonJpaRepository jpa;
 	private final ApplicationEventPublisher eventPublisher;
 
@@ -44,11 +46,14 @@ public class AddWagonUseCase implements AddWagonUseCaseApi {
 		if (jpa.existsBySerialNumberIs(serialNumber)) {
 			throw serialNumberAlreadyExists(serialNumber);
 		}
+		WagonModelId wagonModelId = new WagonModelId(request.getModelTypeId());
+		if (!modelJpa.existsById(wagonModelId)) {
+			throw notFound(wagonModelId);
+		}
 		var wagon = jpa.save(newWagon(
 				new WagonId(request.getWagonId()),
-				new WagonModelId(request.getModelTypeId()),
-				serialNumber,
-				new TrackGauge(request.getGauge())));
+				wagonModelId,
+				serialNumber));
 		eventPublisher.publishEvent(new WagonAddedEvent(
 				wagon.id(), wagon.modelId(), wagon.serialNumber()));
 		return noContent().build();

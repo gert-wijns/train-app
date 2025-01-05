@@ -1,0 +1,24 @@
+post:
+  operationId: execute
+  tags:
+    - AddLocomotiveModelUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: AddLocomotiveModelRequest
+          properties:
+            id:
+              $ref: '../components.yaml#/components/schemas/LocomotiveModelTypeId'
+            name:
+              type: string
+            powerType:
+              $ref: '../components.yaml#/components/schemas/LocomotivePowerType'
+            gauge:
+              type: string
+          required: [id, name, powerType, gauge]
+  responses:
+    204:
+      description: Success

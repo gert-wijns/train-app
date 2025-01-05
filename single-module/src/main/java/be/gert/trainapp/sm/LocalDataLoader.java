@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm;
 
+import static be.gert.trainapp.api.assets.generated.model.LocomotivePowerType.ELECTRIC;
 import static be.gert.trainapp.api.personnel.generated.model.EmployeeRole.TRAIN_CONDUCTOR;
 import static be.gert.trainapp.api.personnel.generated.model.EmployeeRole.TRAIN_ENGINEER;
 import static java.math.RoundingMode.HALF_UP;
@@ -11,7 +12,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import be.gert.trainapp.api.assets.generated.model.AddLocomotiveModelRequest;
 import be.gert.trainapp.api.assets.generated.model.AddLocomotiveRequest;
+import be.gert.trainapp.api.assets.generated.model.AddWagonModelRequest;
 import be.gert.trainapp.api.assets.generated.model.AddWagonRequest;
 import be.gert.trainapp.api.network.generated.model.AddNodeRequest;
 import be.gert.trainapp.api.network.generated.model.AddTrackRequest;
@@ -25,7 +28,9 @@ import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.LocomotiveModelId;
 import be.gert.trainapp.sm.assets.WagonModelId;
 import be.gert.trainapp.sm.assets.locomotive.AddLocomotiveUseCase;
+import be.gert.trainapp.sm.assets.locomotivemodel.AddLocomotiveModelUseCase;
 import be.gert.trainapp.sm.assets.wagon.AddWagonUseCase;
+import be.gert.trainapp.sm.assets.wagonmodel.AddWagonModelUseCase;
 import be.gert.trainapp.sm.network.NodeId;
 import be.gert.trainapp.sm.network.TrackGauge;
 import be.gert.trainapp.sm.network.node.AddNodeUseCase;
@@ -41,7 +46,9 @@ import lombok.RequiredArgsConstructor;
 public class LocalDataLoader {
 	private final NewEmployeeUseCase newEmployeeUseCase;
 	private final AssignEmployeeRoleUseCase assignEmployeeRoleUseCase;
+	private final AddLocomotiveModelUseCase addLocomotiveModelUseCase;
 	private final AddLocomotiveUseCase addLocomotiveUseCase;
+	private final AddWagonModelUseCase addWagonModelUseCase;
 	private final AddWagonUseCase addWagonUseCase;
 	private final AddNodeUseCase addNodeUseCase;
 	private final AddTrackUseCase addTrackUseCase;
@@ -56,11 +63,11 @@ public class LocalDataLoader {
 	public static final LocomotiveId locomotiveAbberleyHall = new LocomotiveId("4981");
 
 	//https://www.brdatabase.info/locoqry.php?action=class&type=S&id=146005//
-	public static final LocomotiveModelId locomotiveModel_Gwr4900 = new LocomotiveModelId("GWR_4900");
+	public static final LocomotiveModelId locomotiveModel_GWR4900 = new LocomotiveModelId("GWR_4900");
 	//https://www.brdatabase.info/locoqry.php?action=class&type=S&id=146005//
 	public static final LocomotiveModelId locomotiveModel_GWR4073 = new LocomotiveModelId("GWR_4073");
 	//https://www.brdatabase.info/locoqry.php?action=class&type=S&id=600201
-	public static final LocomotiveModelId locomotiveModelLNERB1 = new LocomotiveModelId("LNR_B1");
+	public static final LocomotiveModelId locomotiveModel_LNERB1 = new LocomotiveModelId("LNR_B1");
 
 	public static final WagonModelId wagonModelCoach = new WagonModelId("Coach");
 	public static final WagonModelId wagonModelCovered = new WagonModelId("Covered");
@@ -88,24 +95,37 @@ public class LocalDataLoader {
 				.employeeId(employeeJohnId.id())
 				.role(TRAIN_CONDUCTOR));
 
+		addLocomotiveModelUseCase.execute(new AddLocomotiveModelRequest()
+				.id(locomotiveModel_LNERB1.id())
+				.name("LNERB1")
+				.powerType(ELECTRIC)
+				.gauge(standardGauge.type()));
+		addLocomotiveModelUseCase.execute(new AddLocomotiveModelRequest()
+				.id(locomotiveModel_GWR4073.id())
+				.name("GWR4073")
+				.powerType(ELECTRIC)
+				.gauge(standardGauge.type()));
+		addLocomotiveModelUseCase.execute(new AddLocomotiveModelRequest()
+				.id(locomotiveModel_GWR4900.id())
+				.name("GWR4900")
+				.powerType(ELECTRIC)
+				.gauge(standardGauge.type()));
+
 		addLocomotiveUseCase.execute(new AddLocomotiveRequest()
 				.id(locomotiveAHaroldBibby.id())
-				.modelTypeId(locomotiveModelLNERB1.id())
+				.modelTypeId(locomotiveModel_LNERB1.id())
 				.name("A HAROLD BIBBY")
-				.serialNumber("2024-364-0600-01")
-				.gauge(standardGauge.type()));
+				.serialNumber("2024-364-0600-01"));
 		addLocomotiveUseCase.execute(new AddLocomotiveRequest()
 				.id(locomotiveAbbotsburyCastle.id())
 				.modelTypeId(locomotiveModel_GWR4073.id())
 				.name("ABBOTSBURY CASTLE")
-				.serialNumber("2024-364-0600-02")
-				.gauge(standardGauge.type()));
+				.serialNumber("2024-364-0600-02"));
 		addLocomotiveUseCase.execute(new AddLocomotiveRequest()
 				.id(locomotiveAbberleyHall.id())
-				.modelTypeId(locomotiveModel_Gwr4900.id())
+				.modelTypeId(locomotiveModel_GWR4900.id())
 				.name("ABBERLEY HALL")
-				.serialNumber("2024-364-0600-03")
-				.gauge(standardGauge.type()));
+				.serialNumber("2024-364-0600-03"));
 
 		addWagons(wagonModelCoach, "2024-364-0700-", 5);
 		addWagons(wagonModelCovered, "2024-364-0701-", 4);
@@ -116,11 +136,14 @@ public class LocalDataLoader {
 	}
 
 	private void addWagons(WagonModelId modelId, String prefix, int n) {
+		addWagonModelUseCase.execute(new AddWagonModelRequest()
+				.id(modelId.id())
+				.name(modelId.id())
+				.gauge(standardGauge.type()));
 		for (int i=1; i <= n; i++) {
 			addWagonUseCase.execute(new AddWagonRequest()
 					.wagonId(modelId.id() + "-" + i)
 					.modelTypeId(modelId.id())
-					.gauge(standardGauge.type())
 					.serialNumber(prefix + (i > 9 ? i: "0" + i)));
 		}
 	}
@@ -220,7 +243,7 @@ public class LocalDataLoader {
 						.longitude(new BigDecimal(x - 1214).setScale(7, HALF_UP)
 								.divide(new BigDecimal(1000).setScale(7, HALF_UP), HALF_UP))
 						.latitude(new BigDecimal(y-5149).setScale(7, HALF_UP)
-								.divide(new BigDecimal(1000).setScale(7, HALF_UP)))));
+								.divide(new BigDecimal(1000).setScale(7, HALF_UP), HALF_UP))));
 		return new NodeId(name);
 	}
 }

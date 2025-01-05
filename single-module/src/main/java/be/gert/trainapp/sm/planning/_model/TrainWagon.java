@@ -2,8 +2,6 @@ package be.gert.trainapp.sm.planning._model;
 
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
 import be.gert.trainapp.sm.assets.WagonId;
-import be.gert.trainapp.sm.assets.WagonModelId;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -28,14 +26,6 @@ import lombok.Setter;
 //</editor-fold>
 public class TrainWagon extends JpaEntity<WagonId> {
 	private @EmbeddedId WagonId id;
-	private @Embedded WagonModelId modelId;
+	private boolean decomissioned;
 	private @ManyToOne Train train;
-
-	public static TrainWagon newTrainWagon(WagonId id, WagonModelId modelId) {
-		return new TrainWagon().id(id).modelId(modelId);
-	}
-
-	TrainWagon attachToTrain(Train train) {
-		return train(train);
-	}
 }

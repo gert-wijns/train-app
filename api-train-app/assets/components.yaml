@@ -9,6 +9,9 @@ components:
     AssetType:
       type: string
       enum: [LOCOMOTIVE, WAGON]
+    LocomotivePowerType:
+      type: string
+      enum: [ELECTRIC, DIESEL]
     AssetSubType:
       type: string
     SerialNumber:
@@ -17,3 +20,25 @@ components:
       type: string
     WagonModelTypeId:
       type: string
+    LocomotiveModelResponse:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/LocomotiveModelTypeId"
+        name:
+          type: string
+        powerType:
+          $ref: '#/components/schemas/LocomotivePowerType'
+        gauge:
+          type: string
+      required: [id, name, powerType, gauge]
+    WagonModelResponse:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/WagonModelTypeId"
+        name:
+          type: string
+        gauge:
+          type: string
+      required: [ id, name, gauge ]

@@ -1,9 +1,8 @@
 package be.gert.trainapp.sm.assets._model;
 
-import be.gert.trainapp.sm._shared.entity.JpaEntity;
-import be.gert.trainapp.sm.assets.SerialNumber;
-import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.assets.WagonModelId;
+import be.gert.trainapp.sm.network.TrackGauge;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -18,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 //<editor-fold desc="EntityDef">
-@Table(name = "WAGON", schema = "ASSETS")
+@Table(name = "WAGON_MODEL", schema = "ASSETS")
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Getter
@@ -28,19 +27,14 @@ import lombok.ToString;
 @ToString
 @Builder(toBuilder = true)
 //</editor-fold>
-public class Wagon extends JpaEntity<WagonId> {
-	private @EmbeddedId WagonId id;
-	private @Embedded WagonModelId modelId;
-	private @Embedded SerialNumber serialNumber;
-	private boolean decommissioned;
+public class WagonModel {
+	private @EmbeddedId WagonModelId id;
+	private @Column(length = 30) String name;
+	private @Embedded TrackGauge gauge;
 
-	public static Wagon newWagon(WagonId wagonId,
-	                             WagonModelId wagonModelId,
-	                             SerialNumber serialNumber) {
-		return new Wagon()
-				.id(wagonId)
-				.modelId(wagonModelId)
-				.serialNumber(serialNumber);
+	public static WagonModel newWagonModel(WagonModelId id,
+	                                       String name,
+	                                       TrackGauge gauge) {
+		return new WagonModel().id(id).name(name).gauge(gauge);
 	}
-
 }

@@ -2,9 +2,11 @@ package be.gert.trainapp.sm.assets.locomotive;
 
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.assertLocomotive;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotive1937Id;
-import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotiveModelLMSStainierBlack5;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotiveStainier;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.serialNumberStainier;
+import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.locomotiveModelLMSStainierBlack5;
+import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.locomotiveModelLMSStainierBlack5Id;
+import static be.gert.trainapp.sm.assets._repository.LocomotiveModelJpaRepository.notFound;
 import static be.gert.trainapp.sm.assets.locomotive.AddLocomotiveUseCase.serialNumberAlreadyExists;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,9 +20,12 @@ import be.gert.trainapp.api.assets.generated.model.AddLocomotiveRequest;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.assets._events.LocomotiveAddedEvent;
 import be.gert.trainapp.sm.assets._repository.LocomotiveJpaRepository;
+import be.gert.trainapp.sm.assets._repository.LocomotiveModelJpaRepository;
 
 @ModuleTest
 class AddLocomotiveUseCaseTest {
+	@Autowired
+	LocomotiveModelJpaRepository modelJpa;
 	@Autowired
 	LocomotiveJpaRepository jpa;
 	@Autowired
@@ -30,7 +35,7 @@ class AddLocomotiveUseCaseTest {
 
 	AddLocomotiveRequest request = new AddLocomotiveRequest()
 			.id(locomotive1937Id.id())
-			.modelTypeId(locomotiveModelLMSStainierBlack5.id())
+			.modelTypeId(locomotiveModelLMSStainierBlack5Id.id())
 			.serialNumber(serialNumberStainier.sn())
 			.name("Stainier")
 			.gauge(standardGauge.type());
@@ -38,6 +43,7 @@ class AddLocomotiveUseCaseTest {
 	@Test
 	void success() {
 		// when
+		modelJpa.save(locomotiveModelLMSStainierBlack5());
 		usecase.execute(request);
 
 		// then
@@ -47,9 +53,15 @@ class AddLocomotiveUseCaseTest {
 		assertThat(events.stream(LocomotiveAddedEvent.class))
 				.containsExactly(new LocomotiveAddedEvent(
 						locomotive1937Id,
-						locomotiveModelLMSStainierBlack5,
+						locomotiveModelLMSStainierBlack5Id,
 						serialNumberStainier,
 						"Stainier"));
+	}
+
+	@Test
+	void throwModelNotFound() {
+		assertThatThrownBy(() -> usecase.execute(request))
+				.isEqualTo(notFound(locomotiveModelLMSStainierBlack5Id));
 	}
 
 	@Test

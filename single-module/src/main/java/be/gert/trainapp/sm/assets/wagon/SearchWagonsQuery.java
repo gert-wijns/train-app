@@ -1,6 +1,7 @@
 package be.gert.trainapp.sm.assets.wagon;
 
 import static be.gert.trainapp.sm.assets._model.QWagon.wagon;
+import static be.gert.trainapp.sm.assets._model.QWagonModel.wagonModel;
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -15,6 +16,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import be.gert.trainapp.api.assets.generated.SearchWagonsQueryApi;
 import be.gert.trainapp.api.assets.generated.model.SearchWagonsQueryResponseItem;
+import be.gert.trainapp.api.assets.generated.model.WagonModelResponse;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -26,10 +28,13 @@ public class SearchWagonsQuery implements SearchWagonsQueryApi {
 	@Override
 	public ResponseEntity<List<SearchWagonsQueryResponseItem>> query(List<String> wagonId) {
 		var query = queryFactory.from(wagon)
+				.join(wagonModel).on(wagonModel.id.eq(wagon.modelId))
 				.select(wagon.id.id,
-						wagon.modelId.id,
+						wagonModel.id.id,
+						wagonModel.name,
+						wagonModel.gauge.type,
 						wagon.serialNumber.sn,
-						wagon.gauge.type)
+						wagon.decommissioned)
 				.orderBy(wagon.serialNumber.sn.asc());
 		if (isNotEmpty(wagonId)) {
 			query.where(wagon.id.id.in(wagonId));
@@ -40,8 +45,11 @@ public class SearchWagonsQuery implements SearchWagonsQueryApi {
 	private SearchWagonsQueryResponseItem toResponseItem(Tuple tuple) {
 		return new SearchWagonsQueryResponseItem()
 				.id(tuple.get(wagon.id.id))
-				.modelTypeId(tuple.get(wagon.modelId.id))
+				.model(new WagonModelResponse()
+						.id(tuple.get(wagonModel.id.id))
+						.name(tuple.get(wagonModel.name))
+						.gauge(tuple.get(wagonModel.gauge.type)))
 				.serialNumber(tuple.get(wagon.serialNumber.sn))
-				.gauge(tuple.get(wagon.gauge.type));
+				.decommissioned(tuple.get(wagon.decommissioned));
 	}
 }

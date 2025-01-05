@@ -3,7 +3,9 @@ package be.gert.trainapp.sm.assets.wagon;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.serialNumber;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.testWagon;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.wagonId;
-import static be.gert.trainapp.sm.assets._model.WagonDefaults.wagonModelXs;
+import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXs;
+import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXsId;
+import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXsName;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -17,14 +19,18 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.assets.generated.model.SearchWagonsQueryResponseItem;
+import be.gert.trainapp.api.assets.generated.model.WagonModelResponse;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.assets._model.Wagon;
 import be.gert.trainapp.sm.assets._repository.WagonJpaRepository;
+import be.gert.trainapp.sm.assets._repository.WagonModelJpaRepository;
 
 @ModuleTest
 class SearchWagonsQueryTest {
+	@Autowired
+	WagonModelJpaRepository modelJpa;
 	@Autowired
 	WagonJpaRepository jpa;
 	@Autowired
@@ -33,6 +39,7 @@ class SearchWagonsQueryTest {
 	@Test
 	void mapsSelectedResult() {
 		// given
+		modelJpa.save(wagonModelXs());
 		jpa.save(testWagon());
 
 		// when
@@ -40,9 +47,12 @@ class SearchWagonsQueryTest {
 		assertThat(response)
 				.containsExactly(new SearchWagonsQueryResponseItem()
 						.id(wagonId.id())
-						.modelTypeId(wagonModelXs.id())
+						.model(new WagonModelResponse()
+								.id(wagonModelXsId.id())
+								.name(wagonModelXsName)
+								.gauge(standardGauge.type()))
 						.serialNumber(serialNumber.sn())
-						.gauge(standardGauge.type()));
+						.decommissioned(false));
 	}
 
 
@@ -56,6 +66,7 @@ class SearchWagonsQueryTest {
 	@ParameterizedTest
 	@MethodSource("appliesFilterWhenQueryingInput")
 	void appliesFilterWhenQuerying(FilterInput input, ExpectedOutput expected) {
+		modelJpa.save(wagonModelXs());
 		jpa.save(wagon1.toBuilder().build());
 		jpa.save(wagon2.toBuilder().build());
 		jpa.save(wagon3.toBuilder().build());

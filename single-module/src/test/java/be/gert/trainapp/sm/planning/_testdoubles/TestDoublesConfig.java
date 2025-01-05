@@ -18,5 +18,9 @@ public class TestDoublesConfig {
 		return Mockito.spy(new SearchWagonsQueryApiFake());
 	}
 
+	@Bean
+	SearchLocomotivesQueryApiFake searchLocomotivesQueryApiFake() {
+		return Mockito.spy(new SearchLocomotivesQueryApiFake());
+	}
 
 }

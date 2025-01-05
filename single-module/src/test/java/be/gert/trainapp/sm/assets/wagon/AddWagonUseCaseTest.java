@@ -5,7 +5,9 @@ import static be.gert.trainapp.sm.assets._model.WagonDefaults.assertWagon;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.serialNumber;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.testWagon;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.wagonId;
-import static be.gert.trainapp.sm.assets._model.WagonDefaults.wagonModelXs;
+import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXs;
+import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXsId;
+import static be.gert.trainapp.sm.assets._repository.WagonModelJpaRepository.notFound;
 import static be.gert.trainapp.sm.assets.wagon.AddWagonUseCase.serialNumberAlreadyExists;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,9 +21,12 @@ import be.gert.trainapp.api.assets.generated.model.AddWagonRequest;
 import be.gert.trainapp.sm.ModuleTest;
 import be.gert.trainapp.sm.assets._events.WagonAddedEvent;
 import be.gert.trainapp.sm.assets._repository.WagonJpaRepository;
+import be.gert.trainapp.sm.assets._repository.WagonModelJpaRepository;
 
 @ModuleTest
 class AddWagonUseCaseTest {
+	@Autowired
+	WagonModelJpaRepository modelJpa;
 	@Autowired
 	WagonJpaRepository jpa;
 	@Autowired
@@ -31,19 +36,27 @@ class AddWagonUseCaseTest {
 
 	AddWagonRequest request = new AddWagonRequest()
 			.wagonId(wagonId.id())
-			.modelTypeId(wagonModelXs.id())
+			.modelTypeId(wagonModelXsId.id())
 			.serialNumber(serialNumber.sn())
 			.gauge(standardGauge.type());
 
 	@Test
 	void success() {
+		modelJpa.save(wagonModelXs());
 		usecase.execute(request);
 
 		assertWagon(jpa.getById(wagonId))
 				.isEqualTo(testWagon());
 		assertThat(events.stream(WagonAddedEvent.class))
-				.containsExactly(new WagonAddedEvent(wagonId, wagonModelXs, serialNumber));
+				.containsExactly(new WagonAddedEvent(wagonId, wagonModelXsId, serialNumber));
 	}
+
+	@Test
+	void throwModelNotFound() {
+		assertThatThrownBy(() -> usecase.execute(request))
+				.isEqualTo(notFound(wagonModelXsId));
+	}
+
 
 	@Test
 	void throwSerialNumberAlreadyExists() {

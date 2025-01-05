@@ -1,6 +1,5 @@
 package be.gert.trainapp.sm.planning.train;
 
-import static be.gert.trainapp.sm.planning._model.TrainLocomotive.newTrainLocomotive;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.http.ResponseEntity;
@@ -10,9 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import be.gert.trainapp.api.planning.generated.AddLocomotiveToTrainUseCaseApi;
 import be.gert.trainapp.api.planning.generated.model.AddLocomotiveToTrainRequest;
 import be.gert.trainapp.sm.assets.LocomotiveId;
-import be.gert.trainapp.sm.assets.LocomotiveModelId;
 import be.gert.trainapp.sm.planning.TrainId;
-import be.gert.trainapp.sm.planning._model.TrainLocomotive;
+import be.gert.trainapp.sm.planning._adapter.SearchLocomotive;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class AddLocomotiveToTrainUseCase implements AddLocomotiveToTrainUseCaseApi {
 	private final TrainJpaRepository jpa;
+	private final SearchLocomotive searchLocomotive;
 
 	@Override
 	@Transactional
@@ -30,8 +29,8 @@ public class AddLocomotiveToTrainUseCase implements AddLocomotiveToTrainUseCaseA
 		var locomotiveId = new LocomotiveId(request.getLocomotiveId());
 		var train = jpa.getById(trainId);
 
-		TrainLocomotive locomotive = newTrainLocomotive(locomotiveId, new LocomotiveModelId("model-123"));
-		jpa.save(train.usingLocomotive(locomotive));
+		var locomotive = searchLocomotive.getById(locomotiveId);
+		jpa.save(train.useLocomotive(locomotive));
 
 		return noContent().build();
 	}

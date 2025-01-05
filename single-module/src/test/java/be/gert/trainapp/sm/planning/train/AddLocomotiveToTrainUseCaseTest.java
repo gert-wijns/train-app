@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.planning.train;
 
-import static be.gert.trainapp.sm.planning._model.Train.locomotiveAlreadySet;
+import static be.gert.trainapp.sm.planning.PlanningExceptions.trainLocomotiveAlreadySet;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.assertTrain;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.emptyOrientExpress;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.locomotiveOrientExpressId;
@@ -48,7 +48,7 @@ class AddLocomotiveToTrainUseCaseTest {
 
 		// when
 		assertThatThrownBy(() -> usecase.execute(request))
-				.isEqualTo(locomotiveAlreadySet(trainOrientExpressId, locomotiveOrientExpressId));
+				.isEqualTo(trainLocomotiveAlreadySet(trainOrientExpressId, locomotiveOrientExpressId));
 	}
 
 	@Test

@@ -2,6 +2,13 @@ get:
   operationId: query
   tags:
     - SearchLocomotivesQuery
+  parameters:
+    - in: query
+      name: locomotiveId
+      schema:
+        type: array
+        items:
+          $ref: '../components.yaml#/components/schemas/LocomotiveId'
   responses:
     200:
       description: success
@@ -16,12 +23,12 @@ get:
               properties:
                 id:
                   $ref: '../components.yaml#/components/schemas/LocomotiveId'
-                modelTypeId:
-                  $ref: '../components.yaml#/components/schemas/LocomotiveModelTypeId'
+                model:
+                  $ref: '../components.yaml#/components/schemas/LocomotiveModelResponse'
                 name:
                   $ref: '../components.yaml#/components/schemas/LocomotiveId'
                 serialNumber:
                   $ref: '../components.yaml#/components/schemas/SerialNumber'
-                gauge:
-                  type: string
-              required: [id, modelTypeId, name, serialNumber, gauge]
+                decommissioned:
+                  type: boolean
+              required: [id, model, name, serialNumber, gauge, decommissioned]
