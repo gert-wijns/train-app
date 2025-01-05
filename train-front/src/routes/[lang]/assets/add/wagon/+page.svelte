@@ -26,7 +26,6 @@
     {
       modelTypeId,
       serialNumber,
-      gauge,
     },
     { submit },
   )
@@ -42,8 +41,7 @@
     registerDevAutofill(() => {
       serialNumber.input = dayOfYearMinutesOfDayAndSeconds()
       modelTypeId.input = randomElement(wagonModelTypeInput.getOptions())?.value ?? ''
-      gauge.input = '1435mm'
-      gauge.focus()
+      modelTypeId.focus()
     }),
   )
 </script>
@@ -52,8 +50,6 @@
   <div class="text-lg font-bold col-span-2">{m('WAGON')}</div>
   <Label formField={serialNumber}>{m('SERIAL_NUMBER')}</Label>
   <Input formField={serialNumber} autocomplete="off" />
-  <Label formField={gauge}>{m('GAUGE')}</Label>
-  <Input formField={gauge} />
   <Label formField={modelTypeId}>{m('MODEL_TYPE')}</Label>
   <WagonModelTypeInput bind:this={wagonModelTypeInput} formField={modelTypeId} />
   <button type="submit" class="btn btn-primary ml-auto col-span-2">

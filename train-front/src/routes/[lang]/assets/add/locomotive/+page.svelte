@@ -27,7 +27,6 @@
     {
       modelTypeId,
       name,
-      gauge,
       serialNumber,
     },
     { submit },
@@ -46,8 +45,7 @@
       serialNumber.input = dayOfYearMinutesOfDayAndSeconds()
       name.input = generateName()
       modelTypeId.input = randomElement(locomotiveModelTypeInput.getOptions())?.value ?? ''
-      gauge.input = '1435mm'
-      serialNumber.focus()
+      modelTypeId.focus()
     }),
   )
 </script>
@@ -58,8 +56,6 @@
   <Input formField={serialNumber} autocomplete="off" />
   <Label formField={name}>{m('NAME')}</Label>
   <Input formField={name} autocomplete="off" />
-  <Label formField={gauge}>{m('GAUGE')}</Label>
-  <Input formField={gauge} />
   <Label formField={modelTypeId}>{m('MODEL_TYPE')}</Label>
   <LocomotiveModelTypeInput bind:this={locomotiveModelTypeInput} formField={modelTypeId} />
   <button type="submit" class="btn btn-primary ml-auto col-span-2">
