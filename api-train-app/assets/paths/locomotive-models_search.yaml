@@ -1,0 +1,26 @@
+get:
+  operationId: query
+  tags:
+    - SearchLocomotiveModelsQuery
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            title: SearchLocomotiveModelsQueryResponse
+            type: array
+            items:
+              type: object
+              title: SearchLocomotiveModelsQueryResponseItem
+              properties:
+                id:
+                  $ref: "../components.yaml#/components/schemas/LocomotiveModelTypeId"
+                name:
+                  type: string
+                powerType:
+                  $ref: '../components.yaml#/components/schemas/LocomotivePowerType'
+                gauge:
+                  type: string
+              required: [ id, name, powerType, gauge ]
+

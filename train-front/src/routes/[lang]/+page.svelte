@@ -7,8 +7,16 @@
 <div class="grid gap-5 w-4xl text-lg">
   <div class="text-2xl font-bold">Menu</div>
 
-  <div>
+  <div class="flex gap-2">
     <a class="link hover:link-primary" href={route('/[lang]/assets', { lang: page.params.lang })}>{m('ASSETS')}</a>
+    &#x2022;
+    <a class="link hover:link-primary" href={route('/[lang]/assets/locomotivemodel', { lang: page.params.lang })}>
+      {m('LOCOMOTIVE_MODELS')}
+    </a>
+    &#x2022;
+    <a class="link hover:link-primary" href={route('/[lang]/assets/wagonmodel', { lang: page.params.lang })}>
+      {m('WAGON_MODELS')}
+    </a>
   </div>
   <div>
     <a class="link hover:link-primary" href={route('/[lang]/employees', { lang: page.params.lang })}>

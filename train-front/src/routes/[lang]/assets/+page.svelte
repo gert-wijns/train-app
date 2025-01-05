@@ -7,11 +7,11 @@
   import { route } from '$lib/ROUTES.js'
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
+  import TranslationCellRenderer from '$lib/grid/renderers/TranslationCellRenderer.svelte'
 
   let { data }: { data: LoadData } = $props()
 
   const addAssetHref = route('/[lang]/assets/add', { lang: 'en' })
-
   let columns: Column<SearchAssetsQueryResponseItem>[] = [
     {
       title: m('SERIAL_NUMBER'),
@@ -20,7 +20,7 @@
     {
       title: m('TYPE'),
       get: row => row.type,
-      snippet: assetType,
+      component: TranslationCellRenderer,
     },
     {
       title: m('SUB_TYPE'),

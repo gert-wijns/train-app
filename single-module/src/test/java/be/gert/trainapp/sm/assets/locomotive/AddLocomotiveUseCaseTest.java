@@ -8,7 +8,6 @@ import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.locomoti
 import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.locomotiveModelLMSStainierBlack5Id;
 import static be.gert.trainapp.sm.assets._repository.LocomotiveModelJpaRepository.notFound;
 import static be.gert.trainapp.sm.assets.locomotive.AddLocomotiveUseCase.serialNumberAlreadyExists;
-import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -37,8 +36,7 @@ class AddLocomotiveUseCaseTest {
 			.id(locomotive1937Id.id())
 			.modelTypeId(locomotiveModelLMSStainierBlack5Id.id())
 			.serialNumber(serialNumberStainier.sn())
-			.name("Stainier")
-			.gauge(standardGauge.type());
+			.name("Stainier");
 
 	@Test
 	void success() {

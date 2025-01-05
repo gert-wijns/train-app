@@ -14,6 +14,8 @@ paths:
 
   /api/assets/locomotive-models/add:
     $ref: './paths/locomotive-models_add.yaml'
+  /api/assets/locomotive-models/search:
+    $ref: './paths/locomotive-models_search.yaml'
 
   /api/assets/locomotives/add:
     $ref: './paths/locomotives_add.yaml'
@@ -22,6 +24,8 @@ paths:
 
   /api/assets/wagon-models/add:
     $ref: './paths/wagon-models_add.yaml'
+  /api/assets/wagon-models/search:
+    $ref: './paths/wagon-models_search.yaml'
 
   /api/assets/wagons/add:
     $ref: './paths/wagons_add.yaml'

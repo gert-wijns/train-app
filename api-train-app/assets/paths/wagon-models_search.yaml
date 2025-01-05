@@ -1,0 +1,24 @@
+get:
+  operationId: query
+  tags:
+    - SearchWagonModelsQuery
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            title: SearchWagonModelsQueryResponse
+            type: array
+            items:
+              type: object
+              title: SearchWagonModelsQueryResponseItem
+              properties:
+                id:
+                  $ref: "../components.yaml#/components/schemas/WagonModelTypeId"
+                name:
+                  type: string
+                gauge:
+                  type: string
+              required: [ id, name, gauge ]
+

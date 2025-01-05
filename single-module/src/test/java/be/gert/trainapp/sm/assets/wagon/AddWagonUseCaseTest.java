@@ -9,7 +9,6 @@ import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXs;
 import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXsId;
 import static be.gert.trainapp.sm.assets._repository.WagonModelJpaRepository.notFound;
 import static be.gert.trainapp.sm.assets.wagon.AddWagonUseCase.serialNumberAlreadyExists;
-import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -37,8 +36,7 @@ class AddWagonUseCaseTest {
 	AddWagonRequest request = new AddWagonRequest()
 			.wagonId(wagonId.id())
 			.modelTypeId(wagonModelXsId.id())
-			.serialNumber(serialNumber.sn())
-			.gauge(standardGauge.type());
+			.serialNumber(serialNumber.sn());
 
 	@Test
 	void success() {
