@@ -28,7 +28,7 @@ class AddWagonToTrainUseCaseTest {
 			.trainId(trainOrientExpressId.id())
 			.wagonId(trainOrientExpressFirstCoachId.id());
 	Train orientExpressWithWagon = emptyOrientExpress()
-			.addWagon(orientExpressFirstCoach());
+			.attachWagon(orientExpressFirstCoach());
 
 	@Test
 	void success() {

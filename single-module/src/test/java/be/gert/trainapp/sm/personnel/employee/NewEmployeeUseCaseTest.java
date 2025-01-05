@@ -1,10 +1,10 @@
 package be.gert.trainapp.sm.personnel.employee;
 
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.assertEmployee;
-import static be.gert.trainapp.sm.personnel.employee.NewEmployeeUseCase.alreadyExists;
-import static be.gert.trainapp.sm.personnel._model.EmployeeRole.UNASSIGNED;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzales;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzalesId;
+import static be.gert.trainapp.sm.personnel._model.EmployeeRole.UNASSIGNED;
+import static be.gert.trainapp.sm.personnel.employee.NewEmployeeUseCase.alreadyExists;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;

@@ -45,7 +45,7 @@ class AssignEmployeeRoleUseCaseTest {
 	@Test
 	void throwsNotFound() {
 		// when
-		assertThatThrownBy(() ->usecase.execute(request))
+		assertThatThrownBy(() -> usecase.execute(request))
 				.isEqualTo(notFound(employeeChristineGonzalesId));
 	}
 }

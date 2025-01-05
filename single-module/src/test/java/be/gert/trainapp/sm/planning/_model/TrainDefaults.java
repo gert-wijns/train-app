@@ -18,11 +18,12 @@ public class TrainDefaults {
 	public static final TrainId trainOrientExpressId = new TrainId("OrientExpress");
 	public static final WagonId trainOrientExpressFirstCoachId = new WagonId("OrientExpress-firstCoach");
 	public static final LocomotiveId locomotiveOrientExpressId = new LocomotiveId("OrientExpress-LocomotiveId");
+	public static final WagonModelId wagonModelTypeId = new WagonModelId("wagon-model-123");
 
 	public static TrainWagon orientExpressFirstCoach() {
 		return TrainWagon.builder()
 				.id(trainOrientExpressFirstCoachId)
-				.modelId(new WagonModelId("model-123"))
+				.modelId(wagonModelTypeId)
 				.build();
 	}
 
@@ -38,7 +39,7 @@ public class TrainDefaults {
 				.id(trainOrientExpressId)
 				.wagons(new ArrayList<>())
 				.build();
-		train.addLocomotive(orientExpressLocomotive());
+		train.usingLocomotive(orientExpressLocomotive());
 		return train;
 	}
 

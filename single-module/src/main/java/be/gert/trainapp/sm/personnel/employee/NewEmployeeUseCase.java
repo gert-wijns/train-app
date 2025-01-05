@@ -15,8 +15,8 @@ import be.gert.trainapp.api.personnel.generated.NewEmployeeUseCaseApi;
 import be.gert.trainapp.api.personnel.generated.model.NewEmployeeRequest;
 import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm.personnel.EmployeeId;
-import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 import be.gert.trainapp.sm.personnel._events.EmployeeHired;
+import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -24,15 +24,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 public class NewEmployeeUseCase implements NewEmployeeUseCaseApi {
-	private final EmployeeJpaRepository jpa;
-	private final ApplicationEventPublisher eventPublisher;
-
 	public static DomainException alreadyExists(EmployeeId employeeId) {
 		return error("PERSONNEL_EMPLOYEE_ALREADY_EXISTS",
 				"Employee already exists for id '${id}'.")
 				.withParam("id", employeeId.id())
 				.asException();
 	}
+
+	private final EmployeeJpaRepository jpa;
+	private final ApplicationEventPublisher eventPublisher;
 
 	@Override
 	@Transactional

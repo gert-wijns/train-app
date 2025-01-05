@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.personnel.employee;
 
 import static be.gert.trainapp.sm.personnel._mapper.FullNameMapper.toFullNameBody;
-import static be.gert.trainapp.sm.personnel.employee.model.QEmployee.employee;
+import static be.gert.trainapp.sm.personnel._model.QEmployee.employee;
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 import static org.springframework.http.ResponseEntity.ok;
 

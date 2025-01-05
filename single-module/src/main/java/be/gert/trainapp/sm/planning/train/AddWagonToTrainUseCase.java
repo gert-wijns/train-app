@@ -1,12 +1,16 @@
 package be.gert.trainapp.sm.planning.train;
 
 import static be.gert.trainapp.sm.planning._model.TrainWagon.newTrainWagon;
+import static java.util.Objects.requireNonNull;
 import static org.springframework.http.ResponseEntity.noContent;
+
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
+import be.gert.trainapp.api.assets.generated.SearchWagonsQueryApi;
 import be.gert.trainapp.api.planning.generated.AddWagonToTrainUseCaseApi;
 import be.gert.trainapp.api.planning.generated.model.AddWagonToTrainRequest;
 import be.gert.trainapp.sm.assets.WagonId;
@@ -22,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class AddWagonToTrainUseCase implements AddWagonToTrainUseCaseApi {
 	private final TrainJpaRepository jpa;
+	private final SearchWagonsQueryApi searchWagonsQueryApi;
 
 	@Override
 	@Transactional
@@ -30,8 +35,11 @@ public class AddWagonToTrainUseCase implements AddWagonToTrainUseCaseApi {
 		var wagonId = new WagonId(request.getWagonId());
 		var train = jpa.getById(trainId);
 
-		TrainWagon wagon = newTrainWagon(wagonId, new WagonModelId("model-123"));
-		jpa.save(train.addWagon(wagon));
+		var wagonResponse = requireNonNull(searchWagonsQueryApi
+				.query(List.of(request.getWagonId())).getBody())
+				.getFirst();
+		TrainWagon wagon = newTrainWagon(wagonId, new WagonModelId(wagonResponse.getModelTypeId()));
+		jpa.save(train.attachWagon(wagon));
 
 		return noContent().build();
 	}

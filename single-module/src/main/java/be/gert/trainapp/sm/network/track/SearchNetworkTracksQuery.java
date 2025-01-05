@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.network.track;
 
 import static be.gert.trainapp.sm.network._mapper.SpeedMapper.toSpeedBody;
-import static be.gert.trainapp.sm.network.track.model.QTrack.track;
+import static be.gert.trainapp.sm.network._model.QTrack.track;
 import static org.springframework.http.ResponseEntity.ok;
 
 import java.util.List;

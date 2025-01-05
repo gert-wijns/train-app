@@ -31,7 +31,7 @@ public class AddLocomotiveToTrainUseCase implements AddLocomotiveToTrainUseCaseA
 		var train = jpa.getById(trainId);
 
 		TrainLocomotive locomotive = newTrainLocomotive(locomotiveId, new LocomotiveModelId("model-123"));
-		jpa.save(train.addLocomotive(locomotive));
+		jpa.save(train.usingLocomotive(locomotive));
 
 		return noContent().build();
 	}

@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.assets.asset;
 
-import static be.gert.trainapp.sm.assets.asset.model.QAsset.asset;
+import static be.gert.trainapp.sm.assets._model.QAsset.asset;
 import static org.springframework.http.ResponseEntity.ok;
 
 import java.util.List;

@@ -3,14 +3,18 @@ package be.gert.trainapp.sm._shared.exception;
 import be.gert.trainapp.sm._shared.message.TranslatableMessage;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 @EqualsAndHashCode(of = {"code"}, callSuper = false)
-@RequiredArgsConstructor
 public class DomainException extends RuntimeException {
 	private final String code;
 	private final TranslatableMessage message;
+
+	public DomainException(String code, TranslatableMessage message) {
+		super(message.toFormattedString());
+		this.code = code;
+		this.message = message;
+	}
 
 	@Override
 	public String toString() {

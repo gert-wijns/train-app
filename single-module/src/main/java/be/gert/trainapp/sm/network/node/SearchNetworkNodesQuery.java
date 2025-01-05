@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.network.node;
 
 import static be.gert.trainapp.sm.network._mapper.GeoPositionMapper.toGeoPositionBody;
-import static be.gert.trainapp.sm.network.node.model.QNode.node;
+import static be.gert.trainapp.sm.network._model.QNode.node;
 import static org.springframework.http.ResponseEntity.ok;
 
 import java.util.List;

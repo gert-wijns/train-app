@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.planning.trainengineer;
 
-import static be.gert.trainapp.sm.planning.trainengineer.model.QTrainEngineer.trainEngineer;
-import static be.gert.trainapp.sm.planning.trainengineer.model.QTrainEngineerCertification.trainEngineerCertification;
+import static be.gert.trainapp.sm.planning._model.QTrainEngineer.trainEngineer;
+import static be.gert.trainapp.sm.planning._model.QTrainEngineerCertification.trainEngineerCertification;
 import static com.querydsl.jpa.JPAExpressions.select;
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 import static org.springframework.http.ResponseEntity.ok;

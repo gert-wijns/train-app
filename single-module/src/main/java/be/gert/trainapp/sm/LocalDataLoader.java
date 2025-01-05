@@ -107,21 +107,21 @@ public class LocalDataLoader {
 				.serialNumber("2024-364-0600-03")
 				.gauge(standardGauge.type()));
 
-		addWagons(wagonModelCoach, 5);
-		addWagons(wagonModelCovered, 4);
-		addWagons(wagonModelTanker, 3);
-		addWagons(wagonModelBox, 2);
+		addWagons(wagonModelCoach, "2024-364-0700-", 5);
+		addWagons(wagonModelCovered, "2024-364-0701-", 4);
+		addWagons(wagonModelTanker, "2024-364-0702-", 3);
+		addWagons(wagonModelBox, "2024-364-0703-", 2);
 
 		networkBrusselsToAntwerp();
 	}
 
-	private void addWagons(WagonModelId modelId, int n) {
+	private void addWagons(WagonModelId modelId, String prefix, int n) {
 		for (int i=1; i <= n; i++) {
 			addWagonUseCase.execute(new AddWagonRequest()
 					.wagonId(modelId.id() + "-" + i)
 					.modelTypeId(modelId.id())
 					.gauge(standardGauge.type())
-					.serialNumber("2024-364-0700-" + (i > 9 ? i: "0" + i)));
+					.serialNumber(prefix + (i > 9 ? i: "0" + i)));
 		}
 	}
 

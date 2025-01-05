@@ -12,6 +12,7 @@ import be.gert.trainapp.sm._shared.values.GeoPosition;
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.network.TrackGauge;
+import be.gert.trainapp.sm.planning.RoutePlanId;
 import be.gert.trainapp.sm.planning.TrainId;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
@@ -43,7 +44,7 @@ public class Train extends JpaEntity<TrainId> {
 	private @OneToMany(mappedBy = "train", cascade = ALL, fetch = EAGER) List<TrainWagon> wagons;
 	private @Embedded TrackGauge gauge;
 	private @Embedded GeoPosition position;
-	//private @Embedded RoutePlan planId;
+	private @Embedded RoutePlanId routePlanId;
 	private boolean readyForUse;
 
 	public static Train newTrain(TrainId id) {
@@ -58,7 +59,7 @@ public class Train extends JpaEntity<TrainId> {
 				.asException();
 	}
 
-	public Train addLocomotive(TrainLocomotive locomotive) {
+	public Train usingLocomotive(TrainLocomotive locomotive) {
 		if (this.locomotive != null) {
 			throw locomotiveAlreadySet(id, this.locomotive.id());
 		}
@@ -75,7 +76,7 @@ public class Train extends JpaEntity<TrainId> {
 				.asException();
 	}
 
-	public Train addWagon(TrainWagon wagon) {
+	public Train attachWagon(TrainWagon wagon) {
 		if (wagons.contains(wagon)) {
 			throw wagonAlreadyAdded(id, wagon.id());
 		}
