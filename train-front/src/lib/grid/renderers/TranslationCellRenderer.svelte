@@ -4,4 +4,4 @@
   let { value }: { value: string } = $props()
 </script>
 
-{m(value as any)}
+<span class="overflow-hidden">{m(value as any)}</span>

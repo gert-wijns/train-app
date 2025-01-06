@@ -14,11 +14,11 @@
       {m('LOCOMOTIVES')}
     </a>
     &#x2022;
-    <a class="link hover:link-primary" href={route('/[lang]/assets/locomotivemodel', { lang: page.params.lang })}>
+    <a class="link hover:link-primary" href={route('/[lang]/assets/locomotivemodels', { lang: page.params.lang })}>
       {m('LOCOMOTIVE_MODELS')}
     </a>
     &#x2022;
-    <a class="link hover:link-primary" href={route('/[lang]/assets/wagonmodel', { lang: page.params.lang })}>
+    <a class="link hover:link-primary" href={route('/[lang]/assets/wagonmodels', { lang: page.params.lang })}>
       {m('WAGON_MODELS')}
     </a>
   </div>
@@ -32,5 +32,15 @@
       {m('NETWORK')}
     </a>
   </div>
-  <div>{m('PLANNING')}</div>
+  <div class="flex gap-2">
+    <div>{m('PLANNING')}</div>
+    &#x2022;
+    <a class="link hover:link-primary" href={route('/[lang]/planning/trains', { lang: page.params.lang })}>
+      {m('TRAINS')}
+    </a>
+    &#x2022;
+    <a class="link hover:link-primary" href={route('/[lang]/planning/train-engineers', { lang: page.params.lang })}>
+      {m('TRAIN_ENGINEERS')}
+    </a>
+  </div>
 </div>

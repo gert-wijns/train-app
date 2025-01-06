@@ -3,18 +3,11 @@
   import Icon from '@iconify/svelte'
   import { dev } from '$app/environment'
   import { applyRegisteredDevAutoFills } from '$lib/dev/DevAutofillHook.svelte'
+  import { createKeydownListener } from '$lib/common/keyListener'
   import { onMount } from 'svelte'
 
   if (dev) {
-    onMount(() => {
-      const listener = (event: KeyboardEvent) => {
-        if (event.key === 'a' && event.altKey) {
-          applyRegisteredDevAutoFills()
-        }
-      }
-      document.addEventListener('keydown', listener)
-      return () => document.removeEventListener('keydown', listener)
-    })
+    onMount(createKeydownListener('alt+a', () => applyRegisteredDevAutoFills()))
   }
 </script>
 
