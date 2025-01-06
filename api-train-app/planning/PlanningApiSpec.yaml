@@ -13,8 +13,6 @@ paths:
     $ref: './paths/trains_create.yaml'
   /api/planning/trains/add-wagon:
     $ref: './paths/trains_add-wagon.yaml'
-  /api/planning/trains/add-locomotive:
-    $ref: './paths/trains_add-locomotive.yaml'
 
   /api/planning/train-engineers/certifications/search:
     $ref: './paths/train-engineers_certifications_search.yaml'

@@ -46,22 +46,12 @@ public class Train extends JpaEntity<TrainId> {
 	private @Embedded RoutePlanId routePlanId;
 	private boolean readyForUse;
 
-	public static Train newTrain(TrainId id) {
-		return new Train().id(id);
-	}
-
-	public Train useLocomotive(Locomotive locomotive) {
-		if (this.locomotive != null) {
-			throw PlanningModelExceptions.trainLocomotiveAlreadySet(id, this.locomotive.id());
-		}
-		if (notEqual(gauge, locomotive.gauge())) {
-			throw PlanningModelExceptions.trainLocomotiveGaugeNotCompatible(id, gauge, locomotive.id(), locomotive.gauge());
-		}
-		this.locomotive = new TrainLocomotive(
+	public static Train newTrain(TrainId id, Locomotive locomotive) {
+		var trainLocomotive = new TrainLocomotive(
 				locomotive.id(),
 				locomotive.powerType() == ELECTRIC,
 				locomotive.decommissioned());
-		return this;
+		return new Train().id(id).gauge(locomotive.gauge()).locomotive(trainLocomotive);
 	}
 
 	public Train attachWagon(Wagon wagon) {

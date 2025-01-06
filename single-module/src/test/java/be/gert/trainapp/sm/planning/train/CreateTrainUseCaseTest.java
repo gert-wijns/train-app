@@ -1,7 +1,10 @@
 package be.gert.trainapp.sm.planning.train;
 
+import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.assertTrain;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.emptyOrientExpress;
+import static be.gert.trainapp.sm.planning._model.TrainDefaults.locomotiveOrientExpressId;
+import static be.gert.trainapp.sm.planning._model.TrainDefaults.orientExpressLocomotive;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.trainOrientExpressId;
 import static be.gert.trainapp.sm.planning.train.CreateTrainUseCase.alreadyExists;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -22,7 +25,8 @@ class CreateTrainUseCaseTest {
 	CreateTrainUseCase usecase;
 
 	CreateTrainRequest request = new CreateTrainRequest()
-			.trainId(trainOrientExpressId.id());
+			.trainId(trainOrientExpressId.id())
+			.locomotiveId(locomotiveOrientExpressId.id());
 
 	@Test
 	void success() {
@@ -33,6 +37,8 @@ class CreateTrainUseCaseTest {
 		assertTrain(jpa.getById(trainOrientExpressId))
 				.isEqualTo(Train.builder()
 						.id(trainOrientExpressId)
+						.locomotive(orientExpressLocomotive)
+						.gauge(standardGauge)
 						.build());
 	}
 

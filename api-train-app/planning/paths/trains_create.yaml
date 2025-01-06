@@ -12,7 +12,9 @@ post:
           properties:
             trainId:
               $ref: '../components.yaml#/components/schemas/TrainId'
-          required: [ trainId ]
+            locomotiveId:
+              $ref: '../components.yaml#/components/schemas/LocomotiveId'
+          required: [ trainId, locomotiveId ]
   responses:
     204:
       description: Success

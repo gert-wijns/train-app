@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import be.gert.trainapp.api.planning.generated.CreateTrainUseCaseApi;
 import be.gert.trainapp.api.planning.generated.model.CreateTrainRequest;
 import be.gert.trainapp.sm._shared.exception.DomainException;
+import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.planning.TrainId;
+import be.gert.trainapp.sm.planning._adapter.SearchLocomotive;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class CreateTrainUseCase implements CreateTrainUseCaseApi {
 	private final TrainJpaRepository jpa;
+	private final SearchLocomotive searchLocomotive;
 
 	public static DomainException alreadyExists(TrainId trainId) {
 		return error("PLANNING_TRAIN_ALREADY_EXISTS",
@@ -32,11 +35,16 @@ public class CreateTrainUseCase implements CreateTrainUseCaseApi {
 	@Override
 	@Transactional
 	public ResponseEntity<Void> execute(CreateTrainRequest request) {
-		TrainId trainId = new TrainId(request.getTrainId());
+		var trainId = new TrainId(request.getTrainId());
+		var locomotiveId = new LocomotiveId(request.getLocomotiveId());
 		if (jpa.findById(trainId).isPresent()) {
 			throw alreadyExists(trainId);
 		}
-		jpa.save(newTrain(trainId));
+		var locomotive = searchLocomotive.getById(locomotiveId);
+		var train = newTrain(trainId, locomotive);
+
+		jpa.save(train);
+
 		return noContent().build();
 	}
 }
