@@ -3,19 +3,22 @@
   import { type LoadData } from './+page.js'
   import Grid, { type Column } from '$lib/grid/Grid.svelte'
   import type { SearchAssetsQueryResponseItem } from '$assets-api/models/SearchAssetsQueryResponseItem.js'
-  import { AssetType } from '$assets-api'
   import { route } from '$lib/ROUTES.js'
-  import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
   import TranslationCellRenderer from '$lib/grid/renderers/TranslationCellRenderer.svelte'
+  import { createKeydownListener } from '$lib/common/keyListener.js'
+  import { onMount } from 'svelte'
+  import { AssetType } from '$assets-api/models/AssetType.js'
+  import { page } from '$app/state'
 
   let { data }: { data: LoadData } = $props()
 
-  const addAssetHref = route('/[lang]/assets/add', { lang: 'en' })
+  const addAssetHref = route('/[lang]/assets/add', { lang: page.params.lang })
   let columns: Column<SearchAssetsQueryResponseItem>[] = [
     {
       title: m('SERIAL_NUMBER'),
       get: row => row.serialNumber,
+      snippet: detailLinks,
     },
     {
       title: m('TYPE'),
@@ -33,20 +36,25 @@
     },
   ]
 
-  onMount(() => {
-    const listener = (event: KeyboardEvent) => {
-      if (event.key === 'a') {
-        goto(addAssetHref)
-      }
-    }
-    document.addEventListener('keypress', listener)
-    return () => document.removeEventListener('keypress', listener)
-  })
+  onMount(createKeydownListener('a', () => goto(addAssetHref)))
 </script>
 
-{#snippet assetType(value: AssetType)}
-  <div class="overflow-hidden">{m(value as any)}</div>
+{#snippet detailLinks(value: string, row: SearchAssetsQueryResponseItem)}
+  {#if row.type === AssetType.LOCOMOTIVE}
+    <a
+      class="link"
+      href={route('/[lang]/assets/locomotives/[locomotiveId]', { lang: page.params.lang, locomotiveId: row.id })}>
+      {value}
+    </a>
+  {:else if row.type === AssetType.WAGON}
+    <a class="link" href={route('/[lang]/assets/wagons/[wagonId]', { lang: page.params.lang, wagonId: row.id })}>
+      {value}
+    </a>
+  {:else}
+    {value}
+  {/if}
 {/snippet}
+
 {#snippet assetSubType(value: string)}
   <div class="overflow-hidden">{value}</div>
 {/snippet}

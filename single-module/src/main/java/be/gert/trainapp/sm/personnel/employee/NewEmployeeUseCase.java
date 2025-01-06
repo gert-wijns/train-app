@@ -15,7 +15,6 @@ import be.gert.trainapp.api.personnel.generated.NewEmployeeUseCaseApi;
 import be.gert.trainapp.api.personnel.generated.model.NewEmployeeRequest;
 import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm.personnel.EmployeeId;
-import be.gert.trainapp.sm.personnel._events.EmployeeHired;
 import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -41,9 +40,8 @@ public class NewEmployeeUseCase implements NewEmployeeUseCaseApi {
 		if (jpa.findById(employeeId).isPresent()) {
 			throw alreadyExists(employeeId);
 		}
-		var employee = jpa.save(newEmployee(employeeId)
+		jpa.save(newEmployee(employeeId)
 				.fullName(toFullName(request.getFullName())));
-		eventPublisher.publishEvent(new EmployeeHired(employee.id()));
 		return noContent().build();
 	}
 

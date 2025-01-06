@@ -1,0 +1,18 @@
+post:
+  operationId: execute
+  tags:
+    - DecommissionWagonUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: DecommissionWagonRequest
+          properties:
+            id:
+              $ref: '../components.yaml#/components/schemas/WagonId'
+          required: [id]
+  responses:
+    204:
+      description: Success

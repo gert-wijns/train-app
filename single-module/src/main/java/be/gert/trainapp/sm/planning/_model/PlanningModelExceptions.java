@@ -1,4 +1,4 @@
-package be.gert.trainapp.sm.planning;
+package be.gert.trainapp.sm.planning._model;
 
 import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 
@@ -6,8 +6,9 @@ import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.network.TrackGauge;
+import be.gert.trainapp.sm.planning.TrainId;
 
-public class PlanningExceptions {
+public class PlanningModelExceptions {
 
 	public static DomainException trainLocomotiveAlreadySet(TrainId trainId, LocomotiveId locomotiveId) {
 		return error("PLANNING_TRAIN_LOCOMOTIVE_ALREADY_SET",

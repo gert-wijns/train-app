@@ -43,4 +43,7 @@ public class Wagon extends JpaEntity<WagonId> {
 				.serialNumber(serialNumber);
 	}
 
+	public Wagon decommission() {
+		return decommissioned(true);
+	}
 }

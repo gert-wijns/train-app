@@ -26,6 +26,10 @@ import lombok.Setter;
 //</editor-fold>
 public class TrainWagon extends JpaEntity<WagonId> {
 	private @EmbeddedId WagonId id;
-	private boolean decomissioned;
+	private boolean decommissioned;
 	private @ManyToOne Train train;
+
+	public TrainWagon decommission() {
+		return decommissioned(true);
+	}
 }

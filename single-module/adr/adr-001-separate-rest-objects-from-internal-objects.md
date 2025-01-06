@@ -5,7 +5,7 @@ Separate REST objects from internal objects
 Draft
 
 ## Context
-We use rest controllers to expose endpoints to use the application.
+We use rest APIs to expose endpoints to use the application.
 We use a UseCase with an execute method which takes a Command.
 
 We were considering annotating the use case directly with rest annotations

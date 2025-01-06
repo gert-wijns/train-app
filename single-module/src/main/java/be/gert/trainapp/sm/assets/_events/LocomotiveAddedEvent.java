@@ -11,8 +11,7 @@ public record LocomotiveAddedEvent(
 		LocomotiveId id,
 		LocomotiveModelId modelId,
 		SerialNumber serialNumber,
-		String name)
-		implements LocomotiveEvent {
+		String name) {
 	public LocomotiveAddedEvent {
 		requireNonNull(id);
 		requireNonNull(modelId);

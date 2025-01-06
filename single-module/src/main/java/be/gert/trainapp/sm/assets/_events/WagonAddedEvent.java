@@ -9,8 +9,7 @@ import be.gert.trainapp.sm.assets.WagonModelId;
 public record WagonAddedEvent(
 		WagonId id,
 		WagonModelId modelId,
-		SerialNumber serialNumber)
-		implements WagonEvent {
+		SerialNumber serialNumber) {
 	public WagonAddedEvent {
 		requireNonNull(id);
 		requireNonNull(modelId);

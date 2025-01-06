@@ -20,7 +20,6 @@
 
   const modelTypeId = new TextFormField().notBlank()
   const serialNumber = new TextFormField().notBlank()
-  const gauge = new TextFormField().notBlank()
   const formModel = new FormModel(
     'AddWagonConfiguraAssetForm',
     {

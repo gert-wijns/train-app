@@ -46,4 +46,8 @@ public class Locomotive extends JpaEntity<LocomotiveId> {
 				.name(name)
 				.serialNumber(serialNumber);
 	}
+
+	public Locomotive decommission() {
+		return decommissioned(true);
+	}
 }

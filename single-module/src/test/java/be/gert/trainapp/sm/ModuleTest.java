@@ -14,6 +14,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.event.RecordApplicationEvents;
 
+import be.gert.trainapp.sm._config.ModuleTestAutowireCandidateResolverConfigurer;
+import be.gert.trainapp.sm._config.SyncTaskExecutorTestConfig;
 import jakarta.transaction.Transactional;
 
 @Documented
@@ -21,10 +23,10 @@ import jakarta.transaction.Transactional;
 @Target(TYPE)
 @SpringBootTest
 @ComponentScan
-@ActiveProfiles("ModuleTest")
+@ActiveProfiles("module-test")
 @Transactional
 @EnableJpaAuditing
 @RecordApplicationEvents
-@Import(ModuleTestAutowireCandidateResolverConfigurer.class)
+@Import({ModuleTestAutowireCandidateResolverConfigurer.class, SyncTaskExecutorTestConfig.class})
 public @interface ModuleTest {
 }

@@ -10,6 +10,10 @@
   <div class="flex gap-2">
     <a class="link hover:link-primary" href={route('/[lang]/assets', { lang: page.params.lang })}>{m('ASSETS')}</a>
     &#x2022;
+    <a class="link hover:link-primary" href={route('/[lang]/assets/locomotives', { lang: page.params.lang })}>
+      {m('LOCOMOTIVES')}
+    </a>
+    &#x2022;
     <a class="link hover:link-primary" href={route('/[lang]/assets/locomotivemodel', { lang: page.params.lang })}>
       {m('LOCOMOTIVE_MODELS')}
     </a>

@@ -19,6 +19,8 @@ paths:
 
   /api/assets/locomotives/add:
     $ref: './paths/locomotives_add.yaml'
+  /api/assets/locomotives/decommission:
+    $ref: './paths/locomotives_decommission.yaml'
   /api/assets/locomotives/search:
     $ref: './paths/locomotives_search.yaml'
 
@@ -29,5 +31,7 @@ paths:
 
   /api/assets/wagons/add:
     $ref: './paths/wagons_add.yaml'
+  /api/assets/wagons/decommission:
+    $ref: './paths/wagons_decommission.yaml'
   /api/assets/wagons/search:
     $ref: './paths/wagons_search.yaml'

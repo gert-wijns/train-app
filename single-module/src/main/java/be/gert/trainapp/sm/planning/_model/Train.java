@@ -10,8 +10,8 @@ import java.util.List;
 
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
 import be.gert.trainapp.sm._shared.values.GeoPosition;
+import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.network.TrackGauge;
-import be.gert.trainapp.sm.planning.PlanningExceptions;
 import be.gert.trainapp.sm.planning.RoutePlanId;
 import be.gert.trainapp.sm.planning.TrainId;
 import jakarta.persistence.Embedded;
@@ -52,10 +52,10 @@ public class Train extends JpaEntity<TrainId> {
 
 	public Train useLocomotive(Locomotive locomotive) {
 		if (this.locomotive != null) {
-			throw PlanningExceptions.trainLocomotiveAlreadySet(id, this.locomotive.id());
+			throw PlanningModelExceptions.trainLocomotiveAlreadySet(id, this.locomotive.id());
 		}
 		if (notEqual(gauge, locomotive.gauge())) {
-			throw PlanningExceptions.trainLocomotiveGaugeNotCompatible(id, gauge, locomotive.id(), locomotive.gauge());
+			throw PlanningModelExceptions.trainLocomotiveGaugeNotCompatible(id, gauge, locomotive.id(), locomotive.gauge());
 		}
 		this.locomotive = new TrainLocomotive(
 				locomotive.id(),
@@ -66,9 +66,19 @@ public class Train extends JpaEntity<TrainId> {
 
 	public Train attachWagon(Wagon wagon) {
 		if (entityList(wagons).contains(wagon.id())) {
-			throw PlanningExceptions.wagonAlreadyAdded(id, wagon.id());
+			throw PlanningModelExceptions.wagonAlreadyAdded(id, wagon.id());
 		}
 		wagons.add(new TrainWagon(wagon.id(), wagon.decommissioned(), this));
+		return this;
+	}
+
+	public Train locomotiveDecommissioned() {
+		this.locomotive = locomotive.withDecommissioned(true);
+		return this;
+	}
+
+	public Train wagonDecommissioned(WagonId id) {
+		entityList(wagons).get(id).decommission();
 		return this;
 	}
 }
