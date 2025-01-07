@@ -1,0 +1,34 @@
+get:
+  operationId: query
+  tags:
+    - SearchTrainsQuery
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            title: SearchTrainsQueryResponse
+            type: array
+            items:
+              type: object
+              title: SearchTrainsQueryResponseItem
+              properties:
+                id:
+                  $ref: '../components.yaml#/components/schemas/TrainId'
+                gauge:
+                  type: string
+                containsDecommissioned:
+                  type: boolean
+                locomotive:
+                  title: TrainLocomotiveResponse
+                  type: object
+                  properties:
+                    id:
+                      $ref: '../components.yaml#/components/schemas/LocomotiveId'
+                    serialNumber:
+                      type: string
+                    decommissioned:
+                      type: boolean
+                  required: [id, serialNumber, decommissioned]
+              required: [id, gauge, containsDecommissioned, locomotive]

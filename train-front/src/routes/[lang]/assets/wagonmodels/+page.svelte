@@ -1,6 +1,7 @@
 <script lang="ts">
   import { type SearchWagonModelsQueryResponseItem } from '$assets-api/models/SearchWagonModelsQueryResponseItem.js'
   import Grid, { type Column } from '$lib/grid/Grid.svelte'
+  import TranslationCellRenderer from '$lib/grid/renderers/TranslationCellRenderer.svelte'
   import { m } from '$lib/i18n/translate.svelte.js'
   import { type LoadData } from './+page.js'
 
@@ -14,6 +15,11 @@
     {
       title: m('GAUGE'),
       get: row => row.gauge,
+    },
+    {
+      title: m('TYPE'),
+      get: row => 'WAGON_TYPE_' + row.type,
+      component: TranslationCellRenderer,
     },
   ]
 </script>

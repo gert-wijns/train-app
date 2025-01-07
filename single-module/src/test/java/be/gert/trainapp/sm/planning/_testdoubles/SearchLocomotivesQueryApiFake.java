@@ -2,6 +2,7 @@ package be.gert.trainapp.sm.planning._testdoubles;
 
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.locomotiveOrientExpressId;
+import static be.gert.trainapp.sm.planning._model.TrainDefaults.orientExpressLocomotive;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class SearchLocomotivesQueryApiFake implements SearchLocomotivesQueryApi 
 				.id(locomotiveOrientExpressId.id())
 				.name("Locomotive-orientExpress")
 				.decommissioned(false)
-				.serialNumber("locomotive-sn")
+				.serialNumber(orientExpressLocomotive.serialNumber().sn())
 				.model(new LocomotiveModelResponse()
 						.id("Locomotive-orientExpress-ModelId")
 						.gauge(standardGauge.type())

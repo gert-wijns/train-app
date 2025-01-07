@@ -12,6 +12,7 @@ import be.gert.trainapp.api.assets.generated.AddWagonModelUseCaseApi;
 import be.gert.trainapp.api.assets.generated.model.AddWagonModelRequest;
 import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm.assets.WagonModelId;
+import be.gert.trainapp.sm.assets.WagonType;
 import be.gert.trainapp.sm.assets._repository.WagonModelJpaRepository;
 import be.gert.trainapp.sm.network.TrackGauge;
 import jakarta.transaction.Transactional;
@@ -42,7 +43,8 @@ public class AddWagonModelUseCase implements AddWagonModelUseCaseApi {
 		jpa.save(newWagonModel(
 				id,
 				request.getName(),
-				new TrackGauge(request.getGauge())));
+				new TrackGauge(request.getGauge()),
+				WagonType.valueOf(request.getType().getValue())));
 
 		return noContent().build();
 	}

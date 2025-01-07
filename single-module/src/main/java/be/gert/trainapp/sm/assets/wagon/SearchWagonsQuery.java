@@ -17,6 +17,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import be.gert.trainapp.api.assets.generated.SearchWagonsQueryApi;
 import be.gert.trainapp.api.assets.generated.model.SearchWagonsQueryResponseItem;
 import be.gert.trainapp.api.assets.generated.model.WagonModelResponse;
+import be.gert.trainapp.api.assets.generated.model.WagonTypeEnum;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -33,6 +34,7 @@ public class SearchWagonsQuery implements SearchWagonsQueryApi {
 						wagonModel.id.id,
 						wagonModel.name,
 						wagonModel.gauge.type,
+						wagonModel.type,
 						wagon.serialNumber.sn,
 						wagon.decommissioned)
 				.orderBy(wagon.serialNumber.sn.asc());
@@ -48,7 +50,8 @@ public class SearchWagonsQuery implements SearchWagonsQueryApi {
 				.model(new WagonModelResponse()
 						.id(tuple.get(wagonModel.id.id))
 						.name(tuple.get(wagonModel.name))
-						.gauge(tuple.get(wagonModel.gauge.type)))
+						.gauge(tuple.get(wagonModel.gauge.type))
+						.type(WagonTypeEnum.fromValue(tuple.get(wagonModel.type).name())))
 				.serialNumber(tuple.get(wagon.serialNumber.sn))
 				.decommissioned(tuple.get(wagon.decommissioned));
 	}

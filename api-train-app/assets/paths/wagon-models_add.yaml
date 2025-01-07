@@ -16,7 +16,9 @@ post:
               type: string
             gauge:
               type: string
-          required: [id, name, gauge]
+            type:
+              $ref: "../components.yaml#/components/schemas/WagonTypeEnum"
+          required: [id, name, gauge, type]
   responses:
     204:
       description: Success

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.assertj.core.api.RecursiveComparisonAssert;
 
 import be.gert.trainapp.sm.assets.LocomotiveId;
+import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.assets.WagonModelId;
 import be.gert.trainapp.sm.planning.TrainId;
@@ -21,11 +22,14 @@ public class TrainDefaults {
 	public static final WagonModelId wagonModelTypeId = new WagonModelId("wagon-model-123");
 	public static final TrainLocomotive orientExpressLocomotive = new TrainLocomotive(
 			locomotiveOrientExpressId,
+			new SerialNumber("orientExpressLocomotive-sn"),
 			true,
 			false);
 
 	public static Wagon orientExpressFirstCoach() {
-		return new Wagon(trainOrientExpressFirstCoachId, standardGauge, false);
+		return new Wagon(trainOrientExpressFirstCoachId,
+				new SerialNumber("trainOrientExpressFirstCoach-sn"),
+				standardGauge, false);
 	}
 
 	public static Train emptyOrientExpress() {

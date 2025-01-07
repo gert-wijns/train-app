@@ -12,6 +12,9 @@ components:
     LocomotivePowerType:
       type: string
       enum: [ELECTRIC, DIESEL]
+    WagonTypeEnum:
+      type: string
+      enum: [COACH, GONDOLA, BOX, PLATFORM, TANK, HOPPER, BUNKER, REFRIGERATED]
     AssetSubType:
       type: string
     SerialNumber:
@@ -41,4 +44,6 @@ components:
           type: string
         gauge:
           type: string
-      required: [ id, name, gauge ]
+        type:
+          $ref: "#/components/schemas/WagonTypeEnum"
+      required: [ id, name, gauge, type ]

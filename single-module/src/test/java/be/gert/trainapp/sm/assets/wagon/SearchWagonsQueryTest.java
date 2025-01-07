@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.assets.wagon;
 
+import static be.gert.trainapp.api.assets.generated.model.WagonTypeEnum.GONDOLA;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.serialNumber;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.testWagon;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.wagonId;
@@ -50,7 +51,8 @@ class SearchWagonsQueryTest {
 						.model(new WagonModelResponse()
 								.id(wagonModelXsId.id())
 								.name(wagonModelXsName)
-								.gauge(standardGauge.type()))
+								.gauge(standardGauge.type())
+								.type(GONDOLA))
 						.serialNumber(serialNumber.sn())
 						.decommissioned(false));
 	}

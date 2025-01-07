@@ -4,7 +4,6 @@ import static be.gert.trainapp.sm._shared.entity.EntityList.entityList;
 import static be.gert.trainapp.sm.assets.LocomotivePowerType.ELECTRIC;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.EAGER;
-import static org.apache.commons.lang3.ObjectUtils.notEqual;
 
 import java.util.List;
 
@@ -49,6 +48,7 @@ public class Train extends JpaEntity<TrainId> {
 	public static Train newTrain(TrainId id, Locomotive locomotive) {
 		var trainLocomotive = new TrainLocomotive(
 				locomotive.id(),
+				locomotive.serialNumber(),
 				locomotive.powerType() == ELECTRIC,
 				locomotive.decommissioned());
 		return new Train().id(id).gauge(locomotive.gauge()).locomotive(trainLocomotive);
@@ -58,7 +58,7 @@ public class Train extends JpaEntity<TrainId> {
 		if (entityList(wagons).contains(wagon.id())) {
 			throw PlanningModelExceptions.wagonAlreadyAdded(id, wagon.id());
 		}
-		wagons.add(new TrainWagon(wagon.id(), wagon.decommissioned(), this));
+		wagons.add(new TrainWagon(wagon.id(), wagon.serialNumber(), wagon.decommissioned(), this));
 		return this;
 	}
 

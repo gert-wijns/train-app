@@ -1,7 +1,9 @@
 package be.gert.trainapp.sm.planning._model;
 
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
+import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.WagonId;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -26,6 +28,7 @@ import lombok.Setter;
 //</editor-fold>
 public class TrainWagon extends JpaEntity<WagonId> {
 	private @EmbeddedId WagonId id;
+	private @Embedded SerialNumber serialNumber;
 	private boolean decommissioned;
 	private @ManyToOne Train train;
 

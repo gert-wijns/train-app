@@ -2,6 +2,7 @@ package be.gert.trainapp.sm.assets._model;
 
 import static be.gert.trainapp.sm.EntityAssertionDefaults.AUDIT_FIELDS;
 import static be.gert.trainapp.sm.EntityAssertionDefaults.NESTED_AUDIT_FIELDS;
+import static be.gert.trainapp.sm.assets.WagonType.GONDOLA;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,6 +20,7 @@ public class WagonModelDefaults {
 				.id(wagonModelXsId)
 				.name(wagonModelXsName)
 				.gauge(standardGauge)
+				.type(GONDOLA)
 				.build();
 	}
 

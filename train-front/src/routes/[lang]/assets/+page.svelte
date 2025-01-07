@@ -55,8 +55,14 @@
   {/if}
 {/snippet}
 
-{#snippet assetSubType(value: string)}
-  <div class="overflow-hidden">{value}</div>
+{#snippet assetSubType(value: string, row: SearchAssetsQueryResponseItem)}
+  <div class="overflow-hidden">
+    {#if row.type === 'WAGON'}
+      {m(('WAGON_TYPE_' + value) as any)}
+    {:else}
+      {value}
+    {/if}
+  </div>
 {/snippet}
 
 <div class="grid gap-5">

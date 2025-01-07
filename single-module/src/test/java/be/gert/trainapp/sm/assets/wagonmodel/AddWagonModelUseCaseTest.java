@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.assets.wagonmodel;
 
+import static be.gert.trainapp.api.assets.generated.model.WagonTypeEnum.GONDOLA;
 import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.assertWagonModel;
 import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXs;
 import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXsId;
@@ -25,7 +26,8 @@ class AddWagonModelUseCaseTest {
 	AddWagonModelRequest request = new AddWagonModelRequest()
 			.id(wagonModelXsId.id())
 			.name(wagonModelXsName)
-			.gauge(standardGauge.type());
+			.gauge(standardGauge.type())
+			.type(GONDOLA);
 
 	@Test
 	void success() {

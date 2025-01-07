@@ -1,11 +1,15 @@
 package be.gert.trainapp.sm.assets._model;
 
+import static jakarta.persistence.EnumType.STRING;
+
 import be.gert.trainapp.sm.assets.WagonModelId;
+import be.gert.trainapp.sm.assets.WagonType;
 import be.gert.trainapp.sm.network.TrackGauge;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -31,10 +35,12 @@ public class WagonModel {
 	private @EmbeddedId WagonModelId id;
 	private @Column(length = 30) String name;
 	private @Embedded TrackGauge gauge;
+	private @Enumerated(STRING) WagonType type;
 
 	public static WagonModel newWagonModel(WagonModelId id,
 	                                       String name,
-	                                       TrackGauge gauge) {
-		return new WagonModel().id(id).name(name).gauge(gauge);
+	                                       TrackGauge gauge,
+	                                       WagonType type) {
+		return new WagonModel().id(id).name(name).gauge(gauge).type(type);
 	}
 }
