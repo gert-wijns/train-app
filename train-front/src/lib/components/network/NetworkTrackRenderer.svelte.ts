@@ -19,7 +19,6 @@ export class NetworkTrackRenderer {
 
     private onTrackClicked(track: NetworkTrack) {
         if (this.model.isTrackSelected(track)) {
-            console.log("deselect")
             this.model.deselectTrack()
         } else {
             this.model.selectTrack(track)

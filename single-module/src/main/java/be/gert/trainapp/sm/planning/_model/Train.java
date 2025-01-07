@@ -11,6 +11,7 @@ import be.gert.trainapp.sm._shared.entity.JpaEntity;
 import be.gert.trainapp.sm._shared.values.GeoPosition;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.network.TrackGauge;
+import be.gert.trainapp.sm.personnel.EmployeeId;
 import be.gert.trainapp.sm.planning.RoutePlanId;
 import be.gert.trainapp.sm.planning.TrainId;
 import jakarta.persistence.Embedded;
@@ -39,11 +40,11 @@ import lombok.Setter;
 public class Train extends JpaEntity<TrainId> {
 	private @EmbeddedId TrainId id;
 	private @Embedded TrainLocomotive locomotive;
+	private @Embedded EmployeeId trainEngineer;
 	private @OneToMany(mappedBy = "train", cascade = ALL, fetch = EAGER) List<TrainWagon> wagons;
 	private @Embedded TrackGauge gauge;
 	private @Embedded GeoPosition position;
 	private @Embedded RoutePlanId routePlanId;
-	private boolean readyForUse;
 
 	public static Train newTrain(TrainId id, Locomotive locomotive) {
 		var trainLocomotive = new TrainLocomotive(
@@ -58,7 +59,12 @@ public class Train extends JpaEntity<TrainId> {
 		if (entityList(wagons).contains(wagon.id())) {
 			throw PlanningModelExceptions.wagonAlreadyAdded(id, wagon.id());
 		}
-		wagons.add(new TrainWagon(wagon.id(), wagon.serialNumber(), wagon.decommissioned(), this));
+		wagons.add(new TrainWagon(
+				wagon.id(),
+				wagon.serialNumber(),
+				wagon.decommissioned(),
+				this,
+				null));
 		return this;
 	}
 
@@ -70,5 +76,13 @@ public class Train extends JpaEntity<TrainId> {
 	public Train wagonDecommissioned(WagonId id) {
 		entityList(wagons).get(id).decommission();
 		return this;
+	}
+
+	public Train boardTrainEngineer(TrainEngineer trainEngineer) {
+		return trainEngineer(trainEngineer.id());
+	}
+
+	public Train unboardTrainEngineer() {
+		return trainEngineer(null);
 	}
 }

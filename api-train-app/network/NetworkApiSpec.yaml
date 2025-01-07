@@ -9,6 +9,10 @@ servers:
 security:
   - x-auth-token: []
 paths:
+  /api/network/networks/add:
+    $ref: "./paths/networks_add.yaml"
+  /api/network/networks/search:
+    $ref: "./paths/networks_search.yaml"
   /api/network/nodes/add:
     $ref: "./paths/nodes_add.yaml"
   /api/network/nodes/search:

@@ -2,6 +2,8 @@ components:
   schemas:
     NodeId:
       type: string
+    NetworkId:
+      type: string
     SpeedBody:
       type: object
       properties:

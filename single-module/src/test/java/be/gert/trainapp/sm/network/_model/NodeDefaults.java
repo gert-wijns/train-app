@@ -2,6 +2,7 @@ package be.gert.trainapp.sm.network._model;
 
 import static be.gert.trainapp.sm.EntityAssertionDefaults.AUDIT_FIELDS;
 import static be.gert.trainapp.sm.EntityAssertionDefaults.NESTED_AUDIT_FIELDS;
+import static be.gert.trainapp.sm.network._model.NetworkDefaults.networkBelgiumId;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ public class NodeDefaults {
 	public static Node stationAntwerp() {
 		return Node.builder()
 				.id(stationAntwerpId)
+				.networkId(networkBelgiumId)
 				.geoPosition(stationAntwerpGeoPosition)
 				.name("Antwerp-Central")
 				.build();

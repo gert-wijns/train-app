@@ -1,4 +1,4 @@
-import { AddNodeUseCaseApi, AddTrackUseCaseApi, DecommissionNodeUseCaseApi, DecommissionTrackUseCaseApi } from "$network-api"
+import { AddNodeUseCaseApi, AddTrackUseCaseApi, DecommissionNodeUseCaseApi, DecommissionTrackUseCaseApi, type NetworkId } from "$network-api"
 import type { GeoPositionBody } from "$network-api/models/GeoPositionBody"
 import type { NodeId } from "$network-api/models/NodeId"
 import { SpeedBody } from "$network-api/models/SpeedBody"
@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export type NetworkNode = {
     id: NodeId
+    networkId: NetworkId
     name: string
     geoPosition: GeoPositionBody
 }
@@ -20,12 +21,14 @@ export type NetworkTrack = {
 }
 
 export class NetworkModel {
+    networkId: NetworkId
     nodes = $state([]) as NetworkNode[]
     tracks = $state([]) as NetworkTrack[]
     selectedNodeId = $state<NodeId>()
     selectedTrackId = $state<{ fromNodeId: NodeId, toNodeId: NodeId }>()
 
-    constructor(nodes: NetworkNode[], tracks: NetworkTrack[]) {
+    constructor(networkId: NetworkId, nodes: NetworkNode[], tracks: NetworkTrack[]) {
+        this.networkId = networkId
         this.nodes = nodes
         this.tracks = tracks
     }
@@ -47,8 +50,6 @@ export class NetworkModel {
     decommissionSelectedNode(): void {
         const id = this.selectedNodeId
         if (id) {
-            this.nodes.splice(this.nodes.findIndex(entry => entry.id === id), 1)
-
             DecommissionNodeUseCaseApi.execute({
                 requestBody: { id }
             })
@@ -60,10 +61,6 @@ export class NetworkModel {
         const selectedTrackId = this.selectedTrackId
         if (selectedTrackId) {
             const { fromNodeId, toNodeId } = selectedTrackId
-            this.tracks.splice(this.tracks.findIndex(entry =>
-                entry.fromNodeId === fromNodeId &&
-                entry.toNodeId === toNodeId), 1)
-
             DecommissionTrackUseCaseApi.execute({
                 requestBody: {
                     fromNodeId,
@@ -111,6 +108,7 @@ export class NetworkModel {
     selectGeoPosition(longitude: number, latitude: number) {
         const newNode: NetworkNode = {
             id: uuidv4(),
+            networkId: this.networkId,
             name: '',
             geoPosition: {
                 longitude: longitude,

@@ -7,13 +7,16 @@ import java.math.BigDecimal;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import be.gert.trainapp.api.network.generated.model.AddNetworkRequest;
 import be.gert.trainapp.api.network.generated.model.AddNodeRequest;
 import be.gert.trainapp.api.network.generated.model.AddTrackRequest;
 import be.gert.trainapp.api.network.generated.model.GeoPositionBody;
 import be.gert.trainapp.api.network.generated.model.SpeedBody;
 import be.gert.trainapp.api.network.generated.model.SpeedBody.MeasurementEnum;
+import be.gert.trainapp.sm.network.NetworkId;
 import be.gert.trainapp.sm.network.NodeId;
 import be.gert.trainapp.sm.network.TrackGauge;
+import be.gert.trainapp.sm.network.network.AddNetworkUseCase;
 import be.gert.trainapp.sm.network.node.AddNodeUseCase;
 import be.gert.trainapp.sm.network.track.AddTrackUseCase;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +26,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NetworkDataLoader {
 	static final TrackGauge standardGauge = new TrackGauge("1435mm");
+	static final NetworkId networkBelgiumId = new NetworkId("network-be");
 
+	private final AddNetworkUseCase addNetworkUseCase;
 	private final AddNodeUseCase addNodeUseCase;
 	private final AddTrackUseCase addTrackUseCase;
 
 	void loadNetworks() {
+		addNetworkUseCase.execute(new AddNetworkRequest()
+				.id(networkBelgiumId.id())
+				.name("Belgium"));
+
 		networkBrusselsToAntwerp();
 	}
 
@@ -90,6 +99,7 @@ public class NetworkDataLoader {
 		addNodeUseCase.execute(new AddNodeRequest()
 				.id(name)
 				.name(name.contains("_") ? "": name.replace("_", " "))
+				.networkId(networkBelgiumId.id())
 				.geoPosition(new GeoPositionBody()
 						.longitude(new BigDecimal(x - 1214).setScale(7, HALF_UP)
 								.divide(new BigDecimal(1000).setScale(7, HALF_UP), HALF_UP))

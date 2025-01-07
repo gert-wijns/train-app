@@ -1,20 +1,13 @@
+import type { SearchNetworkQueryResponseItem } from '$network-api/models/SearchNetworkQueryResponseItem';
 import type { PageLoad } from "./$types";
-import { type SearchNetworkNodesQueryResponseItem } from '$network-api/models/SearchNetworkNodesQueryResponseItem'
-import { SearchNetworkNodesQueryApi } from '$network-api/services/SearchNetworkNodesQueryApi'
-import { SearchNetworkTracksQueryApi } from '$network-api/services/SearchNetworkTracksQueryApi'
-import type { SearchNetworkTracksQueryResponseItem } from "$network-api/models/SearchNetworkTracksQueryResponseItem";
+import { SearchNetworkQueryApi } from '$network-api/services/SearchNetworkQueryApi'
 
 export type LoadData = {
-    nodes: SearchNetworkNodesQueryResponseItem[]
-    tracks: SearchNetworkTracksQueryResponseItem[]
+    networks: Promise<SearchNetworkQueryResponseItem[]>
 }
 
 export const load: PageLoad = async () => {
-    const [nodes, tracks] = await Promise.all([
-        SearchNetworkNodesQueryApi.query(),
-        SearchNetworkTracksQueryApi.query()])
     return {
-        nodes,
-        tracks
+        networks: SearchNetworkQueryApi.query(),
     } satisfies LoadData
 }

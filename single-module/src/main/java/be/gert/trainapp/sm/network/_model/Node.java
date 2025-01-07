@@ -2,6 +2,7 @@ package be.gert.trainapp.sm.network._model;
 
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
 import be.gert.trainapp.sm._shared.values.GeoPosition;
+import be.gert.trainapp.sm.network.NetworkId;
 import be.gert.trainapp.sm.network.NodeId;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
@@ -31,11 +32,12 @@ import lombok.ToString;
 public class Node extends JpaEntity<NodeId> {
 	private @EmbeddedId NodeId id;
 	private @Embedded GeoPosition geoPosition;
+	private @Embedded NetworkId networkId;
 	private String name;
 	private boolean decommissioned;
 
-	public static Node newNode(NodeId id, String name, GeoPosition geoPosition) {
-		return new Node().id(id).name(name).geoPosition(geoPosition);
+	public static Node newNode(NetworkId networkId, NodeId id, String name, GeoPosition geoPosition) {
+		return new Node().networkId(networkId).id(id).name(name).geoPosition(geoPosition);
 	}
 
 	public Node rename(@NotNull String name) {

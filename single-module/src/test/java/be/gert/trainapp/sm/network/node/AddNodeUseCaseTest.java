@@ -1,8 +1,11 @@
 package be.gert.trainapp.sm.network.node;
 
+import static be.gert.trainapp.sm.network._model.NetworkDefaults.networkBelgium;
+import static be.gert.trainapp.sm.network._model.NetworkDefaults.networkBelgiumId;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.assertNode;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerp;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
+import static be.gert.trainapp.sm.network._repository.NetworkJpaRepository.notFound;
 import static be.gert.trainapp.sm.network.node.AddNodeUseCase.alreadyExists;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -12,10 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import be.gert.trainapp.api.network.generated.model.AddNodeRequest;
 import be.gert.trainapp.api.network.generated.model.GeoPositionBody;
 import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.network._repository.NetworkJpaRepository;
 import be.gert.trainapp.sm.network._repository.NodeJpaRepository;
 
 @ModuleTest
 class AddNodeUseCaseTest {
+	@Autowired
+	NetworkJpaRepository networkJpa;
 	@Autowired
 	NodeJpaRepository jpa;
 	@Autowired
@@ -24,12 +30,15 @@ class AddNodeUseCaseTest {
 	AddNodeRequest request = new AddNodeRequest()
 			.id(stationAntwerpId.id())
 			.name(stationAntwerp().name())
+			.networkId(networkBelgiumId.id())
 			.geoPosition(new GeoPositionBody()
 					.latitude(stationAntwerp().geoPosition().latitude())
 					.longitude(stationAntwerp().geoPosition().longitude()));
 
 	@Test
 	void success() {
+		networkJpa.save(networkBelgium());
+
 		// when
 		usecase.execute(request);
 
@@ -46,6 +55,12 @@ class AddNodeUseCaseTest {
 		// when
 		assertThatThrownBy(() -> usecase.execute(request))
 				.isEqualTo(alreadyExists(stationAntwerpId));
+	}
+
+	@Test
+	void throwsNetworkNotFound() {
+		assertThatThrownBy(() -> usecase.execute(request))
+				.isEqualTo(notFound(networkBelgiumId));
 	}
 
 }

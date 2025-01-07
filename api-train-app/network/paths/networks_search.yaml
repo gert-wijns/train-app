@@ -1,0 +1,21 @@
+get:
+  operationId: query
+  tags:
+    - SearchNetworkQuery
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            title: SearchNetworkQueryResponse
+            type: array
+            items:
+              type: object
+              title: SearchNetworkQueryResponseItem
+              properties:
+                id:
+                  $ref: '../components.yaml#/components/schemas/NetworkId'
+                name:
+                  type: string
+              required: [id, name]

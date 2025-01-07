@@ -1,24 +1,20 @@
 post:
   operationId: execute
   tags:
-    - AddNodeUseCase
+    - AddNetworkUseCase
   requestBody:
     required: true
     content:
       application/json:
         schema:
           type: object
-          title: AddNodeRequest
+          title: AddNetworkRequest
           properties:
             id:
-              $ref: '../components.yaml#/components/schemas/NodeId'
-            networkId:
               $ref: '../components.yaml#/components/schemas/NetworkId'
             name:
               type: string
-            geoPosition:
-              $ref: '../components.yaml#/components/schemas/GeoPositionBody'
-          required: [id, networkId, name, geoPosition]
+          required: [id, name]
   responses:
     204:
       description: Success

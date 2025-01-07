@@ -31,8 +31,17 @@ public class TrainWagon extends JpaEntity<WagonId> {
 	private @Embedded SerialNumber serialNumber;
 	private boolean decommissioned;
 	private @ManyToOne Train train;
+	private String cargo;
 
 	public TrainWagon decommission() {
 		return decommissioned(true);
+	}
+
+	public TrainWagon loadCargo(String cargo) {
+		return cargo(cargo);
+	}
+
+	public TrainWagon unloadCargo() {
+		return cargo(null);
 	}
 }
