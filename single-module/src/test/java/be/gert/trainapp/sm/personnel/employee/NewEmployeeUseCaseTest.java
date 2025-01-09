@@ -9,7 +9,10 @@ import static be.gert.trainapp.sm.personnel.employee.NewEmployeeUseCase.alreadyE
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 
 import be.gert.trainapp.api.personnel.generated.model.FullNameBody;
 import be.gert.trainapp.api.personnel.generated.model.NewEmployeeRequest;
@@ -30,9 +33,10 @@ class NewEmployeeUseCaseTest {
 					.firstName(employeeChristineGonzales().fullName().firstName())
 					.lastName(employeeChristineGonzales().fullName().lastName()));
 
-	@Test
-	void success() {
-		withRoles(PersonnelAuthRoles.ADMIN);
+	@ParameterizedTest
+	@ValueSource(strings = {PersonnelAuthRoles.ADMIN, PersonnelAuthRoles.HR})
+	void success(String role) {
+		withRoles(role);
 		usecase.execute(request);
 
 		assertEmployee(jpa.getById(employeeChristineGonzalesId))
@@ -50,4 +54,12 @@ class NewEmployeeUseCaseTest {
 		assertThatThrownBy(() -> usecase.execute(request))
 				.isEqualTo(alreadyExists(employeeChristineGonzalesId));
 	}
+
+	@Test
+	void deniesWithoutRoles() {
+		assertThatThrownBy(() -> usecase.execute(request))
+				.isInstanceOf(AuthorizationDeniedException.class);
+	}
+
+
 }

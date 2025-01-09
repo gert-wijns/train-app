@@ -2,6 +2,7 @@ package be.gert.trainapp.sm._config;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,19 +19,25 @@ import org.springframework.test.context.event.annotation.BeforeTestExecution;
 @Component
 public class UserDetailsServiceFake implements UserDetailsService {
 
+	public static void withoutRoles() {
+		setAuthentication(Set.of());
+	}
+
 	public static void withRoles(String... roles) {
 		var authorities = Stream.of(requireNonNull(roles))
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toSet());
+	}
+
+	private static void setAuthentication(Set<SimpleGrantedAuthority> authorities) {
 		var token = new UsernamePasswordAuthenticationToken(
 				"test", "test", authorities);
-
 		SecurityContextHolder.getContext().setAuthentication(token);
 	}
 
 	@BeforeTestExecution
 	void reset() {
-		SecurityContextHolder.getContext().setAuthentication(null);
+		withoutRoles();
 	}
 
 	@Override

@@ -18,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import be.gert.trainapp.sm._shared.config.jwt.AuthEntryPointJwt;
-import be.gert.trainapp.sm._shared.config.jwt.AuthTokenFilter;
+import be.gert.trainapp.sm._shared.config.auth.AuthEntryPointJwt;
+import be.gert.trainapp.sm._shared.config.auth.AuthTokenFilter;
 import lombok.RequiredArgsConstructor;
 
 @Configuration

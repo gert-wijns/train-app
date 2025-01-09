@@ -2,14 +2,14 @@ import { browser } from "$app/environment"
 import { invalidateAll } from "$app/navigation";
 import { UserLoginUseCaseApi } from "$usermanagement-api/services/UserLoginUseCaseApi"
 
-function parseJwt(token: string) {
+function parseUser(token: string): User {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
 
-    return JSON.parse(jsonPayload);
+    return JSON.parse(jsonPayload) as User;
 }
 
 type User = {
@@ -20,12 +20,20 @@ type User = {
 
 export class Auth {
     private accessToken = $state<string>()
-    private user = $derived(this.accessToken ? parseJwt(this.accessToken) : undefined)
+    private user = $state<User>()
 
     constructor() {
         if (browser) {
             this.accessToken = window.localStorage.getItem("token") || undefined
+            this.user = this.accessToken ? parseUser(this.accessToken) : undefined
         }
+
+        setInterval(() => {
+            const exp = this.user?.exp
+            if (exp && exp - 30 < new Date().getTime() / 1000) {
+                this.logout()
+            }
+        }, 30000)
     }
 
     isLoggedIn() {
@@ -40,21 +48,26 @@ export class Auth {
             }
         })
         this.accessToken = response.token
+        this.user = parseUser(this.accessToken)
         window.localStorage.setItem("token", this.accessToken)
     }
 
     logout() {
         this.accessToken = undefined
+        this.user = undefined
         window.localStorage.removeItem("token")
         invalidateAll()
     }
 
     getAccessToken() {
+        if (this.user) {
+            console.log(new Date(this.user.exp * 1000))
+        }
         return this.accessToken
     }
 
     getUserId() {
-        return this.user.sub
+        return this.user?.sub
     }
 
     hasRole(role: string) {

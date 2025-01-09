@@ -1,4 +1,4 @@
-package be.gert.trainapp.sm._shared.config.jwt;
+package be.gert.trainapp.sm._shared.config.auth;
 
 import java.io.IOException;
 import java.util.HashMap;
