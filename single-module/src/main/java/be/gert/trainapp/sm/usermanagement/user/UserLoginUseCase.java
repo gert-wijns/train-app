@@ -9,13 +9,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
 import be.gert.trainapp.api.usermanagement.generated.UserLoginUseCaseApi;
 import be.gert.trainapp.api.usermanagement.generated.model.UserLoginRequest;
 import be.gert.trainapp.api.usermanagement.generated.model.UserLoginResponse;
-import be.gert.trainapp.sm.usermanagement.UserUserDetails;
 import io.jsonwebtoken.Jwts;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -33,20 +33,12 @@ public class UserLoginUseCase implements UserLoginUseCaseApi {
 	public ResponseEntity<UserLoginResponse> execute(UserLoginRequest request) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-
-		//SecurityContextHolder.getContext()
-		//		.setAuthentication(authentication);
-		//UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
 		String jwt = generateJwtToken(authentication);
-
 		return ResponseEntity.ok(new UserLoginResponse().token(jwt));
 	}
 
 	private String generateJwtToken(Authentication authentication) {
-
-		UserUserDetails userPrincipal = (UserUserDetails) authentication.getPrincipal();
-
+		User userPrincipal = (User) authentication.getPrincipal();
 		return Jwts.builder()
 				.subject((userPrincipal.getUsername()))
 				.issuedAt(new Date())

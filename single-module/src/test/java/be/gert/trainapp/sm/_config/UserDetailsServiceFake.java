@@ -1,33 +1,40 @@
 package be.gert.trainapp.sm._config;
 
-import java.util.Collection;
-import java.util.List;
+import static java.util.Objects.requireNonNull;
 
-import org.springframework.security.core.GrantedAuthority;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.apache.commons.lang3.NotImplementedException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.event.annotation.BeforeTestExecution;
 
 @Component
 public class UserDetailsServiceFake implements UserDetailsService {
+
+	public static void withRoles(String... roles) {
+		var authorities = Stream.of(requireNonNull(roles))
+				.map(SimpleGrantedAuthority::new)
+				.collect(Collectors.toSet());
+		var token = new UsernamePasswordAuthenticationToken(
+				"test", "test", authorities);
+
+		SecurityContextHolder.getContext().setAuthentication(token);
+	}
+
+	@BeforeTestExecution
+	void reset() {
+		SecurityContextHolder.getContext().setAuthentication(null);
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return new UserDetails() {
-			@Override
-			public Collection<? extends GrantedAuthority> getAuthorities() {
-				return List.of();
-			}
-
-			@Override
-			public String getPassword() {
-				return "";
-			}
-
-			@Override
-			public String getUsername() {
-				return "";
-			}
-		};
+		throw new NotImplementedException("Shouldn't be called, else implement please!");
 	}
 }

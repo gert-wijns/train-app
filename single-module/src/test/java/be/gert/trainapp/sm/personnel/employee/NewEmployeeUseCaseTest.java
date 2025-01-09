@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.personnel.employee;
 
+import static be.gert.trainapp.sm._config.UserDetailsServiceFake.withRoles;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.assertEmployee;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzales;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzalesId;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import be.gert.trainapp.api.personnel.generated.model.FullNameBody;
 import be.gert.trainapp.api.personnel.generated.model.NewEmployeeRequest;
 import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.personnel._model.PersonnelAuthRoles;
 import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 
 @ModuleTest
@@ -30,6 +32,7 @@ class NewEmployeeUseCaseTest {
 
 	@Test
 	void success() {
+		withRoles(PersonnelAuthRoles.ADMIN);
 		usecase.execute(request);
 
 		assertEmployee(jpa.getById(employeeChristineGonzalesId))
@@ -43,6 +46,7 @@ class NewEmployeeUseCaseTest {
 	void throwsAlreadyExists() {
 		jpa.save(employeeChristineGonzales());
 
+		withRoles(PersonnelAuthRoles.ADMIN);
 		assertThatThrownBy(() -> usecase.execute(request))
 				.isEqualTo(alreadyExists(employeeChristineGonzalesId));
 	}

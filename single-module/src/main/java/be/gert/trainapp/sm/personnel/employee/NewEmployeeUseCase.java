@@ -7,6 +7,7 @@ import static be.gert.trainapp.sm.personnel._model.Employee.newEmployee;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +34,7 @@ public class NewEmployeeUseCase implements NewEmployeeUseCaseApi {
 
 	@Override
 	@Transactional
-	//@PreAuthorize("hasAnyRole('admin', 'hr')")
+	@PreAuthorize("hasAnyRole(@PersonnelAuthRoles.ADMIN, @PersonnelAuthRoles.HR)")
 	public ResponseEntity<Void> execute(NewEmployeeRequest request) {
 		EmployeeId employeeId = asEmployeeId(request.getEmployeeId());
 		if (jpa.findById(employeeId).isPresent()) {

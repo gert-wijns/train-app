@@ -1,6 +1,7 @@
 package be.gert.trainapp.sm._config;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
@@ -20,8 +21,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ModuleTestAutowireCandidateResolverConfigurer implements BeanFactoryPostProcessor {
-    private static final String MODULES_ROOT = ModuleTest.class.getPackageName();
-    private static final int MODULE_PART = MODULES_ROOT.split("\\.").length;
+    private static final String DOMAIN_MODULES_ROOT = ModuleTest.class.getPackageName();
+    private static final int DOMAIN_MODULE_PART = DOMAIN_MODULES_ROOT.split("\\.").length;
+    private static final String API_MODULE_ROOT = "be.gert.trainapp.api";
+    private static final int API_MODULE_PART = API_MODULE_ROOT.split("\\.").length;
+    private static final Set<String> BEAN_NAME_WHITELIST = Set.of("userDetailsServiceFake");
 
     public void postProcessBeanFactory(
             ConfigurableListableBeanFactory beanFactory) throws BeansException {
@@ -30,7 +34,7 @@ public class ModuleTestAutowireCandidateResolverConfigurer implements BeanFactor
             @Override
             public boolean isAutowireCandidate(BeanDefinitionHolder bdHolder, DependencyDescriptor descriptor) {
                 if (bdHolder.getBeanDefinition().isAutowireCandidate()
-                        && !bdHolder.getBeanName().equals("userDetailsServiceFake")
+                        && !BEAN_NAME_WHITELIST.contains(bdHolder.getBeanName())
                         && isCandidateModuleDifferentFromTargetModule(bdHolder, descriptor)) {
                     log.info("Rejected candidate [{}, {}] because it is not in the same domain as [{}]",
                             bdHolder.getBeanName(),
@@ -53,8 +57,8 @@ public class ModuleTestAutowireCandidateResolverConfigurer implements BeanFactor
     private Optional<String> getTargetModule(DependencyDescriptor descriptor) {
         return getDeclaringClass(descriptor)
                 .map(Class::getPackageName)
-                .filter(packageName -> packageName.startsWith(MODULES_ROOT))
-                .map(packageName -> packageName.split("\\.")[MODULE_PART]);
+                .filter(packageName -> packageName.startsWith(DOMAIN_MODULES_ROOT))
+                .map(packageName -> packageName.split("\\.")[DOMAIN_MODULE_PART]);
     }
 
     private Optional<Class<?>> getDeclaringClass(DependencyDescriptor descriptor) {
@@ -71,10 +75,10 @@ public class ModuleTestAutowireCandidateResolverConfigurer implements BeanFactor
         String candidateClassName = bdHolder.getBeanDefinition().getBeanClassName();
         if (candidateClassName == null) {
             return null;
-        } else if (candidateClassName.startsWith(MODULES_ROOT)) {
-            return candidateClassName.split("\\.")[MODULE_PART];
-        } else if (candidateClassName.startsWith("be.gert.trainapp.api")) {
-            return candidateClassName.split("\\.")[4];
+        } else if (candidateClassName.startsWith(DOMAIN_MODULES_ROOT)) {
+            return candidateClassName.split("\\.")[DOMAIN_MODULE_PART];
+        } else if (candidateClassName.startsWith(API_MODULE_ROOT)) {
+            return candidateClassName.split("\\.")[API_MODULE_PART];
         }
         return null;
     }

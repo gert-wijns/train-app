@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class AssignEmployeeRoleUseCase implements AssignEmployeeRoleUseCaseApi {
 	private final EmployeeJpaRepository jpa;
-	private final ApplicationEventPublisher eventPublisher;
 
 	@Override
 	@Transactional
