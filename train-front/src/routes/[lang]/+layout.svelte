@@ -5,6 +5,8 @@
   import { applyRegisteredDevAutoFills } from '$lib/dev/DevAutofillHook.svelte'
   import { createKeydownListener } from '$lib/common/keyListener'
   import { onMount } from 'svelte'
+  import { auth } from '$lib/Auth.svelte'
+  import { page } from '$app/state'
 
   if (dev) {
     onMount(createKeydownListener('alt+a', () => applyRegisteredDevAutoFills()))
@@ -53,6 +55,11 @@
         </span>
       </div>
     </button>
+    {#if auth.isLoggedIn()}
+      <a href={route('/[lang]/login', { lang: page.params.lang })} class="btn btn-ghost">
+        {auth.getUserId()}
+      </a>
+    {/if}
   </div>
 </div>
 

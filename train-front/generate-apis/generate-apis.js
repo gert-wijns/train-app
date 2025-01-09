@@ -21,6 +21,10 @@ var execPromise = util.promisify(exec);
       spec: `../../api-train-app/target/openapi/NetworkApiSpec-merged.yaml`,
       output: '../src/generated/service-api/network/',
     },
+    {
+      spec: `../../api-train-app/target/openapi/UserManagementApiSpec-merged.yaml`,
+      output: '../src/generated/service-api/usermanagement/',
+    },
   ];
 
   try {
@@ -29,6 +33,13 @@ var execPromise = util.promisify(exec);
       const { stdout, stderr } = await execPromise(
         `npx openapi --postfixServices Api --useOptions --input ${api.spec} --output ${api.output}`
       );
+
+      const apiFile = api.output + "/core/OpenAPI.ts"
+      const openAPI = fs.readFileSync(apiFile, "utf8")
+      const openAPIWithAuthImport = "import { auth } from '$lib/Auth.svelte';\n" + openAPI
+      const openAPIUsingAuthToken = openAPIWithAuthImport.replace("TOKEN: undefined,", "TOKEN: () => Promise.resolve(auth.getAccessToken() || ''),")
+
+      fs.writeFileSync(apiFile, openAPIUsingAuthToken)
       console.log('stdout:', stdout);
       console.log('stderr:', stderr);
     }

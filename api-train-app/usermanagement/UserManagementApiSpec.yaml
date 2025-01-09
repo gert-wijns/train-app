@@ -1,0 +1,18 @@
+openapi: 3.0.2
+info:
+  title: User management rest api definition
+  version: '1'
+  description: |
+    Defines the rest paths which can be used to interact with the application.
+servers:
+  - url: http://localhost:5173
+security:
+  - x-auth-token: []
+paths:
+  /api/users/login:
+    $ref: './paths/users_login.yaml'
+  /api/users/registration:
+    $ref: './paths/users_registration.yaml'
+  /api/users/grant-roles:
+    $ref: './paths/users_grant-roles.yaml'
+

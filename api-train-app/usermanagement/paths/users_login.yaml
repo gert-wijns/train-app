@@ -1,0 +1,29 @@
+post:
+  operationId: execute
+  tags:
+    - UserLoginUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: UserLoginRequest
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+          required: [ username, password ]
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            type: object
+            title: UserLoginResponse
+            properties:
+              token:
+                type: string
+            required: [token]

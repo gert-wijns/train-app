@@ -27,6 +27,7 @@ import jakarta.transaction.Transactional;
 @Transactional
 @EnableJpaAuditing
 @RecordApplicationEvents
-@Import({ModuleTestAutowireCandidateResolverConfigurer.class, SyncTaskExecutorTestConfig.class})
+@Import({ModuleTestAutowireCandidateResolverConfigurer.class,
+		SyncTaskExecutorTestConfig.class})
 public @interface ModuleTest {
 }

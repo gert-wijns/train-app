@@ -30,6 +30,7 @@ public class ModuleTestAutowireCandidateResolverConfigurer implements BeanFactor
             @Override
             public boolean isAutowireCandidate(BeanDefinitionHolder bdHolder, DependencyDescriptor descriptor) {
                 if (bdHolder.getBeanDefinition().isAutowireCandidate()
+                        && !bdHolder.getBeanName().equals("userDetailsServiceFake")
                         && isCandidateModuleDifferentFromTargetModule(bdHolder, descriptor)) {
                     log.info("Rejected candidate [{}, {}] because it is not in the same domain as [{}]",
                             bdHolder.getBeanName(),

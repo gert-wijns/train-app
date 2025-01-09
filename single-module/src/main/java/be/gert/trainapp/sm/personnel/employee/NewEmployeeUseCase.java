@@ -6,7 +6,6 @@ import static be.gert.trainapp.sm.personnel._mapper.FullNameMapper.toFullName;
 import static be.gert.trainapp.sm.personnel._model.Employee.newEmployee;
 import static org.springframework.http.ResponseEntity.noContent;
 
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,10 +30,10 @@ public class NewEmployeeUseCase implements NewEmployeeUseCaseApi {
 	}
 
 	private final EmployeeJpaRepository jpa;
-	private final ApplicationEventPublisher eventPublisher;
 
 	@Override
 	@Transactional
+	//@PreAuthorize("hasAnyRole('admin', 'hr')")
 	public ResponseEntity<Void> execute(NewEmployeeRequest request) {
 		EmployeeId employeeId = asEmployeeId(request.getEmployeeId());
 		if (jpa.findById(employeeId).isPresent()) {

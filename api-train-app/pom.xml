@@ -88,6 +88,15 @@
 							<modelPackage>be.gert.trainapp.api.network.generated.model</modelPackage>
 						</configuration>
 					</execution>
+					<execution>
+						<id>Generate UserManagement Api</id>
+						<goals><goal>generate</goal></goals>
+						<configuration>
+							<inputSpec>${project.basedir}/usermanagement/UserManagementApiSpec.yaml</inputSpec>
+							<apiPackage>be.gert.trainapp.api.usermanagement.generated</apiPackage>
+							<modelPackage>be.gert.trainapp.api.usermanagement.generated.model</modelPackage>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -174,6 +183,27 @@
 							<configOptions>
 								<!-- Default output file name is 'openapi.yaml' or 'openapi.json' -->
 								<outputFile>NetworkApiSpec-merged.yaml</outputFile>
+							</configOptions>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>UserManagementApiSpec</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/usermanagement/UserManagementApiSpec.yaml</inputSpec>
+
+							<!-- Use 'openapi-yaml' to get resolved YAML or 'openapi' to get resolved JSON -->
+							<language>openapi-yaml</language>
+
+							<!-- Default is ${project.build.directory}/generated-sources/swagger -->
+							<output>${project.basedir}/target/openapi</output>
+
+							<configOptions>
+								<!-- Default output file name is 'openapi.yaml' or 'openapi.json' -->
+								<outputFile>UserManagementApiSpec-merged.yaml</outputFile>
 							</configOptions>
 						</configuration>
 					</execution>

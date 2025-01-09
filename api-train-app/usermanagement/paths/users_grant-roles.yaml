@@ -1,0 +1,22 @@
+post:
+  operationId: execute
+  tags:
+    - GrantRolesToUserUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: GrantRolesToUserRequest
+          properties:
+            username:
+              type: string
+            roles:
+              type: array
+              items:
+                type: string
+          required: [ username, roles ]
+  responses:
+    204:
+      description: Success

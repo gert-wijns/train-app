@@ -1,16 +1,20 @@
 package be.gert.trainapp.sm;
 
+import static com.tngtech.archunit.base.DescribedPredicate.and;
 import static com.tngtech.archunit.core.domain.JavaCall.Predicates.target;
 import static com.tngtech.archunit.core.domain.properties.CanBeAnnotated.Predicates.annotatedWith;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
+import java.time.temporal.Temporal;
 import java.util.Arrays;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaClass;
+import com.tngtech.archunit.core.domain.JavaMethodCall;
 import com.tngtech.archunit.core.domain.properties.HasName.Predicates;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
@@ -32,6 +36,22 @@ public class ProductionCodeArchitectureTest {
 	public static final ArchRule builderNotAllowedOutsideTests = noClasses().should()
 			.callMethodWhere(target(annotatedWith(lombok.Generated.class)).and(target(Predicates.nameMatching("builder"))))
 			.because("adr-002-no-builders-in-production-code.md - Using builder is not allowed outside tests");
+
+	@ArchTest
+	public static ArchRule useJavaTimeWithClock = noClasses().should()
+				.callMethodWhere(and(
+						target(Predicates.nameMatching("now")),
+						new DescribedPredicate<>("without using clock") {
+							@Override
+							public boolean test(JavaMethodCall javaMethodCall) {
+								var target = javaMethodCall.getTarget();
+								return target.getName().equals("now")
+										&& target.getOwner().isAssignableTo(Temporal.class)
+										&& target.getParameterTypes().isEmpty();
+							}
+						}))
+			.because("XXX.now(AppClock.clock) should be used instead " +
+					"so we can test easily with fixed time.");
 
 	@ArchTest
 	public static final ArchRule localhostPackageComponentsRequiresLocalhostProfile = classes()

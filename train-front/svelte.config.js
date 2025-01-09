@@ -22,7 +22,9 @@ const config = {
 			"$personnel-api": "./src/generated/service-api/personnel/",
 			"$personnel-api/*": "./src/generated/service-api/personnel/*",
 			"$network-api": "./src/generated/service-api/network/",
-			"$network-api/*": "./src/generated/service-api/network/*"
+			"$network-api/*": "./src/generated/service-api/network/*",
+			"$usermanagement-api": "./src/generated/service-api/usermanagement/",
+			"$usermanagement-api/*": "./src/generated/service-api/usermanagement/*"
 		}
 	}
 };

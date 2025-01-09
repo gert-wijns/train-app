@@ -35,7 +35,8 @@ export default defineConfig({
 			"$assets-api": `${path.resolve(__dirname, "./src/generated/service-api/assets")}`,
 			"$planning-api": `${path.resolve(__dirname, "./src/generated/service-api/planning")}`,
 			"$personnel-api": `${path.resolve(__dirname, "./src/generated/service-api/personnel")}`,
-			"$network-api": `${path.resolve(__dirname, "./src/generated/service-api/network")}`
+			"$network-api": `${path.resolve(__dirname, "./src/generated/service-api/network")}`,
+			"$usermanagement-api": `${path.resolve(__dirname, "./src/generated/service-api/usermanagement")}`
 		}
 	}
 });

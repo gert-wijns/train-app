@@ -1,0 +1,20 @@
+post:
+  operationId: execute
+  tags:
+    - RegisterUserUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: RegisterUserRequest
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+          required: [ username, password ]
+  responses:
+    204:
+      description: Success
