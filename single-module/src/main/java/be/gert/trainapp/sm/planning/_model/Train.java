@@ -1,6 +1,7 @@
 package be.gert.trainapp.sm.planning._model;
 
 import static be.gert.trainapp.sm._shared.entity.EntityList.entityList;
+import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 import static be.gert.trainapp.sm.assets.LocomotivePowerType.ELECTRIC;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.EAGER;
@@ -8,6 +9,7 @@ import static jakarta.persistence.FetchType.EAGER;
 import java.util.List;
 
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
+import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm._shared.values.GeoPosition;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.network.TrackGauge;
@@ -88,7 +90,17 @@ public class Train extends JpaEntity<TrainId> {
 	}
 
 	public Train boardTrainEngineer(TrainEngineer trainEngineer) {
+		if (!trainEngineer.active()) {
+			throw trainEngineerNotActive(trainEngineer.id());
+		}
 		return trainEngineer(trainEngineer.id());
+	}
+
+	public static DomainException trainEngineerNotActive(EmployeeId employeeId) {
+		return error("PLANNING_TRAIN_ENGINEER_NOT_VALID",
+				"Boarding inactive train engineer [${employeeId}] is not allowed.")
+				.withParam("employeeId",employeeId.id())
+				.asException();
 	}
 
 	public Train unboardTrainEngineer() {

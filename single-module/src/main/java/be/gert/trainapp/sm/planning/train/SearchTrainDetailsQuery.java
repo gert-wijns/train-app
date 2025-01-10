@@ -15,6 +15,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import be.gert.trainapp.api.planning.generated.SearchTrainDetailsQueryApi;
 import be.gert.trainapp.api.planning.generated.model.SearchTrainDetailsQueryResponse;
+import be.gert.trainapp.api.planning.generated.model.SearchTrainDetailsQueryResponseTrainEngineer;
 import be.gert.trainapp.api.planning.generated.model.SearchTrainDetailsWagonQueryResponse;
 import be.gert.trainapp.api.planning.generated.model.TrainLocomotiveResponse;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +64,11 @@ public class SearchTrainDetailsQuery implements SearchTrainDetailsQueryApi {
 
 	private SearchTrainDetailsQueryResponse toResponseItem(Tuple tuple,
 	                                                       List<SearchTrainDetailsWagonQueryResponse> wagons) {
+		SearchTrainDetailsQueryResponseTrainEngineer trainEngineer = null;
+		if (tuple.get(train.trainEngineer.id) != null) {
+			trainEngineer = new SearchTrainDetailsQueryResponseTrainEngineer()
+					.id(tuple.get(train.trainEngineer.id));
+		}
 		return new SearchTrainDetailsQueryResponse()
 				.id(tuple.get(train.id.id))
 				.gauge(tuple.get(train.gauge.type))
@@ -71,6 +77,7 @@ public class SearchTrainDetailsQuery implements SearchTrainDetailsQueryApi {
 						.decommissioned(tuple.get(train.locomotive.decommissioned))
 						.serialNumber(tuple.get(train.locomotive.serialNumber.sn)))
 				.wagons(wagons)
+				.trainEngineer(trainEngineer)
 				.containsDecommissioned(tuple.get(train.containsDecommissioned));
 	}
 }

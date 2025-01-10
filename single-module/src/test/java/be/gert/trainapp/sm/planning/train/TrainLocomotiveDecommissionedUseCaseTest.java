@@ -6,6 +6,7 @@ import static be.gert.trainapp.sm.planning._model.TrainDefaults.locomotiveOrient
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.orientExpressLocomotive;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.trainOrientExpressId;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.AopTestUtils;
@@ -23,14 +24,19 @@ class TrainLocomotiveDecommissionedUseCaseTest {
 
 	LocomotiveDecommissioned event = new LocomotiveDecommissioned(locomotiveOrientExpressId);
 
+	@BeforeEach
+	void setup() {
+		// strip Transactional.NEW by ApplicationModuleListener for test...
+		usecase = AopTestUtils.getTargetObject(usecase);
+	}
+
 	@Test
 	void success() {
 		// given
 		jpa.save(emptyOrientExpress());
 
 		// when
-		TrainLocomotiveDecommissionedUseCase unproxied = AopTestUtils.getTargetObject(this.usecase);
-		unproxied.onLocomotiveDecommissioned(event);
+		usecase.onLocomotiveDecommissioned(event);
 
 		// then
 		assertTrain(jpa.getById(trainOrientExpressId))

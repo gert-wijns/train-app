@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import be.gert.trainapp.api.planning.generated.RegisterTrainEngineerCertificationUseCaseApi;
 import be.gert.trainapp.api.planning.generated.model.RegisterTrainEngineerCertificationRequest;
 import be.gert.trainapp.sm.personnel.EmployeeId;
+import be.gert.trainapp.sm.planning._events.TrainEngineerCertificationRegistered;
 import be.gert.trainapp.sm.planning._model.CertificateCode;
-import be.gert.trainapp.sm.planning._repository.TrainEngineerJpaRepository;
 import be.gert.trainapp.sm.planning._model.TrainEngineer;
 import be.gert.trainapp.sm.planning._model.TrainEngineerCertification;
 import be.gert.trainapp.sm.planning._model.TrainEngineerCertificationId;
-import be.gert.trainapp.sm.planning._events.TrainEngineerCertificationRegistered;
+import be.gert.trainapp.sm.planning._repository.TrainEngineerJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +32,6 @@ public class RegisterTrainEngineerCertificationUseCase implements RegisterTrainE
 	@Transactional
 	public ResponseEntity<Void> execute(RegisterTrainEngineerCertificationRequest request) {
 		var employeeId = new EmployeeId(request.getEmployeeId());
-		// employeeId should be valid
 
 		var trainEngineer = findOrCreateTrainEngineer(employeeId);
 

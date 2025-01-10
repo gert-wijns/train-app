@@ -49,7 +49,8 @@ get:
               trainEngineer:
                 type: object
                 properties:
-
-                required: []
+                    id:
+                      $ref: '../components.yaml#/components/schemas/EmployeeId'
+                required: [id]
 
             required: [id, gauge, containsDecommissioned, locomotive, wagons]

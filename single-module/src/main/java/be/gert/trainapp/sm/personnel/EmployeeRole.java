@@ -1,4 +1,4 @@
-package be.gert.trainapp.sm.personnel._model;
+package be.gert.trainapp.sm.personnel;
 
 public enum EmployeeRole {
 	TRAIN_ENGINEER,

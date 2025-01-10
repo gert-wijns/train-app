@@ -44,4 +44,12 @@ public class TrainEngineer extends JpaEntity<EmployeeId> {
 				.active(false)
 				.certifications(new ArrayList<>(0));
 	}
+
+	public TrainEngineer activate() {
+		return active(true);
+	}
+
+	public TrainEngineer inactivate() {
+		return active(false);
+	}
 }

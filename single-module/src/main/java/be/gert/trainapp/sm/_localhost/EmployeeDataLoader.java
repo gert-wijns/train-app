@@ -2,6 +2,9 @@ package be.gert.trainapp.sm._localhost;
 
 import static be.gert.trainapp.api.personnel.generated.model.EmployeeRole.TRAIN_CONDUCTOR;
 import static be.gert.trainapp.api.personnel.generated.model.EmployeeRole.TRAIN_ENGINEER;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import java.math.BigInteger;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -21,10 +24,14 @@ public class EmployeeDataLoader {
 	private final NewEmployeeUseCase newEmployeeUseCase;
 	private final AssignEmployeeRoleUseCase assignEmployeeRoleUseCase;
 
-	static final EmployeeId employeeJohnId = new EmployeeId("john");
-	static final EmployeeId employeeCaseyId = new EmployeeId("casey");
-	static final EmployeeId employeeChristinaId = new EmployeeId("christina");
-	static final EmployeeId employeeHannahId = new EmployeeId("hannah");
+	static final EmployeeId employeeJohnId = new EmployeeId(toHex("John"));
+	static final EmployeeId employeeCaseyId = new EmployeeId(toHex("Casey"));
+	static final EmployeeId employeeChristinaId = new EmployeeId(toHex("Christina"));
+	static final EmployeeId employeeHannahId = new EmployeeId(toHex("Hannah"));
+
+	private static String toHex(String arg) {
+		return String.format("%x", new BigInteger(1, arg.getBytes(UTF_8)));
+	}
 
 	void loadEmployees() {
 		newEmployeeUseCase.execute(newEmployeeChristinaRequest());

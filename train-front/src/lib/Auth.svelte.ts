@@ -60,9 +60,6 @@ export class Auth {
     }
 
     getAccessToken() {
-        if (this.user) {
-            console.log(new Date(this.user.exp * 1000))
-        }
         return this.accessToken
     }
 

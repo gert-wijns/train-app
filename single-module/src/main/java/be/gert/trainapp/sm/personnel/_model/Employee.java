@@ -1,10 +1,11 @@
 package be.gert.trainapp.sm.personnel._model;
 
-import static be.gert.trainapp.sm.personnel._model.EmployeeRole.UNASSIGNED;
+import static be.gert.trainapp.sm.personnel.EmployeeRole.UNASSIGNED;
 
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
 import be.gert.trainapp.sm._shared.values.FullName;
 import be.gert.trainapp.sm.personnel.EmployeeId;
+import be.gert.trainapp.sm.personnel.EmployeeRole;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;

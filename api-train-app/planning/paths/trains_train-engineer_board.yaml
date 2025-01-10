@@ -1,0 +1,20 @@
+post:
+  operationId: execute
+  tags:
+    - BoardTrainEngineerToTrainUseCase
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          title: BoardTrainEngineerToTrainRequest
+          properties:
+            trainId:
+              $ref: '../components.yaml#/components/schemas/TrainId'
+            employeeId:
+              $ref: '../components.yaml#/components/schemas/EmployeeId'
+          required: [ trainId, employeeId ]
+  responses:
+    204:
+      description: Success

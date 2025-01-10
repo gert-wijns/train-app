@@ -2,7 +2,7 @@ package be.gert.trainapp.sm.personnel._model;
 
 import static be.gert.trainapp.sm.EntityAssertionDefaults.AUDIT_FIELDS;
 import static be.gert.trainapp.sm.EntityAssertionDefaults.NESTED_AUDIT_FIELDS;
-import static be.gert.trainapp.sm.personnel._model.EmployeeRole.TRAIN_ENGINEER;
+import static be.gert.trainapp.sm.personnel.EmployeeRole.TRAIN_ENGINEER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.core.api.RecursiveComparisonAssert;

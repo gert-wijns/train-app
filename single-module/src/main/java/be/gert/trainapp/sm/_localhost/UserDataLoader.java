@@ -9,6 +9,7 @@ import be.gert.trainapp.api.usermanagement.generated.GrantRolesToUserUseCaseApi;
 import be.gert.trainapp.api.usermanagement.generated.RegisterUserUseCaseApi;
 import be.gert.trainapp.api.usermanagement.generated.model.GrantRolesToUserRequest;
 import be.gert.trainapp.api.usermanagement.generated.model.RegisterUserRequest;
+import be.gert.trainapp.sm.personnel._model.PersonnelAuthRoles;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
@@ -54,7 +55,7 @@ public class UserDataLoader {
 				.password("Gomez"));
 		grantRolesToUserUseCaseApi.execute(new GrantRolesToUserRequest()
 				.username("Michelle")
-				.roles(List.of("hr")));
+				.roles(List.of(PersonnelAuthRoles.HR)));
 
 		userRegistrationUseCaseApi.execute(new RegisterUserRequest()
 				.username("Clara")
@@ -68,7 +69,7 @@ public class UserDataLoader {
 				.password("Tyler"));
 		grantRolesToUserUseCaseApi.execute(new GrantRolesToUserRequest()
 				.username("Rose")
-				.roles(List.of("admin")));
+				.roles(List.of(PersonnelAuthRoles.ADMIN)));
 
 		userRegistrationUseCaseApi.execute(new RegisterUserRequest()
 				.username("River")
@@ -82,7 +83,7 @@ public class UserDataLoader {
 				.password("System"));
 		grantRolesToUserUseCaseApi.execute(new GrantRolesToUserRequest()
 				.username("System")
-				.roles(List.of("admin")));
+				.roles(List.of(PersonnelAuthRoles.ADMIN)));
 
 	}
 

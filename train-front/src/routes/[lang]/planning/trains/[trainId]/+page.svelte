@@ -16,8 +16,12 @@
     <Icon class="w-12 h-12" icon="healthicons:truck-driver" />
     <div class="shadow-lg p-2 max-w-96 bg-base-200 grid grid-cols-2">
       <div class="col-span-2 text-sm font-bold">{m('TRAIN_ENGINEER')}</div>
-      <span>{m('BADGE_NR')}</span>
-      <div>{locomotive.serialNumber}</div>
+      {#if data.train.trainEngineer}
+        <span>{m('BADGE_NR')}</span>
+        <div>{data.train.trainEngineer.id}</div>
+      {:else}
+        <span class="col-span-2">{m('NONE_BOARDED')}</span>
+      {/if}
     </div>
   </div>
 

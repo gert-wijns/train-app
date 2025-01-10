@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm._localhost;
 
+import static be.gert.trainapp.sm._localhost.LocalhostAsyncConfig.useSyncTaskExecutor;
 import static java.util.Objects.requireNonNull;
 
 import java.util.stream.Collectors;
@@ -8,7 +9,6 @@ import java.util.stream.Stream;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,14 +31,19 @@ public class LocalDataLoader {
 
 	@EventListener(ApplicationStartedEvent.class)
 	void onApplicationStarted() {
-		asSystemUser();
-		employeeDataLoader.loadEmployees();
-		locomotiveModelDataLoader.loadModels();
-		locomotiveDataLoader.loadLocomotives();
-		wagonDataLoader.loadWagons();
-		networkDataLoader.loadNetworks();
-		trainDataLoader.loadTrains();
-		userDataLoader.loadUsers();
+		useSyncTaskExecutor(() -> {
+			// @ApplicationModuleListener runs async, which makes things more complicated
+			// if the next loader needs events of the previous loader to have been completed
+			// This "simple" setup is sufficient for now.
+			asSystemUser();
+			employeeDataLoader.loadEmployees();
+			locomotiveModelDataLoader.loadModels();
+			locomotiveDataLoader.loadLocomotives();
+			wagonDataLoader.loadWagons();
+			networkDataLoader.loadNetworks();
+			trainDataLoader.loadTrains();
+			userDataLoader.loadUsers();
+		});
 	}
 
 	private void asSystemUser() {

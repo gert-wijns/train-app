@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import be.gert.trainapp.api.personnel.generated.AssignEmployeeRoleUseCaseApi;
 import be.gert.trainapp.api.personnel.generated.model.AssignEmployeeRoleRequest;
 import be.gert.trainapp.sm.personnel.EmployeeId;
-import be.gert.trainapp.sm.personnel._model.EmployeeRole;
+import be.gert.trainapp.sm.personnel._event.EmployeeRoleAssigned;
+import be.gert.trainapp.sm.personnel.EmployeeRole;
 import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class AssignEmployeeRoleUseCase implements AssignEmployeeRoleUseCaseApi {
 	private final EmployeeJpaRepository jpa;
+	private final ApplicationEventPublisher eventPublisher;
 
 	@Override
 	@Transactional
@@ -29,6 +31,7 @@ public class AssignEmployeeRoleUseCase implements AssignEmployeeRoleUseCaseApi {
 		var employee = jpa.getById(employeeId);
 		employee.assignRole(EmployeeRole.valueOf(request.getRole().getValue()));
 		jpa.save(employee);
+		eventPublisher.publishEvent(new EmployeeRoleAssigned(employeeId, employee.role()));
 		return noContent().build();
 	}
 }
