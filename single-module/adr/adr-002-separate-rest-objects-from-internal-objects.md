@@ -46,7 +46,7 @@ throw BadRequest when a constraint validation occurs
    - If we would use request validation specific checks, then it still leads to problems because ValueObjects
    used in the command which may be used elsewhere (not in a request). At which point they should not cause BadRequest anymore.
 
-Conclusion is valid annotations are great on request body etc, but must be separated from the rest of the internal code.
+Conclusion is valid annotations are great on request body etc., but must be separated from the rest of the internal code.
 
 ## Decision
 
