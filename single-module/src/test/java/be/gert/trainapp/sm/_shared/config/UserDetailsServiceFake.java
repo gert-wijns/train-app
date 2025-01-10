@@ -1,4 +1,4 @@
-package be.gert.trainapp.sm._config;
+package be.gert.trainapp.sm._shared.config;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,10 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.event.annotation.BeforeTestExecution;
 
-@Component
 public class UserDetailsServiceFake implements UserDetailsService {
 
 	public static void withoutRoles() {
@@ -27,6 +25,7 @@ public class UserDetailsServiceFake implements UserDetailsService {
 		var authorities = Stream.of(requireNonNull(roles))
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toSet());
+		setAuthentication(authorities);
 	}
 
 	private static void setAuthentication(Set<SimpleGrantedAuthority> authorities) {

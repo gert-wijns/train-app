@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.personnel.employee;
 
-import static be.gert.trainapp.sm._config.UserDetailsServiceFake.withRoles;
+import static be.gert.trainapp.sm._shared.config.UserDetailsServiceFake.withRoles;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.assertEmployee;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzales;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzalesId;

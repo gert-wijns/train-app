@@ -1,4 +1,4 @@
-package be.gert.trainapp.sm._config;
+package be.gert.trainapp.sm._shared.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.SyncTaskExecutor;

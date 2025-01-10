@@ -37,6 +37,7 @@ public class TrainDefaults {
 				.id(trainOrientExpressId)
 				.locomotive(orientExpressLocomotive)
 				.gauge(standardGauge)
+				.containsDecommissioned(false)
 				.wagons(new ArrayList<>())
 				.build();
 	}

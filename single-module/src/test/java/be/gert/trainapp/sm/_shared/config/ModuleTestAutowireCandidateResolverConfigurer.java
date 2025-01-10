@@ -1,4 +1,4 @@
-package be.gert.trainapp.sm._config;
+package be.gert.trainapp.sm._shared.config;
 
 import java.util.Optional;
 import java.util.Set;

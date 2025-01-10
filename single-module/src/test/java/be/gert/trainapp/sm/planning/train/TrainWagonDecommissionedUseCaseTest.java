@@ -36,7 +36,6 @@ class TrainWagonDecommissionedUseCaseTest {
 		assertThat(jpa.getById(trainOrientExpressId).wagons().getFirst())
 				.extracting("decommissioned")
 				.isEqualTo(true);
-
 	}
 
 }

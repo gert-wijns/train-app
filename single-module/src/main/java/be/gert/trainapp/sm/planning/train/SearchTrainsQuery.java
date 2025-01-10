@@ -28,6 +28,7 @@ public class SearchTrainsQuery implements SearchTrainsQueryApi {
 		var query = queryFactory.from(train)
 				.select(train.id.id,
 						train.gauge.type,
+						train.containsDecommissioned,
 						train.locomotive.id.id,
 						train.locomotive.decommissioned,
 						train.locomotive.serialNumber.sn);
@@ -39,6 +40,7 @@ public class SearchTrainsQuery implements SearchTrainsQueryApi {
 		return new SearchTrainsQueryResponseItem()
 				.id(tuple.get(train.id.id))
 				.gauge(tuple.get(train.gauge.type))
+				.containsDecommissioned(tuple.get(train.containsDecommissioned))
 				.locomotive(new TrainLocomotiveResponse()
 						.id(tuple.get(train.locomotive.id.id))
 						.decommissioned(tuple.get(train.locomotive.decommissioned))

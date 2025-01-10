@@ -19,4 +19,5 @@ public class TrainWagonDecommissionedUseCase {
 			trainOpt.get().wagonDecommissioned(wagon.id());
 		}
 	}
+
 }

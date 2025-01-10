@@ -35,6 +35,7 @@ class TrainLocomotiveDecommissionedUseCaseTest {
 		// then
 		assertTrain(jpa.getById(trainOrientExpressId))
 				.isEqualTo(emptyOrientExpress().toBuilder()
+						.containsDecommissioned(true)
 						.locomotive(orientExpressLocomotive.withDecommissioned(true)));
 	}
 

@@ -45,6 +45,7 @@ public class Train extends JpaEntity<TrainId> {
 	private @Embedded TrackGauge gauge;
 	private @Embedded GeoPosition position;
 	private @Embedded RoutePlanId routePlanId;
+	private boolean containsDecommissioned;
 
 	public static Train newTrain(TrainId id, Locomotive locomotive) {
 		var trainLocomotive = new TrainLocomotive(
@@ -52,7 +53,10 @@ public class Train extends JpaEntity<TrainId> {
 				locomotive.serialNumber(),
 				locomotive.powerType() == ELECTRIC,
 				locomotive.decommissioned());
-		return new Train().id(id).gauge(locomotive.gauge()).locomotive(trainLocomotive);
+		return new Train().id(id)
+				.gauge(locomotive.gauge())
+				.locomotive(trainLocomotive)
+				.containsDecommissioned(locomotive.decommissioned());
 	}
 
 	public Train attachWagon(Wagon wagon) {
@@ -65,16 +69,21 @@ public class Train extends JpaEntity<TrainId> {
 				wagon.decommissioned(),
 				this,
 				null));
+		if (wagon.decommissioned()) {
+			this.containsDecommissioned = true;
+		}
 		return this;
 	}
 
 	public Train locomotiveDecommissioned() {
 		this.locomotive = locomotive.withDecommissioned(true);
+		this.containsDecommissioned = true;
 		return this;
 	}
 
 	public Train wagonDecommissioned(WagonId id) {
 		entityList(wagons).get(id).decommission();
+		this.containsDecommissioned = true;
 		return this;
 	}
 

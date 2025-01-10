@@ -27,21 +27,31 @@ public class SearchTrainDetailsQuery implements SearchTrainDetailsQueryApi {
 
 	@Override
 	public ResponseEntity<SearchTrainDetailsQueryResponse> query(String trainId) {
-		var trainQuery = queryFactory.from(train)
-				.select(train.id.id,
-						train.gauge.type,
-						train.locomotive.id.id,
-						train.locomotive.decommissioned,
-						train.locomotive.serialNumber.sn)
-				.where(train.id.id.eq(trainId));
-		var trainResult = trainQuery.fetch().getFirst();
+		var trainTuple = fetchTrain(trainId);
+		var wagons = fetchWagons(trainId);
+		return ok(toResponseItem(trainTuple, wagons));
+	}
+
+	private List<SearchTrainDetailsWagonQueryResponse> fetchWagons(String trainId) {
 		var wagonsQuery = queryFactory.from(trainWagon)
 				.select(trainWagon.id.id,
 						trainWagon.serialNumber.sn,
 						trainWagon.decommissioned)
 				.where(trainWagon.train.id.id.eq(trainId));
-		var wagons = wagonsQuery.fetch().stream().map(this::toResponse).toList();
-		return ok(toResponseItem(trainResult, wagons));
+		return wagonsQuery.fetch().stream().map(this::toResponse).toList();
+	}
+
+	private Tuple fetchTrain(String trainId) {
+		var trainQuery = queryFactory.from(train)
+				.select(train.id.id,
+						train.gauge.type,
+						train.locomotive.id.id,
+						train.locomotive.decommissioned,
+						train.locomotive.serialNumber.sn,
+						train.containsDecommissioned,
+						train.trainEngineer.id)
+				.where(train.id.id.eq(trainId));
+		return trainQuery.fetch().getFirst();
 	}
 
 	private SearchTrainDetailsWagonQueryResponse toResponse(Tuple tuple) {
@@ -60,6 +70,7 @@ public class SearchTrainDetailsQuery implements SearchTrainDetailsQueryApi {
 						.id(tuple.get(train.locomotive.id.id))
 						.decommissioned(tuple.get(train.locomotive.decommissioned))
 						.serialNumber(tuple.get(train.locomotive.serialNumber.sn)))
-				.wagons(wagons);
+				.wagons(wagons)
+				.containsDecommissioned(tuple.get(train.containsDecommissioned));
 	}
 }

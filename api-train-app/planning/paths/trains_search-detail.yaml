@@ -46,5 +46,10 @@ get:
                     decommissioned:
                       type: boolean
                   required: [id, serialNumber, decommissioned]
+              trainEngineer:
+                type: object
+                properties:
+
+                required: []
 
             required: [id, gauge, containsDecommissioned, locomotive, wagons]

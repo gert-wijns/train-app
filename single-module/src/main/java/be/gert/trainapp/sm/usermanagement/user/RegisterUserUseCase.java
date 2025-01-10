@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.usermanagement.user;
 
+import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 import static org.springframework.http.ResponseEntity.noContent;
 
 import java.util.Set;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import be.gert.trainapp.api.usermanagement.generated.RegisterUserUseCaseApi;
 import be.gert.trainapp.api.usermanagement.generated.model.RegisterUserRequest;
+import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm.usermanagement.UserId;
 import be.gert.trainapp.sm.usermanagement._model.User;
 import be.gert.trainapp.sm.usermanagement._repository.UserJpaRepository;
@@ -21,6 +23,12 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class RegisterUserUseCase implements RegisterUserUseCaseApi {
+	public static DomainException alreadyExists(UserId userId) {
+		return error("USERMANAGEMENT_USER_ALREADY_EXISTS",
+				"User already exists for id '${id}'.")
+				.withParam("id", userId.id())
+				.asException();
+	}
 	private final PasswordEncoder encoder;
 	private final UserJpaRepository jpa;
 
@@ -29,7 +37,7 @@ public class RegisterUserUseCase implements RegisterUserUseCaseApi {
 	public ResponseEntity<Void> execute(RegisterUserRequest request) {
 		var userId = new UserId(request.getUsername());
 		if (jpa.existsById(userId)) {
-			return ResponseEntity.badRequest().build();
+			throw alreadyExists(userId);
 		}
 
 		String encodedPassword = encoder.encode(request.getPassword());
