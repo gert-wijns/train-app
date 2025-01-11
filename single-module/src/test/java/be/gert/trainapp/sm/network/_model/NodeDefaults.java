@@ -1,13 +1,8 @@
 package be.gert.trainapp.sm.network._model;
 
-import static be.gert.trainapp.sm.EntityAssertionDefaults.AUDIT_FIELDS;
-import static be.gert.trainapp.sm.EntityAssertionDefaults.NESTED_AUDIT_FIELDS;
 import static be.gert.trainapp.sm.network._model.NetworkDefaults.networkBelgiumId;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
-
-import org.assertj.core.api.RecursiveComparisonAssert;
 
 import be.gert.trainapp.sm._shared.values.GeoPosition;
 import be.gert.trainapp.sm.network.NodeId;
@@ -35,10 +30,4 @@ public class NodeDefaults {
 				.build();
 	}
 
-	public static RecursiveComparisonAssert<?> assertNode(Node entity) {
-		return assertThat(entity)
-				.usingRecursiveComparison()
-				.ignoringFieldsMatchingRegexes(NESTED_AUDIT_FIELDS)
-				.ignoringFields(AUDIT_FIELDS);
-	}
 }

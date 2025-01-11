@@ -1,9 +1,9 @@
 package be.gert.trainapp.sm.planning.trainengineer;
 
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm._shared.clock.AppClock.clock;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzalesId;
 import static be.gert.trainapp.sm.planning._model.CertificationDefaults.certificateCodeTsiLoc;
-import static be.gert.trainapp.sm.planning._model.TrainEngineerDefaults.assertTrainEngineer;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -49,7 +49,7 @@ class RegisterTrainEngineerCertificationUseCaseTest {
 	void success() {
 		usecase.execute(request);
 
-		assertTrainEngineer(jpa.getById(employeeChristineGonzalesId))
+		assertEntity(jpa.getById(employeeChristineGonzalesId))
 				.isEqualTo(trainEngineer);
 	}
 }

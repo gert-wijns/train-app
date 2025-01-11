@@ -6,6 +6,7 @@ import java.util.Set;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import be.gert.trainapp.sm._shared.entity.JpaEntity;
 import be.gert.trainapp.sm.usermanagement.UserId;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -31,11 +32,11 @@ import lombok.ToString;
 @ToString
 @Builder(toBuilder = true)
 //</editor-fold>
-public class User {
+public class User extends JpaEntity<UserId> {
     private @EmbeddedId UserId id;
     private String password;
     @JdbcTypeCode(SqlTypes.JSON)
-    private Set<String> roles = Set.of();
+    private Set<String> roles;
 
     public User grantRoles(@NotNull List<String> roles) {
         this.roles.addAll(roles);

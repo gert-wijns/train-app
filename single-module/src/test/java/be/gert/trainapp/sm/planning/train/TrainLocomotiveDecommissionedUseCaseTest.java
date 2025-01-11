@@ -2,8 +2,8 @@ package be.gert.trainapp.sm.planning.train;
 
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.assertTrain;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.emptyOrientExpress;
-import static be.gert.trainapp.sm.planning._model.TrainDefaults.locomotiveOrientExpressId;
-import static be.gert.trainapp.sm.planning._model.TrainDefaults.orientExpressLocomotive;
+import static be.gert.trainapp.sm.planning._model.LocomotiveDefaults.locomotiveOrientExpressId;
+import static be.gert.trainapp.sm.planning._model.TrainLocomotiveDefaults.orientExpressLocomotive;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.trainOrientExpressId;
 
 import org.junit.jupiter.api.BeforeEach;

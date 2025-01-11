@@ -1,8 +1,8 @@
 package be.gert.trainapp.sm.planning._testdoubles;
 
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
-import static be.gert.trainapp.sm.planning._model.TrainDefaults.locomotiveOrientExpressId;
-import static be.gert.trainapp.sm.planning._model.TrainDefaults.orientExpressLocomotive;
+import static be.gert.trainapp.sm.planning._model.LocomotiveDefaults.locomotiveOrientExpressId;
+import static be.gert.trainapp.sm.planning._model.TrainLocomotiveDefaults.orientExpressLocomotive;
 
 import java.util.List;
 

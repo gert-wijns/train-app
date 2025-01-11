@@ -1,9 +1,9 @@
 package be.gert.trainapp.sm.network.network;
 
-import static be.gert.trainapp.sm.network._model.NetworkDefaults.assertNetwork;
 import static be.gert.trainapp.sm.network._model.NetworkDefaults.networkBelgium;
 import static be.gert.trainapp.sm.network._model.NetworkDefaults.networkBelgiumId;
 import static be.gert.trainapp.sm.network.network.AddNetworkUseCase.alreadyExists;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ class AddNetworkUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		assertNetwork(jpa.getById(networkBelgiumId))
+		assertThat(jpa.getById(networkBelgiumId))
 				.isEqualTo(networkBelgium());
 	}
 

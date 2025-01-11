@@ -1,9 +1,10 @@
 package be.gert.trainapp.sm.planning.train;
 
+import static be.gert.trainapp.sm.ValidationAssertionDefaults.assertValid;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.emptyOrientExpress;
-import static be.gert.trainapp.sm.planning._model.TrainDefaults.locomotiveOrientExpressId;
-import static be.gert.trainapp.sm.planning._model.TrainDefaults.orientExpressLocomotive;
+import static be.gert.trainapp.sm.planning._model.LocomotiveDefaults.locomotiveOrientExpressId;
+import static be.gert.trainapp.sm.planning._model.TrainLocomotiveDefaults.orientExpressLocomotive;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.trainOrientExpressId;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,10 +29,11 @@ class SearchTrainsQueryTest {
 		jpa.save(emptyOrientExpress());
 
 		// when
-		var response = query.query();
+		var response = query.query().getBody();
 
 		// then
-		assertThat(response.getBody()).containsExactly(
+		assertValid(response);
+		assertThat(response).containsExactly(
 				new SearchTrainsQueryResponseItem()
 						.id(trainOrientExpressId.id())
 						.gauge(standardGauge.type())

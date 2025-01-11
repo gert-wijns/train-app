@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.planning._testdoubles;
 
-import static be.gert.trainapp.sm.planning._model.TrainDefaults.orientExpressFirstCoach;
-import static be.gert.trainapp.sm.planning._model.TrainDefaults.wagonModelTypeId;
+import static be.gert.trainapp.sm.planning._model.WagonDefaults.orientExpressFirstCoach;
+import static be.gert.trainapp.sm.planning._model.WagonDefaults.wagonModelTypeId;
 
 import java.util.List;
 

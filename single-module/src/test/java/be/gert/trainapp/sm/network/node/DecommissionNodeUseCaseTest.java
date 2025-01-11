@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.network.node;
 
-import static be.gert.trainapp.sm.network._model.NodeDefaults.assertNode;
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerp;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
 import static be.gert.trainapp.sm.network._repository.NodeJpaRepository.notFound;
@@ -31,7 +31,7 @@ class DecommissionNodeUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		assertNode(jpa.getById(stationAntwerpId))
+		assertEntity(jpa.getById(stationAntwerpId))
 				.isEqualTo(stationAntwerp().toBuilder()
 						.decommissioned(true)
 						.build());

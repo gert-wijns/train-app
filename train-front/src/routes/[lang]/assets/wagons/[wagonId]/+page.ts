@@ -3,12 +3,12 @@ import { SearchWagonsQueryApi } from "$assets-api/services/SearchWagonsQueryApi"
 
 
 export type LoadData = {
-    locomotive: Promise<SearchWagonsQueryResponseItem>
+    wagon: SearchWagonsQueryResponseItem
 }
 
 export const load = async ({ params }) => {
     return {
-        locomotive: SearchWagonsQueryApi
+        wagon: await SearchWagonsQueryApi
             .query({ wagonId: [params.wagonId] })
             .then(wagons => wagons[0])
     } satisfies LoadData

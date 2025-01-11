@@ -1,6 +1,7 @@
 package be.gert.trainapp.sm.assets.wagon;
 
 import static be.gert.trainapp.api.assets.generated.model.WagonTypeEnum.GONDOLA;
+import static be.gert.trainapp.sm.ValidationAssertionDefaults.assertValid;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.serialNumber;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.testWagon;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.wagonId;
@@ -45,6 +46,7 @@ class SearchWagonsQueryTest {
 
 		// when
 		var response = query.query(List.of(wagonId.id())).getBody();
+		assertValid(response);
 		assertThat(response)
 				.containsExactly(new SearchWagonsQueryResponseItem()
 						.id(wagonId.id())

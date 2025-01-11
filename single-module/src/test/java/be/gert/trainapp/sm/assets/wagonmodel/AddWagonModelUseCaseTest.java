@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.assets.wagonmodel;
 
 import static be.gert.trainapp.api.assets.generated.model.WagonTypeEnum.GONDOLA;
-import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.assertWagonModel;
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXs;
 import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXsId;
 import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXsName;
@@ -33,7 +33,7 @@ class AddWagonModelUseCaseTest {
 	void success() {
 		usecase.execute(request);
 
-		assertWagonModel(jpa.getById(wagonModelXsId))
+		assertEntity(jpa.getById(wagonModelXsId))
 				.isEqualTo(wagonModelXs());
 	}
 

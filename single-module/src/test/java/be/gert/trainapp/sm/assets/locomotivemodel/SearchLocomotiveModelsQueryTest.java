@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.assets.locomotivemodel;
 
+import static be.gert.trainapp.sm.ValidationAssertionDefaults.assertValid;
 import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.locomotiveModelLMSStainierBlack5;
 import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.locomotiveModelLMSStainierBlack5Id;
 import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.locomotiveModelLMSStainierBlack5Name;
@@ -28,6 +29,7 @@ class SearchLocomotiveModelsQueryTest {
 
 		// when
 		var response = query.query().getBody();
+		assertValid(response);
 		assertThat(response)
 				.containsExactly(new SearchLocomotiveModelsQueryResponseItem()
 						.id(locomotiveModelLMSStainierBlack5Id.id())

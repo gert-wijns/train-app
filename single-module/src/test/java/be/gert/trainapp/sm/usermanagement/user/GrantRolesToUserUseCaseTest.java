@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.usermanagement.user;
 
-import static be.gert.trainapp.sm.usermanagement._model.UserDefaults.assertUser;
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.usermanagement._model.UserDefaults.userRose;
 import static be.gert.trainapp.sm.usermanagement._model.UserDefaults.userRoseId;
 import static be.gert.trainapp.sm.usermanagement._repository.UserJpaRepository.notFound;
@@ -37,7 +37,7 @@ class GrantRolesToUserUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		assertUser(jpa.getById(userRoseId))
+		assertEntity(jpa.getById(userRoseId))
 				.isEqualTo(userRose().toBuilder()
 						.roles(Set.of("admin", "assistant"))
 						.build());

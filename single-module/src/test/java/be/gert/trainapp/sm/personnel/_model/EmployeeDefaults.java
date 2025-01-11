@@ -1,9 +1,7 @@
 package be.gert.trainapp.sm.personnel._model;
 
-import static be.gert.trainapp.sm.EntityAssertionDefaults.AUDIT_FIELDS;
-import static be.gert.trainapp.sm.EntityAssertionDefaults.NESTED_AUDIT_FIELDS;
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.personnel.EmployeeRole.TRAIN_ENGINEER;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.core.api.RecursiveComparisonAssert;
 
@@ -22,10 +20,4 @@ public final class EmployeeDefaults {
 				.build();
 	}
 
-	public static RecursiveComparisonAssert<?> assertEmployee(Employee entity) {
-		return assertThat(entity)
-				.usingRecursiveComparison()
-				.ignoringFieldsMatchingRegexes(NESTED_AUDIT_FIELDS)
-				.ignoringFields(AUDIT_FIELDS);
-	}
 }

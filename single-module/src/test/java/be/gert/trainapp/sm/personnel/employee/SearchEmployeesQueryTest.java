@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.personnel.employee;
 
+import static be.gert.trainapp.sm.ValidationAssertionDefaults.assertValid;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzales;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -47,6 +48,7 @@ class SearchEmployeesQueryTest {
 		var result = query.query(filter.filterEmployeeIds.stream().map(EmployeeId::id).toList()).getBody();
 
 		// then
+		assertValid(result);
 		assertThat(result)
 				.map(SearchEmployeesQueryResponseItem::getId)
 				.map(EmployeeId::new)

@@ -43,9 +43,9 @@
         </div>
       </span>
     {/if}
-    <button class="btn btn-ghost btn-circle" aria-label="search">
+    <!--<button class="btn btn-ghost btn-circle" aria-label="search">
       <Icon class="h-5 w-5" icon="tabler:search" />
-    </button>
+    </button>-->
     <button class="btn btn-ghost btn-circle" aria-label="bell">
       <div class="indicator">
         <Icon class="h-5 w-5" icon="tabler:bell" />

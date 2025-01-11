@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.assets.locomotive;
 
-import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.assertLocomotive;
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotive1937Id;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.locomotiveStainier;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.serialNumberStainier;
@@ -45,7 +45,7 @@ class AddLocomotiveUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		assertLocomotive(jpa.getById(locomotive1937Id))
+		assertEntity(jpa.getById(locomotive1937Id))
 				.isEqualTo(locomotiveStainier());
 
 		assertThat(events.stream(LocomotiveAddedEvent.class))

@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.assets.asset;
 
+import static be.gert.trainapp.sm.ValidationAssertionDefaults.assertValid;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,7 @@ class SearchAssetsQueryTest {
 
 		var result = query.query().getBody();
 
+		assertValid(result);
 		assertThat(result).containsExactly(new SearchAssetsQueryResponseItem()
 				.id(id.id())
 				.type(be.gert.trainapp.api.assets.generated.model.AssetType.LOCOMOTIVE)

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { m } from '$lib/i18n/translate.svelte'
+  import { M, m } from '$lib/i18n/translate.svelte'
   import Icon from '@iconify/svelte'
   import type { LoadData } from './+page'
   import type { TrainLocomotiveResponse } from '$planning-api'
@@ -29,7 +29,14 @@
   <div class="grid gap-4 grid-cols-[min-content_1fr] items-center">
     <Icon class="w-12 h-12" rotate={3} icon="wi:train" />
     <div class="shadow-lg p-2 max-w-96 bg-base-200 grid grid-cols-2">
-      <div class="col-span-2 text-sm font-bold">{m('LOCOMOTIVE')}</div>
+      <div class="col-span-2 text-sm font-bold flex gap-2 items-center">
+        {m('LOCOMOTIVE')}
+        {#if locomotive.decommissioned}
+          <span class="badge badge-xs badge-error">
+            {M('DECOMMISSIONED')}
+          </span>
+        {/if}
+      </div>
       <span>{m('SERIAL_NUMBER')}</span>
       <div>{locomotive.serialNumber}</div>
     </div>

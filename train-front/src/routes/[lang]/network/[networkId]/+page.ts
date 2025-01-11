@@ -1,11 +1,11 @@
 import type { PageLoad } from "../$types";
-import { type SearchNetworkNodesQueryResponseItem } from '$network-api/models/SearchNetworkNodesQueryResponseItem'
 import { SearchNetworkNodesQueryApi } from '$network-api/services/SearchNetworkNodesQueryApi'
 import { SearchNetworkTracksQueryApi } from '$network-api/services/SearchNetworkTracksQueryApi'
 import type { SearchNetworkTracksQueryResponseItem } from "$network-api/models/SearchNetworkTracksQueryResponseItem";
+import type { NetworkNode } from "$lib/components/network/NetworkModel.svelte";
 
 export type LoadData = {
-    nodes: SearchNetworkNodesQueryResponseItem[]
+    nodes: NetworkNode[]
     tracks: SearchNetworkTracksQueryResponseItem[]
 }
 
@@ -14,7 +14,7 @@ export const load: PageLoad = async () => {
         SearchNetworkNodesQueryApi.query(),
         SearchNetworkTracksQueryApi.query()])
     return {
-        nodes,
+        nodes: nodes.map(node => ({ ...node, networkId: node.network.id })),
         tracks
     } satisfies LoadData
 }

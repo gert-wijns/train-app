@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.assets.wagon;
 
-import static be.gert.trainapp.sm.assets._model.WagonDefaults.assertWagon;
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.testWagon;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.wagonId;
 import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXs;
@@ -40,7 +40,7 @@ class DecommissionWagonUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		assertWagon(jpa.getById(wagonId))
+		assertEntity(jpa.getById(wagonId))
 				.isEqualTo(testWagon().toBuilder()
 						.decommissioned(true)
 						.build());

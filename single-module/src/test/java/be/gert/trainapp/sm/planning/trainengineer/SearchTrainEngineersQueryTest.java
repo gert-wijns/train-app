@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.planning.trainengineer;
 
+import static be.gert.trainapp.sm.ValidationAssertionDefaults.assertValid;
 import static be.gert.trainapp.sm._shared.clock.AppClock.clock;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzales;
 import static be.gert.trainapp.sm.planning._model.CertificationDefaults.certificateCodeTsiLoc;
@@ -66,6 +67,7 @@ class SearchTrainEngineersQueryTest {
 		var result = query.query(filter.certificationCodes, filter.certificationValidFrom, filter.certificationValidUntil).getBody();
 
 		// then
+		assertValid(result);
 		assertThat(result).containsExactly(new SearchTrainEngineersQueryResponseItem().id(employeeId.id()));
 	}
 

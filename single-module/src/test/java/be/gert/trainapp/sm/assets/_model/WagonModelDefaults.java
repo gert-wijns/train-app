@@ -1,12 +1,7 @@
 package be.gert.trainapp.sm.assets._model;
 
-import static be.gert.trainapp.sm.EntityAssertionDefaults.AUDIT_FIELDS;
-import static be.gert.trainapp.sm.EntityAssertionDefaults.NESTED_AUDIT_FIELDS;
 import static be.gert.trainapp.sm.assets.WagonType.GONDOLA;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.assertj.core.api.RecursiveComparisonAssert;
 
 import be.gert.trainapp.sm.assets.WagonModelId;
 
@@ -24,10 +19,4 @@ public class WagonModelDefaults {
 				.build();
 	}
 
-	public static RecursiveComparisonAssert<?> assertWagonModel(WagonModel entity) {
-		return assertThat(entity)
-				.usingRecursiveComparison()
-				.ignoringFieldsMatchingRegexes(NESTED_AUDIT_FIELDS)
-				.ignoringFields(AUDIT_FIELDS);
-	}
 }

@@ -1,9 +1,7 @@
 package be.gert.trainapp.sm.assets._model;
 
-import static be.gert.trainapp.sm.EntityAssertionDefaults.AUDIT_FIELDS;
-import static be.gert.trainapp.sm.EntityAssertionDefaults.NESTED_AUDIT_FIELDS;
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.assets._model.WagonModelDefaults.wagonModelXsId;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.core.api.RecursiveComparisonAssert;
 
@@ -22,10 +20,4 @@ public class WagonDefaults {
 				false);
 	}
 
-	public static RecursiveComparisonAssert<?> assertWagon(Wagon entity) {
-		return assertThat(entity)
-				.usingRecursiveComparison()
-				.ignoringFieldsMatchingRegexes(NESTED_AUDIT_FIELDS)
-				.ignoringFields(AUDIT_FIELDS);
-	}
 }

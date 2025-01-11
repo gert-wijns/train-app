@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.assets.wagon;
 
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.assets._model.LocomotiveDefaults.serialNumberStainier;
-import static be.gert.trainapp.sm.assets._model.WagonDefaults.assertWagon;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.serialNumber;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.testWagon;
 import static be.gert.trainapp.sm.assets._model.WagonDefaults.wagonId;
@@ -43,7 +43,7 @@ class AddWagonUseCaseTest {
 		modelJpa.save(wagonModelXs());
 		usecase.execute(request);
 
-		assertWagon(jpa.getById(wagonId))
+		assertEntity(jpa.getById(wagonId))
 				.isEqualTo(testWagon());
 		assertThat(events.stream(WagonAddedEvent.class))
 				.containsExactly(new WagonAddedEvent(wagonId, wagonModelXsId, serialNumber));

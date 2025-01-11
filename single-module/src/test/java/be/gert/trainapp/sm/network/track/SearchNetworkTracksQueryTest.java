@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.network.track;
 
+import static be.gert.trainapp.sm.ValidationAssertionDefaults.assertValid;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationBrusselsId;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrussels;
@@ -28,6 +29,7 @@ class SearchNetworkTracksQueryTest {
 
 		var result = query.query().getBody();
 
+		assertValid(result);
 		assertThat(result).containsExactly(new SearchNetworkTracksQueryResponseItem()
 				.fromNodeId(stationAntwerpId.id())
 				.toNodeId(stationBrusselsId.id())

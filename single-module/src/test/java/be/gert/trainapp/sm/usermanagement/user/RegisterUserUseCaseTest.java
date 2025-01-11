@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.usermanagement.user;
 
-import static be.gert.trainapp.sm.usermanagement._model.UserDefaults.assertUser;
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.usermanagement._model.UserDefaults.userRose;
 import static be.gert.trainapp.sm.usermanagement._model.UserDefaults.userRoseId;
 import static be.gert.trainapp.sm.usermanagement.user.RegisterUserUseCase.alreadyExists;
@@ -31,7 +31,7 @@ class RegisterUserUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		assertUser(jpa.getById(userRoseId)).isNotNull();
+		assertEntity(jpa.getById(userRoseId)).isNotNull();
 	}
 
 	@Test

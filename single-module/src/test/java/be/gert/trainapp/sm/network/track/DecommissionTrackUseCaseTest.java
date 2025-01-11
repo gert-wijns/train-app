@@ -1,8 +1,8 @@
 package be.gert.trainapp.sm.network.track;
 
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationAntwerpId;
 import static be.gert.trainapp.sm.network._model.NodeDefaults.stationBrusselsId;
-import static be.gert.trainapp.sm.network._model.TrackDefaults.assertTrack;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrussels;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.trackAntwerpBrusselsId;
 import static be.gert.trainapp.sm.network._repository.TrackJpaRepository.notFound;
@@ -34,7 +34,7 @@ class DecommissionTrackUseCaseTest {
 		usecase.execute(request);
 
 		// then
-		assertTrack(jpa.getById(trackAntwerpBrusselsId))
+		assertEntity(jpa.getById(trackAntwerpBrusselsId))
 				.isEqualTo(trackAntwerpBrussels().toBuilder()
 					.decomissioned(true)
 					.build());

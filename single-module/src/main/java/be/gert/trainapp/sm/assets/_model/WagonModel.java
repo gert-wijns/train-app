@@ -2,6 +2,7 @@ package be.gert.trainapp.sm.assets._model;
 
 import static jakarta.persistence.EnumType.STRING;
 
+import be.gert.trainapp.sm._shared.entity.JpaEntity;
 import be.gert.trainapp.sm.assets.WagonModelId;
 import be.gert.trainapp.sm.assets.WagonType;
 import be.gert.trainapp.sm.network.TrackGauge;
@@ -31,7 +32,7 @@ import lombok.ToString;
 @ToString
 @Builder(toBuilder = true)
 //</editor-fold>
-public class WagonModel {
+public class WagonModel extends JpaEntity<WagonModelId> {
 	private @EmbeddedId WagonModelId id;
 	private @Column(length = 30) String name;
 	private @Embedded TrackGauge gauge;

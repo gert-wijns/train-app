@@ -1,6 +1,6 @@
 package be.gert.trainapp.sm.assets.locomotivemodel;
 
-import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.assertLocomotiveModel;
+import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.locomotiveModelLMSStainierBlack5;
 import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.locomotiveModelLMSStainierBlack5Id;
 import static be.gert.trainapp.sm.assets._model.LocomotiveModelDefaults.locomotiveModelLMSStainierBlack5Name;
@@ -33,7 +33,7 @@ class AddLocomotiveModelUseCaseTest {
 	void success() {
 		usecase.execute(request);
 
-		assertLocomotiveModel(jpa.getById(locomotiveModelLMSStainierBlack5Id))
+		assertEntity(jpa.getById(locomotiveModelLMSStainierBlack5Id))
 				.isEqualTo(locomotiveModelLMSStainierBlack5());
 	}
 

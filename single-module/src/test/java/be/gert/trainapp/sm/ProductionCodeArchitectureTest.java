@@ -30,12 +30,12 @@ public class ProductionCodeArchitectureTest {
 	@ArchTest
 	public static final ArchRule toBuilderNotAllowedOutsideTests = noClasses().should()
 			.callMethodWhere(target(annotatedWith(lombok.Generated.class)).and(target(Predicates.nameMatching("toBuilder"))))
-			.because("adr-002-no-builders-in-production-code.md - Using toBuilder is not allowed outside tests");
+			.because("adr-003-no-builders-in-production-code.md - Using toBuilder is not allowed outside tests");
 
 	@ArchTest
 	public static final ArchRule builderNotAllowedOutsideTests = noClasses().should()
 			.callMethodWhere(target(annotatedWith(lombok.Generated.class)).and(target(Predicates.nameMatching("builder"))))
-			.because("adr-002-no-builders-in-production-code.md - Using builder is not allowed outside tests");
+			.because("adr-003-no-builders-in-production-code.md - Using builder is not allowed outside tests");
 
 	@ArchTest
 	public static ArchRule useJavaTimeWithClock = noClasses().should()
@@ -50,7 +50,8 @@ public class ProductionCodeArchitectureTest {
 										&& target.getParameterTypes().isEmpty();
 							}
 						}))
-			.because("XXX.now(AppClock.clock) should be used instead " +
+			.because("adr-005-always-use-temporal-with-app-clock.md - " +
+					"XXX.now(AppClock.clock) should be used instead " +
 					"so we can test easily with fixed time.");
 
 	@ArchTest
