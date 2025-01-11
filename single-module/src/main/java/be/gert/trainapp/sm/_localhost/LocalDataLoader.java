@@ -27,7 +27,9 @@ public class LocalDataLoader {
 	private final WagonDataLoader wagonDataLoader;
 	private final NetworkDataLoader networkDataLoader;
 	private final TrainDataLoader trainDataLoader;
+	private final CertificateDataLoader certificateDataLoader;
 	private final UserDataLoader userDataLoader;
+	private final TrainEngineerDataLoader trainEngineerDataLoader;
 
 	@EventListener(ApplicationStartedEvent.class)
 	void onApplicationStarted() {
@@ -43,6 +45,8 @@ public class LocalDataLoader {
 			networkDataLoader.loadNetworks();
 			trainDataLoader.loadTrains();
 			userDataLoader.loadUsers();
+			certificateDataLoader.loadCertificates();
+			trainEngineerDataLoader.loadTrainEngineers();
 		});
 	}
 

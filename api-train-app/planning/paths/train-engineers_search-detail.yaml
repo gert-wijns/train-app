@@ -1,0 +1,35 @@
+get:
+  operationId: query
+  tags:
+    - SearchTrainEngineersDetailQuery
+  parameters:
+    - in: query
+      name: employeeId
+      required: true
+      schema:
+        $ref: '../components.yaml#/components/schemas/EmployeeId'
+  responses:
+    200:
+      description: success
+      content:
+        application/json:
+          schema:
+            title: SearchTrainEngineersDetailQueryResponse
+            type: object
+            properties:
+              id:
+                $ref: '../components.yaml#/components/schemas/EmployeeId'
+              active:
+                type: boolean
+              certifications:
+                type: array
+                items:
+                  title: SearchTrainEngineersDetailQueryCertificationItemResponse
+                  type: object
+                  properties:
+                    certificateCode:
+                      $ref: '../components.yaml#/components/schemas/CertificateCode'
+                    certificationPeriod:
+                      $ref: '../components.yaml#/components/schemas/LocalDateRangeBody'
+                  required: [ certificateCode, certificationPeriod ]
+            required: [id, active]

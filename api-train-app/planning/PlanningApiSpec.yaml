@@ -21,8 +21,11 @@ paths:
   /api/planning/trains/search-detail:
     $ref: './paths/trains_search-detail.yaml'
 
-  /api/planning/train-engineers/certifications/search:
-    $ref: './paths/train-engineers_certifications_search.yaml'
+  /api/planning/train-engineers/search:
+    $ref: './paths/train-engineers_search.yaml'
+  /api/planning/train-engineers/search-detail:
+    $ref: './paths/train-engineers_search-detail.yaml'
+
   /api/planning/train-engineers/certifications/register:
     $ref: './paths/train-engineers_certifications_register.yaml'
 

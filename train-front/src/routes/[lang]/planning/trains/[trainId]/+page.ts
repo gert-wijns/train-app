@@ -1,5 +1,3 @@
-import type { SearchWagonModelsQueryResponseItem } from "$assets-api/models/SearchWagonModelsQueryResponseItem"
-import { SearchWagonModelsQueryApi } from "$assets-api/services/SearchWagonModelsQueryApi"
 import type { SearchTrainDetailsQueryResponse } from "$planning-api"
 import { SearchTrainDetailsQueryApi } from "$planning-api"
 

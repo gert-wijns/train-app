@@ -9,6 +9,10 @@ import java.time.LocalDate;
 import be.gert.trainapp.sm._shared.values.LocalDateRange;
 
 public class TrainEngineerCertificationDefaults {
+	public static final LocalDateRange trainEngineerCertificationValidityPeriod = new LocalDateRange(
+			LocalDate.now(clock),
+			LocalDate.now(clock).plusMonths(6));
+
 	public static TrainEngineerCertification trainEngineerCertification() {
 		return new TrainEngineerCertification(
 				new TrainEngineerCertificationId(employeeChristineGonzalesId, certificateCodeTsiLoc),

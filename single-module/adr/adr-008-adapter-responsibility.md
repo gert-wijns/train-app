@@ -1,5 +1,5 @@
 ## Title
-ModuleTest domains in isolation
+Adapter responsibility
 
 ## Status
 Draft

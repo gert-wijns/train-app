@@ -30,7 +30,7 @@
 </script>
 
 <div class="grid gap-5 grid-cols-[min-content_1fr] max-w-96 whitespace-nowrap">
-  <span class="text-lg font-bold col-span-2 flex gap-4 items-center">
+  <span class="text-2xl font-bold col-span-2 flex gap-4 items-center">
     {m('WAGON')}
     {#if wagon.decommissioned}
       <span class="badge badge-sm badge-error">

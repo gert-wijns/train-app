@@ -11,7 +11,7 @@
 <div class="grid gap-5">
   <div class="text-2xl font-bold">{m('TRAIN_DETAILS')}</div>
 
-  <div class="text-2xl font-bold">{m('CREW')}</div>
+  <div class="text-xl font-bold">{m('CREW')}</div>
   <div class="grid gap-4 grid-cols-[min-content_1fr] items-center">
     <Icon class="w-12 h-12" icon="healthicons:truck-driver" />
     <div class="shadow-lg p-2 max-w-96 bg-base-200 grid grid-cols-2">
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div class="text-2xl font-bold">{m('CONFIGURATION')}</div>
+  <div class="text-xl font-bold">{m('CONFIGURATION')}</div>
   <div class="grid gap-4 grid-cols-[min-content_1fr] items-center">
     <Icon class="w-12 h-12" rotate={3} icon="wi:train" />
     <div class="shadow-lg p-2 max-w-96 bg-base-200 grid grid-cols-2">
