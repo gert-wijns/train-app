@@ -4,10 +4,10 @@
   import Grid, { type Column } from '$lib/grid/Grid.svelte'
   import { m } from '$lib/i18n/translate.svelte.js'
   import { route } from '$lib/ROUTES'
-  import type { EmployeeId } from '$personnel-api'
   import { type SearchEmployeesQueryResponseItem } from '$personnel-api/models/SearchEmployeesQueryResponseItem.js'
   import Icon from '@iconify/svelte'
   import { type LoadData } from './+page'
+  import type { EmployeeId } from '$personnel-api/models/EmployeeId'
 
   let { children, data }: { children: any; data: LoadData } = $props()
 

@@ -2,7 +2,7 @@
   import { M, m } from '$lib/i18n/translate.svelte'
   import Icon from '@iconify/svelte'
   import type { LoadData } from './+page'
-  import type { TrainLocomotiveResponse } from '$planning-api'
+  import type { TrainLocomotiveResponse } from '$planning-api/models/TrainLocomotiveResponse'
 
   let { data }: { data: LoadData } = $props()
   let locomotive: TrainLocomotiveResponse = $derived(data.train.locomotive)

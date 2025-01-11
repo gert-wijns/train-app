@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { invalidate, invalidateAll } from '$app/navigation'
+  import { invalidateAll } from '$app/navigation'
   import { page } from '$app/state'
-  import { DecommissionLocomotiveUseCaseApi } from '$assets-api'
+  import { DecommissionLocomotiveUseCaseApi } from '$assets-api/services/DecommissionLocomotiveUseCaseApi'
   import { TextFormField } from '$lib/form/FormField.svelte'
   import Input from '$lib/form/Input.svelte'
   import Label from '$lib/form/Label.svelte'
