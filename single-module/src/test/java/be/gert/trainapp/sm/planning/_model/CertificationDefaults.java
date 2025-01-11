@@ -6,24 +6,18 @@ public class CertificationDefaults {
 	public static CertificateCode certificateCodeNntrFrance = new CertificateCode("NNTR_FRANCE");
 
 	public static Certificate certificateTsiLoc() {
-		return Certificate.builder()
-				.id(certificateCodeTsiLoc)
-				.description("Technical Specifications for Interoperability: Locomotives")
-				.build();
+		return new Certificate(certificateCodeTsiLoc,
+				"Technical Specifications for Interoperability: Locomotives");
 	}
 
 	public static Certificate certificateTsiWag() {
-		return Certificate.builder()
-				.id(certificateCodeTsiWag)
-				.description("Technical Specifications for Interoperability: Wagons")
-				.build();
+		return new Certificate(certificateCodeTsiWag,
+				"Technical Specifications for Interoperability: Wagons");
 	}
 
 	public static Certificate certificateNntrFrance() {
-		return Certificate.builder()
-				.id(certificateCodeNntrFrance)
-				.description("Notified National Technical Rules France")
-				.build();
+		return new Certificate(certificateCodeNntrFrance,
+				"Notified National Technical Rules France");
 	}
 
 }

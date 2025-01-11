@@ -1,10 +1,7 @@
 package be.gert.trainapp.sm.assets._model;
 
-import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
 import static be.gert.trainapp.sm.assets.LocomotivePowerType.ELECTRIC;
 import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
-
-import org.assertj.core.api.RecursiveComparisonAssert;
 
 import be.gert.trainapp.sm.assets.LocomotiveModelId;
 
@@ -14,12 +11,11 @@ public class LocomotiveModelDefaults {
 	public static final String locomotiveModelLMSStainierBlack5Name = "LMS Stainier Black 5";
 
 	public static LocomotiveModel locomotiveModelLMSStainierBlack5() {
-		return LocomotiveModel.builder()
-				.id(locomotiveModelLMSStainierBlack5Id)
-				.name(locomotiveModelLMSStainierBlack5Name)
-				.powerType(ELECTRIC)
-				.gauge(standardGauge)
-				.build();
+		return new LocomotiveModel(
+				locomotiveModelLMSStainierBlack5Id,
+				locomotiveModelLMSStainierBlack5Name,
+				ELECTRIC,
+				standardGauge);
 	}
 
 }

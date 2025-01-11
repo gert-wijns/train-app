@@ -28,7 +28,7 @@ import lombok.Setter;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(toBuilder = true)
+@Builder(builderMethodName = "", toBuilder = true)
 //</editor-fold>
 public class Employee extends JpaEntity<EmployeeId> {
 	private @EmbeddedId EmployeeId id;

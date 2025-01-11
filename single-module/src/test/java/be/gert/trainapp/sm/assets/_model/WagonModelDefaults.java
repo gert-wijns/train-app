@@ -11,12 +11,11 @@ public class WagonModelDefaults {
 	public static final String wagonModelXsName = "WagonModel-name";
 
 	public static WagonModel wagonModelXs() {
-		return WagonModel.builder()
-				.id(wagonModelXsId)
-				.name(wagonModelXsName)
-				.gauge(standardGauge)
-				.type(GONDOLA)
-				.build();
+		return new WagonModel(
+				wagonModelXsId,
+				wagonModelXsName,
+				standardGauge,
+				GONDOLA);
 	}
 
 }

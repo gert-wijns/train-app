@@ -14,20 +14,21 @@ public class NodeDefaults {
 	public static final GeoPosition stationBrusselsGeoPosition = new GeoPosition(new BigDecimal(2), new BigDecimal(10));
 
 	public static Node stationAntwerp() {
-		return Node.builder()
-				.id(stationAntwerpId)
-				.networkId(networkBelgiumId)
-				.geoPosition(stationAntwerpGeoPosition)
-				.name("Antwerp-Central")
-				.build();
+		return new Node(
+				stationAntwerpId,
+				stationAntwerpGeoPosition,
+				networkBelgiumId,
+				"Antwerp-Central",
+				false);
 	}
 
 	public static Node stationBrussels() {
-		return Node.builder()
-				.id(stationBrusselsId)
-				.geoPosition(stationBrusselsGeoPosition)
-				.name("Brussels-Central")
-				.build();
+		return new Node(
+				stationBrusselsId,
+				stationBrusselsGeoPosition,
+				networkBelgiumId,
+				"Brussels-Central",
+				false);
 	}
 
 }

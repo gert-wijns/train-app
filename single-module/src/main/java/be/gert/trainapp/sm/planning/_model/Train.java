@@ -6,6 +6,7 @@ import static be.gert.trainapp.sm.assets.LocomotivePowerType.ELECTRIC;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.EAGER;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import be.gert.trainapp.sm._shared.entity.JpaEntity;
@@ -37,7 +38,7 @@ import lombok.Setter;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(toBuilder = true)
+@Builder(builderMethodName = "", toBuilder = true)
 //</editor-fold>
 public class Train extends JpaEntity<TrainId> {
 	private @EmbeddedId TrainId id;
@@ -56,6 +57,7 @@ public class Train extends JpaEntity<TrainId> {
 				locomotive.powerType() == ELECTRIC,
 				locomotive.decommissioned());
 		return new Train().id(id)
+				.wagons(new ArrayList<>(0))
 				.gauge(locomotive.gauge())
 				.locomotive(trainLocomotive)
 				.containsDecommissioned(locomotive.decommissioned());

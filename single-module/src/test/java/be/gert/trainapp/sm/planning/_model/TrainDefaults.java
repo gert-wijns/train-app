@@ -13,13 +13,15 @@ public class TrainDefaults {
 	public static final TrainId trainOrientExpressId = new TrainId("OrientExpress");
 
 	public static Train emptyOrientExpress() {
-		return Train.builder()
-				.id(trainOrientExpressId)
-				.locomotive(TrainLocomotiveDefaults.orientExpressLocomotive)
-				.gauge(standardGauge)
-				.containsDecommissioned(false)
-				.wagons(new ArrayList<>())
-				.build();
+		return new Train(
+				trainOrientExpressId,
+				TrainLocomotiveDefaults.orientExpressLocomotive,
+				null,
+				new ArrayList<>(),
+				standardGauge,
+				null,
+				null,
+				false);
 	}
 
 	public static RecursiveComparisonAssert<?> assertTrain(Train entity) {

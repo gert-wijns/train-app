@@ -30,7 +30,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder(toBuilder = true)
+@Builder(builderMethodName = "", toBuilder = true)
 //</editor-fold>
 public class TrainEngineer extends JpaEntity<EmployeeId> {
 	private @EmbeddedId EmployeeId id;

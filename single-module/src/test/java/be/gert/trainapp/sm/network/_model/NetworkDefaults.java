@@ -6,9 +6,8 @@ public class NetworkDefaults {
 	public static NetworkId networkBelgiumId = new NetworkId("network-be");
 
 	public static Network networkBelgium() {
-		return Network.builder()
-				.id(networkBelgiumId)
-				.name("Belgium")
-				.build();
+		return new Network(
+				networkBelgiumId,
+				"Belgium");
 	}
 }

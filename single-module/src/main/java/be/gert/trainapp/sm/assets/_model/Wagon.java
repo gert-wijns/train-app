@@ -26,7 +26,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder(toBuilder = true)
+@Builder(builderMethodName = "", toBuilder = true)
 //</editor-fold>
 public class Wagon extends JpaEntity<WagonId> {
 	private @EmbeddedId WagonId id;

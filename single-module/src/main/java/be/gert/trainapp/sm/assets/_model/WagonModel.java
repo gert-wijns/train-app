@@ -30,7 +30,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder(toBuilder = true)
+@Builder(builderMethodName = "", toBuilder = true)
 //</editor-fold>
 public class WagonModel extends JpaEntity<WagonModelId> {
 	private @EmbeddedId WagonModelId id;

@@ -1,10 +1,8 @@
 package be.gert.trainapp.sm.planning.train;
 
-import static be.gert.trainapp.sm.network._model.TrackDefaults.standardGauge;
+import static be.gert.trainapp.sm.planning._model.LocomotiveDefaults.locomotiveOrientExpressId;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.assertTrain;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.emptyOrientExpress;
-import static be.gert.trainapp.sm.planning._model.LocomotiveDefaults.locomotiveOrientExpressId;
-import static be.gert.trainapp.sm.planning._model.TrainLocomotiveDefaults.orientExpressLocomotive;
 import static be.gert.trainapp.sm.planning._model.TrainDefaults.trainOrientExpressId;
 import static be.gert.trainapp.sm.planning.train.CreateTrainUseCase.alreadyExists;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.planning.generated.model.CreateTrainRequest;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm.planning._model.Train;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 
 @ModuleTest
@@ -35,11 +32,7 @@ class CreateTrainUseCaseTest {
 
 		// then
 		assertTrain(jpa.getById(trainOrientExpressId))
-				.isEqualTo(Train.builder()
-						.id(trainOrientExpressId)
-						.locomotive(orientExpressLocomotive)
-						.gauge(standardGauge)
-						.build());
+				.isEqualTo(emptyOrientExpress());
 	}
 
 	@Test

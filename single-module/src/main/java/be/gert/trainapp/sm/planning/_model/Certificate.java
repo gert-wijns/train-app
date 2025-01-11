@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(toBuilder = true)
+@Builder(builderMethodName = "", toBuilder = true)
 //</editor-fold>
 public class Certificate extends JpaEntity<CertificateCode> {
 	private @EmbeddedId CertificateCode id;
