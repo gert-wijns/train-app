@@ -5,7 +5,7 @@ UseCase responsibility
 Draft
 
 ## Context
-A use case is an entry point into a module. 
+A use case is an entry point into a module with as purpose to perform an action on the domain. (write)
 
 ### <span style="color:#4863A0;">Responsibilities</span>
 - looking up all necessary data (with sensible validations if expected data is missing)
@@ -19,8 +19,8 @@ the use case to a domain service, or push more logic into the domain.
 
 ### <span style="color:#4863A0;">UseCase as a RestController</span>
 Because a use case is always some entry point must never directly invoke another use case,
-it is good to implement as a rest controller. This reduces the mapping load, because
-there is no need for an additional controller layer. 
+it is good to implement as a rest controller. This reduces the mapping load by removing the need
+for an additional controller layer.
 
 ### <span style="color:#4863A0;">UseCase as an EventListener</span>
 When the domain needs to react on an event, this is also a usecase.
