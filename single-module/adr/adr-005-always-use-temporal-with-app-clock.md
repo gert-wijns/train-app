@@ -1,5 +1,5 @@
 ## Title
-Always use temporalwith app clock
+Always use temporal with app clock
 
 ## Status
 Draft
