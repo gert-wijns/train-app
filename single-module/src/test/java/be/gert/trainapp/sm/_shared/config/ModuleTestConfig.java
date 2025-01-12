@@ -6,7 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
+
+import be.gert.trainapp.sm._shared.testdoubles.UserDetailsServiceFake;
 
 @Configuration
 @Import({
@@ -14,16 +15,11 @@ import org.springframework.test.context.event.annotation.BeforeTestMethod;
 		SyncTaskExecutorTestConfig.class})
 @Profile("module-test")
 public class ModuleTestConfig {
-	UserDetailsServiceFake userDetailsServiceFake = Mockito.spy(new UserDetailsServiceFake());
 
 	@Bean
 	@Primary
 	public UserDetailsServiceFake userDetailsServiceFake() {
-		return userDetailsServiceFake;
+		return Mockito.spy(new UserDetailsServiceFake());
 	}
 
-	@BeforeTestMethod
-	void reset() {
-		Mockito.reset(userDetailsServiceFake);
-	}
 }

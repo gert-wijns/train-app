@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import be.gert.trainapp.api.assets.generated.SearchWagonsQueryApi;
 import be.gert.trainapp.api.assets.generated.model.SearchWagonsQueryResponseItem;
 import be.gert.trainapp.api.assets.generated.model.WagonModelResponse;
+import be.gert.trainapp.sm._shared.testdoubles.ModuleTestDouble;
 import be.gert.trainapp.sm.planning._model.Wagon;
 
+@ModuleTestDouble
 public class SearchWagonsQueryApiFake implements SearchWagonsQueryApi {
 	@Override
 	public ResponseEntity<List<SearchWagonsQueryResponseItem>> query(List<String> wagonId) {

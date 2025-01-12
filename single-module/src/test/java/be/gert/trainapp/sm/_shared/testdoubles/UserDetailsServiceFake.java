@@ -1,4 +1,4 @@
-package be.gert.trainapp.sm._shared.config;
+package be.gert.trainapp.sm._shared.testdoubles;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.event.annotation.BeforeTestExecution;
 
+@ModuleTestDouble
 public class UserDetailsServiceFake implements UserDetailsService {
 
 	public static void withoutRoles() {

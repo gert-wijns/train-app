@@ -12,7 +12,9 @@ import be.gert.trainapp.api.assets.generated.SearchLocomotivesQueryApi;
 import be.gert.trainapp.api.assets.generated.model.LocomotiveModelResponse;
 import be.gert.trainapp.api.assets.generated.model.LocomotivePowerType;
 import be.gert.trainapp.api.assets.generated.model.SearchLocomotivesQueryResponseItem;
+import be.gert.trainapp.sm._shared.testdoubles.ModuleTestDouble;
 
+@ModuleTestDouble
 public class SearchLocomotivesQueryApiFake implements SearchLocomotivesQueryApi {
 	@Override
 	public ResponseEntity<List<SearchLocomotivesQueryResponseItem>> query(List<String> locomotiveId) {

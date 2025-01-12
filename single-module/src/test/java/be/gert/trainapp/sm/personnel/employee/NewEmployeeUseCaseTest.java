@@ -1,7 +1,7 @@
 package be.gert.trainapp.sm.personnel.employee;
 
 import static be.gert.trainapp.sm.EntityAssertionDefaults.assertEntity;
-import static be.gert.trainapp.sm._shared.config.UserDetailsServiceFake.withRoles;
+import static be.gert.trainapp.sm._shared.testdoubles.UserDetailsServiceFake.withRoles;
 import static be.gert.trainapp.sm.personnel.EmployeeRole.UNASSIGNED;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzales;
 import static be.gert.trainapp.sm.personnel._model.EmployeeDefaults.employeeChristineGonzalesId;

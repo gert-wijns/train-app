@@ -16,8 +16,6 @@ public class TrainEngineerCertificationDefaults {
 	public static TrainEngineerCertification trainEngineerCertification() {
 		return new TrainEngineerCertification(
 				new TrainEngineerCertificationId(employeeChristineGonzalesId, certificateCodeTsiLoc),
-				new LocalDateRange(
-						LocalDate.now(clock),
-						LocalDate.now(clock).plusMonths(6)));
+				trainEngineerCertificationValidityPeriod);
 	}
 }

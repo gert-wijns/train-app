@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import be.gert.trainapp.api.usermanagement.generated.model.RegisterUserRequest;
 import be.gert.trainapp.api.usermanagement.generated.model.UserLoginRequest;
 import be.gert.trainapp.sm.ModuleTest;
-import be.gert.trainapp.sm._shared.config.UserDetailsServiceFake;
+import be.gert.trainapp.sm._shared.testdoubles.UserDetailsServiceFake;
 import be.gert.trainapp.sm.usermanagement._repository.UserJpaRepository;
 
 @ModuleTest

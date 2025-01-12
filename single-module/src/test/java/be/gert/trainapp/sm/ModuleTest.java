@@ -25,6 +25,5 @@ import jakarta.transaction.Transactional;
 @Transactional
 @EnableJpaAuditing
 @RecordApplicationEvents
-@Import(ValidationAssertionDefaults.class)
 public @interface ModuleTest {
 }
