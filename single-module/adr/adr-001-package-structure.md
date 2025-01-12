@@ -13,7 +13,7 @@ The decided on package structure must be followed to avoid chaos.
 There exists many ways to organize code into packages where one might be better than another 
 in each particular use case, but to keep the order we will decide on one.
 
-<span style="color:#F62217;">!!! Packages prefixed with an underscore (example: _repository, _model, ...) are considered non-functional packages.<br>
+<span style="color:#FF7900;">!!! Packages prefixed with an underscore (example: _repository, _model, ...) are considered non-functional packages.<br>
 !!! This means their semantic is not indicative of any functional concept, but rather a technical grouping.</span>
 
 ## <span style="color:#1589FF;"><u>src/main/java</u></span>
