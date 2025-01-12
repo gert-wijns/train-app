@@ -1,7 +1,25 @@
+# Train App
 
-Fold custom folding regions by default (hide big blocks of repeated code regions (such as annotations on a JpaEntity))
-Editor > General > Code Folding > Custom Folding regions
+Experiment with architecture to attempt to find the sweet spot of
+not doing too much upfront but still keeping our options open so
+we can grow the application when needed.
 
-Files on top (better for frontend code)
-Project View Options (click 3 dots in Project browser tab for settings) > Sorty By > (disable) Folders always on top
+## api-train-app 
 
+Contains the API exposed by the application.
+Currently implemented as openapi-specification which is used to generate code.
+
+## multi-module (mm-train-app)
+
+A multi-module approach, strictly separating parts of the application.
+(though at this point empty)
+
+## single-module (sm-train-app)
+
+A single-module approach, separating parts using ArchUnit where needed.
+
+See ADRs in single-module/adr.
+
+## train-front
+
+A frontend using svelte/svelte-kit because it's fun :)
