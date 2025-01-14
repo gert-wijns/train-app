@@ -11,28 +11,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import be.gert.trainapp.sm._shared.exception.DomainException;
+import be.gert.trainapp.sm._shared.exception.DomainException.DomainExceptionType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class TranslatableMessage {
 	public enum TranslatableMessageParamType {
-		STRING, NUMBER, LOCAL_DATE, TIME, LOCAL_DATE_TIME, ZONED_DATE_TIME
+		STRING, NUMBER, LOCAL_DATE, TIME, LOCAL_DATE_TIME, ZONED_DATE_TIME, KEY
 	}
-
-	@Value
-	@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-	public static class TranslatableMessageParam {
-		String key;
-		TranslatableMessageParamType type;
-		Serializable value;
-
+	public record TranslatableMessageParam(String key, TranslatableMessageParamType type, Serializable value) {
 		public String toFormattedString() {
 			return switch (type) {
-				case STRING, TIME, LOCAL_DATE, LOCAL_DATE_TIME, ZONED_DATE_TIME -> value.toString();
+				case STRING, TIME, LOCAL_DATE, LOCAL_DATE_TIME, ZONED_DATE_TIME, KEY -> value.toString();
 				case NUMBER -> ((BigDecimal) value).toPlainString();
 			};
 		}
@@ -44,7 +37,7 @@ public class TranslatableMessage {
 	private final Severity severity;
 	private final String key;
 	private final String message;
-	private final List<TranslatableMessageParam> params = new ArrayList<>();
+	private final List<TranslatableMessage.TranslatableMessageParam> params = new ArrayList<>();
 	private final List<TranslatableMessage> subMessages = new ArrayList<>();
 
 	public static TranslatableMessage info(String key, String message) {
@@ -64,6 +57,15 @@ public class TranslatableMessage {
 		return this;
 	}
 
+	public record KeyParam(String key) {
+		public static KeyParam key(String key) {
+			return new KeyParam(key);
+		}
+	}
+	public TranslatableMessage withParam(String key, KeyParam value) {
+		params.add(new TranslatableMessageParam(key, TranslatableMessageParamType.KEY, value.key));
+		return this;
+	}
 	public TranslatableMessage withParam(String key, String value) {
 		params.add(new TranslatableMessageParam(key, TranslatableMessageParamType.STRING, value));
 		return this;
@@ -108,7 +110,7 @@ public class TranslatableMessage {
 				.replace("\n", "\n   ");
 	}
 
-	public DomainException asException() {
-		return new DomainException(key, this);
+	public DomainException asException(DomainExceptionType type) {
+		return new DomainException(key, type, this);
 	}
 }

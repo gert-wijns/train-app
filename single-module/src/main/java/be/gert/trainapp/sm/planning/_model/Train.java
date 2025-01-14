@@ -1,6 +1,7 @@
 package be.gert.trainapp.sm.planning._model;
 
 import static be.gert.trainapp.sm._shared.entity.EntityList.entityList;
+import static be.gert.trainapp.sm._shared.exception.DomainException.DomainExceptionType.CONFLICT;
 import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 import static be.gert.trainapp.sm.assets.LocomotivePowerType.ELECTRIC;
 import static jakarta.persistence.CascadeType.ALL;
@@ -102,7 +103,7 @@ public class Train extends JpaEntity<TrainId> {
 		return error("PLANNING_TRAIN_ENGINEER_NOT_VALID",
 				"Boarding inactive train engineer [${employeeId}] is not allowed.")
 				.withParam("employeeId",employeeId.id())
-				.asException();
+				.asException(CONFLICT);
 	}
 
 	public Train unboardTrainEngineer() {

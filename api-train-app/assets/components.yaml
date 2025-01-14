@@ -47,3 +47,34 @@ components:
         type:
           $ref: "#/components/schemas/WagonTypeEnum"
       required: [ id, name, gauge, type ]
+    TranslatableMessageParamResponse:
+      type: object
+      properties:
+        key:
+          type: string
+        type:
+          type: string
+          enum: [STRING, NUMBER, LOCAL_DATE, TIME, LOCAL_DATE_TIME, ZONED_DATE_TIME, KEY]
+        value:
+          type: string
+      required: [key, typeEnum, value]
+    TranslatableMessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        key:
+          type: string
+        severity:
+          type: string
+          enum: [ERROR, WARN, INFO]
+        params:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranslatableMessageParamResponse'
+        subMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranslatableMessageResponse'
+      required: [message, key, params, subMessages]
+

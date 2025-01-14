@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.planning._model;
 
+import static be.gert.trainapp.sm._shared.exception.DomainException.DomainExceptionType.CONFLICT;
 import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 
 import be.gert.trainapp.sm._shared.exception.DomainException;
@@ -13,6 +14,6 @@ public class PlanningModelExceptions {
 				"Train '${id}' already has wagon with id '${wagonId}'.")
 				.withParam("id", trainId.id())
 				.withParam("wagonId", wagonId.id())
-				.asException();
+				.asException(CONFLICT);
 	}
 }

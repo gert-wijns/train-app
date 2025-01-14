@@ -27,7 +27,7 @@ class SearchNetworkTracksQueryTest {
 	void selectsWhenQuerying() {
 		Track track = jpa.save(trackAntwerpBrussels());
 
-		var result = query.query().getBody();
+		var result = query.query();
 
 		assertValid(result);
 		assertThat(result).containsExactly(new SearchNetworkTracksQueryResponseItem()

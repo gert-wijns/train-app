@@ -1,42 +1,38 @@
 package be.gert.trainapp.sm.network.track;
 
+import static be.gert.trainapp.sm._shared.exception.DomainException.DomainExceptionType.CONFLICT;
 import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 import static be.gert.trainapp.sm.network._mapper.SpeedMapper.toSpeed;
 import static be.gert.trainapp.sm.network._model.Track.newTrack;
-import static org.springframework.http.ResponseEntity.noContent;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import be.gert.trainapp.api.network.generated.AddTrackUseCaseApi;
 import be.gert.trainapp.api.network.generated.model.AddTrackRequest;
 import be.gert.trainapp.sm._shared.exception.DomainException;
+import be.gert.trainapp.sm._shared.usecase.DomainUseCase;
 import be.gert.trainapp.sm.network.NodeId;
 import be.gert.trainapp.sm.network.TrackGauge;
 import be.gert.trainapp.sm.network.TrackId;
-import be.gert.trainapp.sm.network._repository.TrackJpaRepository;
 import be.gert.trainapp.sm.network._model.Track;
+import be.gert.trainapp.sm.network._repository.TrackJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
-@Component
+@DomainUseCase
 @RequiredArgsConstructor
-@RestController
 public class AddTrackUseCase implements AddTrackUseCaseApi {
 	public static DomainException alreadyExists(TrackId trackId) {
 		return error("NETWORK_TRACK_ALREADY_EXISTS",
 				"Track already exists between '${fromId}' and '${toId}'.")
 				.withParam("fromId", trackId.from().id())
 				.withParam("toId", trackId.to().id())
-				.asException();
+				.asException(CONFLICT);
 	}
 
 	private final TrackJpaRepository jpa;
 
 	@Override
 	@Transactional
-	public ResponseEntity<Void> execute(AddTrackRequest request) {
+	public void execute(AddTrackRequest request) {
 		TrackId id = new TrackId(
 				new NodeId(request.getFromNodeId()),
 				new NodeId(request.getToNodeId()));
@@ -53,7 +49,5 @@ public class AddTrackUseCase implements AddTrackUseCaseApi {
 		track.adjustSpeedLimit(toSpeed(request.getSpeedLimit()));
 
 		jpa.save(track);
-
-		return noContent().build();
 	}
 }

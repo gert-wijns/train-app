@@ -68,7 +68,7 @@ export class Auth {
     }
 
     hasRole(role: string) {
-        return true;
+        return this.user?.roles.includes(role);
     }
 }
 

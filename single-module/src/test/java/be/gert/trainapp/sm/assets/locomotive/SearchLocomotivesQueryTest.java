@@ -45,7 +45,7 @@ class SearchLocomotivesQueryTest {
 		jpa.save(locomotiveStainier());
 
 		// when
-		var response = query.query(List.of(locomotive1937Id.id())).getBody();
+		var response = query.query(List.of(locomotive1937Id.id()));
 		assertValid(response);
 		assertThat(response)
 				.containsExactly(new SearchLocomotivesQueryResponseItem()
@@ -75,7 +75,7 @@ class SearchLocomotivesQueryTest {
 		jpa.save(locomotive2.toBuilder().build());
 		jpa.save(locomotive3.toBuilder().build());
 
-		var response = query.query(input.locomotiveIds.stream().map(LocomotiveId::id).toList()).getBody();
+		var response = query.query(input.locomotiveIds.stream().map(LocomotiveId::id).toList());
 
 		assertThat(response).extracting(SearchLocomotivesQueryResponseItem::getId)
 				.containsExactlyElementsOf(expected.locomotiveIds.stream().map(LocomotiveId::id).toList());

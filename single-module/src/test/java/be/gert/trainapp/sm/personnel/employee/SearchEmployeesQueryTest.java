@@ -45,7 +45,7 @@ class SearchEmployeesQueryTest {
 	@MethodSource("testFilterInputs")
 	void testFilter(TestFilterInput filter) {
 		// when
-		var result = query.query(filter.filterEmployeeIds.stream().map(EmployeeId::id).toList()).getBody();
+		var result = query.query(filter.filterEmployeeIds.stream().map(EmployeeId::id).toList());
 
 		// then
 		assertValid(result);

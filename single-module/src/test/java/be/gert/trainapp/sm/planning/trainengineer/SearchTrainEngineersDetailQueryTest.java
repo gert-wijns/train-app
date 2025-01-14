@@ -31,7 +31,7 @@ class SearchTrainEngineersDetailQueryTest {
 		jpa.save(trainEngineer());
 
 		// when
-		var result = query.query(employeeChristineGonzalesId.id()).getBody();
+		var result = query.query(employeeChristineGonzalesId.id());
 
 		// then
 		assertValid(result);

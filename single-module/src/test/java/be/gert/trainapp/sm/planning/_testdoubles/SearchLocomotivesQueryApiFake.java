@@ -17,8 +17,8 @@ import be.gert.trainapp.sm._shared.testdoubles.ModuleTestDouble;
 @ModuleTestDouble
 public class SearchLocomotivesQueryApiFake implements SearchLocomotivesQueryApi {
 	@Override
-	public ResponseEntity<List<SearchLocomotivesQueryResponseItem>> query(List<String> locomotiveId) {
-		return ResponseEntity.ok(List.of(new SearchLocomotivesQueryResponseItem()
+	public List<SearchLocomotivesQueryResponseItem> query(List<String> locomotiveId) {
+		return List.of(new SearchLocomotivesQueryResponseItem()
 				.id(locomotiveOrientExpressId.id())
 				.name("Locomotive-orientExpress")
 				.decommissioned(false)
@@ -26,6 +26,6 @@ public class SearchLocomotivesQueryApiFake implements SearchLocomotivesQueryApi 
 				.model(new LocomotiveModelResponse()
 						.id("Locomotive-orientExpress-ModelId")
 						.gauge(standardGauge.type())
-						.powerType(LocomotivePowerType.ELECTRIC))));
+						.powerType(LocomotivePowerType.ELECTRIC)));
 	}
 }

@@ -22,3 +22,9 @@ post:
   responses:
     204:
       description: Success
+    409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '../components.yaml#/components/schemas/TranslatableMessageResponse'

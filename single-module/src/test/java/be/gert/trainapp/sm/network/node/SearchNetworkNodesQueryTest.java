@@ -34,7 +34,7 @@ import jakarta.validation.Validator;
 		networkJpa.save(networkBelgium());
 		jpa.save(stationAntwerp());
 
-		var result = query.query().getBody();
+		var result = query.query();
 
 		assertValid(result);
 		assertThat(result).containsExactly(new SearchNetworkNodesQueryResponseItem()

@@ -3,14 +3,14 @@ package be.gert.trainapp.sm.planning.trainengineer;
 import static be.gert.trainapp.sm.planning._model.TrainEngineer.newTrainEngineer;
 
 import org.springframework.modulith.events.ApplicationModuleListener;
-import org.springframework.stereotype.Component;
 
-import be.gert.trainapp.sm.personnel._event.EmployeeRoleAssigned;
+import be.gert.trainapp.sm._shared.usecase.DomainUseCase;
 import be.gert.trainapp.sm.personnel.EmployeeRole;
+import be.gert.trainapp.sm.personnel._event.EmployeeRoleAssigned;
 import be.gert.trainapp.sm.planning._repository.TrainEngineerJpaRepository;
 import lombok.RequiredArgsConstructor;
 
-@Component
+@DomainUseCase
 @RequiredArgsConstructor
 public class OnEmployeeRoleAssignedUseCase {
 	private final TrainEngineerJpaRepository jpa;

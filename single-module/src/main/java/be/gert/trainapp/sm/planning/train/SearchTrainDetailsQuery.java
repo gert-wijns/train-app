@@ -2,13 +2,9 @@ package be.gert.trainapp.sm.planning.train;
 
 import static be.gert.trainapp.sm.planning._model.QTrain.train;
 import static be.gert.trainapp.sm.planning._model.QTrainWagon.trainWagon;
-import static org.springframework.http.ResponseEntity.ok;
+import static be.gert.trainapp.sm.planning._repository.TrainJpaRepository.notFound;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,19 +14,20 @@ import be.gert.trainapp.api.planning.generated.model.SearchTrainDetailsQueryResp
 import be.gert.trainapp.api.planning.generated.model.SearchTrainDetailsQueryResponseTrainEngineer;
 import be.gert.trainapp.api.planning.generated.model.SearchTrainDetailsWagonQueryResponse;
 import be.gert.trainapp.api.planning.generated.model.TrainLocomotiveResponse;
+import be.gert.trainapp.sm._shared.query.DomainQuery;
+import be.gert.trainapp.sm.planning.TrainId;
 import lombok.RequiredArgsConstructor;
 
-@Component
-@RestController
+@DomainQuery
 @RequiredArgsConstructor
 public class SearchTrainDetailsQuery implements SearchTrainDetailsQueryApi {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public ResponseEntity<SearchTrainDetailsQueryResponse> query(String trainId) {
+	public SearchTrainDetailsQueryResponse query(String trainId) {
 		var trainTuple = fetchTrain(trainId);
 		var wagons = fetchWagons(trainId);
-		return ok(toResponseItem(trainTuple, wagons));
+		return toResponseItem(trainTuple, wagons);
 	}
 
 	private List<SearchTrainDetailsWagonQueryResponse> fetchWagons(String trainId) {
@@ -52,7 +49,7 @@ public class SearchTrainDetailsQuery implements SearchTrainDetailsQueryApi {
 						train.containsDecommissioned,
 						train.trainEngineer.id)
 				.where(train.id.id.eq(trainId));
-		return trainQuery.fetch().getFirst();
+		return trainQuery.fetch().stream().findFirst().orElseThrow(() -> notFound(new TrainId(trainId)));
 	}
 
 	private SearchTrainDetailsWagonQueryResponse toResponse(Tuple tuple) {

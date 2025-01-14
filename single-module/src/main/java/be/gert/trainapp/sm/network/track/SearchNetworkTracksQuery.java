@@ -2,29 +2,24 @@ package be.gert.trainapp.sm.network.track;
 
 import static be.gert.trainapp.sm.network._mapper.SpeedMapper.toSpeedBody;
 import static be.gert.trainapp.sm.network._model.QTrack.track;
-import static org.springframework.http.ResponseEntity.ok;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import be.gert.trainapp.api.network.generated.SearchNetworkTracksQueryApi;
 import be.gert.trainapp.api.network.generated.model.SearchNetworkTracksQueryResponseItem;
+import be.gert.trainapp.sm._shared.query.DomainQuery;
 import lombok.RequiredArgsConstructor;
 
-@Component
-@RestController
+@DomainQuery
 @RequiredArgsConstructor
 public class SearchNetworkTracksQuery implements SearchNetworkTracksQueryApi {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public ResponseEntity<List<SearchNetworkTracksQueryResponseItem>> query() {
+	public List<SearchNetworkTracksQueryResponseItem> query() {
 		var query = queryFactory.from(track)
 				.select(track.id.from.id,
 						track.id.to.id,
@@ -33,7 +28,7 @@ public class SearchNetworkTracksQuery implements SearchNetworkTracksQueryApi {
 						track.slope,
 						track.speedLimit);
 
-		return ok(query.fetch().stream().map(this::toResponseItem).toList());
+		return query.fetch().stream().map(this::toResponseItem).toList();
 	}
 
 	private SearchNetworkTracksQueryResponseItem toResponseItem(Tuple tuple) {

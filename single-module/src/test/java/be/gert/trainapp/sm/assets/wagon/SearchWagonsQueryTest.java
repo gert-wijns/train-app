@@ -45,7 +45,7 @@ class SearchWagonsQueryTest {
 		jpa.save(testWagon());
 
 		// when
-		var response = query.query(List.of(wagonId.id())).getBody();
+		var response = query.query(List.of(wagonId.id()));
 		assertValid(response);
 		assertThat(response)
 				.containsExactly(new SearchWagonsQueryResponseItem()
@@ -75,7 +75,7 @@ class SearchWagonsQueryTest {
 		jpa.save(wagon2.toBuilder().build());
 		jpa.save(wagon3.toBuilder().build());
 
-		var response = query.query(input.wagonIds.stream().map(WagonId::id).toList()).getBody();
+		var response = query.query(input.wagonIds.stream().map(WagonId::id).toList());
 
 		assertThat(response).extracting(SearchWagonsQueryResponseItem::getId)
 				.containsExactlyElementsOf(expected.wagonIds.stream().map(WagonId::id).toList());

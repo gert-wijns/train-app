@@ -28,7 +28,7 @@ class SearchWagonModelsQueryTest {
 		modelJpa.save(wagonModelXs());
 
 		// when
-		var response = query.query().getBody();
+		var response = query.query();
 		assertValid(response);
 		assertThat(response)
 				.containsExactly(new SearchWagonModelsQueryResponseItem()

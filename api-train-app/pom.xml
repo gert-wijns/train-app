@@ -38,7 +38,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>6.3.0</version>
+				<version>7.10.0</version>
 				<configuration>
 					<generatorName>spring</generatorName>
 					<configOptions>
@@ -49,6 +49,8 @@
 						<skipDefaultInterface>true</skipDefaultInterface>
 						<useTags>true</useTags>
 						<useSpringBoot3>true</useSpringBoot3>
+						<useResponseEntity>false</useResponseEntity>
+						<implicitHeaders>true</implicitHeaders>
 					</configOptions>
 				</configuration>
 				<executions>

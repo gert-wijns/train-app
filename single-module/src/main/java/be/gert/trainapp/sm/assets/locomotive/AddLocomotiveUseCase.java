@@ -1,18 +1,16 @@
 package be.gert.trainapp.sm.assets.locomotive;
 
+import static be.gert.trainapp.sm._shared.exception.DomainException.DomainExceptionType.CONFLICT;
 import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 import static be.gert.trainapp.sm.assets._model.Locomotive.newLocomotive;
 import static be.gert.trainapp.sm.assets._repository.LocomotiveModelJpaRepository.notFound;
-import static org.springframework.http.ResponseEntity.noContent;
 
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import be.gert.trainapp.api.assets.generated.AddLocomotiveUseCaseApi;
 import be.gert.trainapp.api.assets.generated.model.AddLocomotiveRequest;
 import be.gert.trainapp.sm._shared.exception.DomainException;
+import be.gert.trainapp.sm._shared.usecase.DomainUseCase;
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.LocomotiveModelId;
 import be.gert.trainapp.sm.assets.SerialNumber;
@@ -22,15 +20,14 @@ import be.gert.trainapp.sm.assets._repository.LocomotiveModelJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
-@Component
+@DomainUseCase
 @RequiredArgsConstructor
-@RestController
 public class AddLocomotiveUseCase implements AddLocomotiveUseCaseApi {
 	public static DomainException serialNumberAlreadyExists(SerialNumber serialNumber) {
 		return error("ASSETS_LOCOMOTIVE_SERAL_NUMBER_ALREADY_EXISTS",
 				"Locomotive with Serial Number '${serialNumber}' already exists .")
 				.withParam("serialNumber", serialNumber.sn())
-				.asException();
+				.asException(CONFLICT);
 	}
 
 	private final LocomotiveModelJpaRepository modelJpa;
@@ -39,7 +36,7 @@ public class AddLocomotiveUseCase implements AddLocomotiveUseCaseApi {
 
 	@Override
 	@Transactional
-	public ResponseEntity<Void> execute(AddLocomotiveRequest request) {
+	public void execute(AddLocomotiveRequest request) {
 		var serialNumber = new SerialNumber(request.getSerialNumber());
 		if (jpa.existsBySerialNumberIs(serialNumber)) {
 			throw serialNumberAlreadyExists(serialNumber);
@@ -58,6 +55,5 @@ public class AddLocomotiveUseCase implements AddLocomotiveUseCaseApi {
 				locomotive.modelId(),
 				locomotive.serialNumber(),
 				locomotive.name()));
-		return noContent().build();
 	}
 }

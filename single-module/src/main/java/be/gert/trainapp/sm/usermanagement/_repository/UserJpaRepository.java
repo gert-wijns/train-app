@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.usermanagement._repository;
 
+import static be.gert.trainapp.sm._shared.exception.DomainException.DomainExceptionType.NOT_FOUND;
 import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 
 import org.springframework.data.repository.CrudRepository;
@@ -10,16 +11,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import be.gert.trainapp.sm._shared.exception.DomainException;
+import be.gert.trainapp.sm._shared.message.TranslatableMessage.KeyParam;
 import be.gert.trainapp.sm.usermanagement.UserId;
 import be.gert.trainapp.sm.usermanagement._model.User;
 
 @Repository
 public interface UserJpaRepository extends CrudRepository<User, UserId>, UserDetailsService {
 	static DomainException notFound(UserId id) {
-		return error("USER_MANAGEMENT_USER_NOT_FOUND",
-				"User not found id '${id}'.")
+		return error("NOT_FOUND", "${entity} not found id '${id}'.")
+				.withParam("entity", KeyParam.key("USER"))
 				.withParam("id", id.id())
-				.asException();
+				.asException(NOT_FOUND);
 	}
 
 	default User getById(UserId id) {

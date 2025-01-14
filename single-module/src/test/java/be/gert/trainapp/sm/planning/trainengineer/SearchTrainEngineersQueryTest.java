@@ -25,7 +25,7 @@ class SearchTrainEngineersQueryTest {
 		jpa.save(trainEngineer());
 
 		// when
-		var result = query.query().getBody();
+		var result = query.query();
 
 		// then
 		assertValid(result);

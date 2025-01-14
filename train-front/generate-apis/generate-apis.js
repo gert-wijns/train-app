@@ -40,6 +40,20 @@ var execPromise = util.promisify(exec);
       const openAPIUsingAuthToken = openAPIWithAuthImport.replace("TOKEN: undefined,", "TOKEN: () => Promise.resolve(auth.getAccessToken() || ''),")
 
       fs.writeFileSync(apiFile, openAPIUsingAuthToken)
+
+
+      const requestFile = api.output + "/core/request.ts"
+      const request = fs.readFileSync(requestFile, "utf8")
+      const requestWithKitErrorImport = "import { error as kitError } from \"@sveltejs/kit\";\n" + request
+      const requestUsingKitError = requestWithKitErrorImport.replace(
+        "throw new ApiError(options, result, error);",
+        "kitError(result.status, { ...result.body } as any);").replace(
+          "404: 'Not Found',",
+          "404: 'Not Found', 409: 'Conflict', "
+        )
+      fs.writeFileSync(requestFile, requestUsingKitError)
+
+
       console.log('stdout:', stdout);
       console.log('stderr:', stderr);
     }

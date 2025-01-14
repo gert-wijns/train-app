@@ -1,5 +1,6 @@
 package be.gert.trainapp.sm.assets._repository;
 
+import static be.gert.trainapp.sm._shared.exception.DomainException.DomainExceptionType.NOT_FOUND;
 import static be.gert.trainapp.sm._shared.message.TranslatableMessage.error;
 
 import org.springframework.data.repository.CrudRepository;
@@ -15,7 +16,7 @@ public interface AssetJpaRepository extends CrudRepository<Asset, AssetId> {
 		return error("ASSETS_ASSET_NOT_FOUND",
 				"Asset not found for id '${id}'.")
 				.withParam("id", id.id())
-				.asException();
+				.asException(NOT_FOUND);
 	}
 
 	default Asset getById(AssetId id) {

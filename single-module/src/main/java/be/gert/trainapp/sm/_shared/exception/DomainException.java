@@ -7,12 +7,18 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(of = {"code"}, callSuper = false)
 public class DomainException extends RuntimeException {
+	public enum DomainExceptionType {
+		NOT_FOUND,
+		CONFLICT
+	}
 	private final String code;
+	private final DomainExceptionType type;
 	private final TranslatableMessage message;
 
-	public DomainException(String code, TranslatableMessage message) {
+	public DomainException(String code, DomainExceptionType type, TranslatableMessage message) {
 		super(message.toFormattedString());
 		this.code = code;
+		this.type = type;
 		this.message = message;
 	}
 
@@ -20,6 +26,7 @@ public class DomainException extends RuntimeException {
 	public String toString() {
 		return "DomainException{" +
 				"code='" + code + '\'' +
+				", type=" + type +
 				", message='" + getFormattedMessage() +
 				'}';
 	}

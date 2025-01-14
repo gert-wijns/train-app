@@ -1,13 +1,8 @@
 package be.gert.trainapp.sm.assets.asset;
 
 import static be.gert.trainapp.sm.assets._model.QAsset.asset;
-import static org.springframework.http.ResponseEntity.ok;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -15,16 +10,16 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import be.gert.trainapp.api.assets.generated.SearchAssetsQueryApi;
 import be.gert.trainapp.api.assets.generated.model.AssetType;
 import be.gert.trainapp.api.assets.generated.model.SearchAssetsQueryResponseItem;
+import be.gert.trainapp.sm._shared.query.DomainQuery;
 import lombok.RequiredArgsConstructor;
 
-@Component
+@DomainQuery
 @RequiredArgsConstructor
-@RestController
 public class SearchAssetsQuery implements SearchAssetsQueryApi {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public ResponseEntity<List<SearchAssetsQueryResponseItem>> query() {
+	public List<SearchAssetsQueryResponseItem> query() {
 		var query = queryFactory.from(asset)
 				.select(asset.id.id,
 						asset.type,
@@ -33,7 +28,7 @@ public class SearchAssetsQuery implements SearchAssetsQueryApi {
 						asset.serialNumber.sn)
 				.orderBy(asset.serialNumber.sn.asc());
 
-		return ok(query.fetch().stream().map(this::toResponseItem).toList());
+		return query.fetch().stream().map(this::toResponseItem).toList();
 	}
 
 	private SearchAssetsQueryResponseItem toResponseItem(Tuple tuple) {

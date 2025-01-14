@@ -34,7 +34,7 @@ class SearchAssetsQueryTest {
 				subtype,
 				serialNumber));
 
-		var result = query.query().getBody();
+		var result = query.query();
 
 		assertValid(result);
 		assertThat(result).containsExactly(new SearchAssetsQueryResponseItem()

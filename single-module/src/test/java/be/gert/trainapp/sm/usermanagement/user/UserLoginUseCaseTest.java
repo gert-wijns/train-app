@@ -2,12 +2,12 @@ package be.gert.trainapp.sm.usermanagement.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -43,10 +43,9 @@ class UserLoginUseCaseTest {
 
 		// when
 		doReturn(jpa.loadUserByUsername("Rose")).when(spy).loadUserByUsername("Rose");
-		var response = usecase.execute(request);
+		var result = assertDoesNotThrow(() -> usecase.execute(request));
 
-		// then
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertThat(result).isNotNull();
 	}
 
 	@Test

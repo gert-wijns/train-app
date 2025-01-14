@@ -16,14 +16,14 @@ import be.gert.trainapp.sm.planning._model.Wagon;
 @ModuleTestDouble
 public class SearchWagonsQueryApiFake implements SearchWagonsQueryApi {
 	@Override
-	public ResponseEntity<List<SearchWagonsQueryResponseItem>> query(List<String> wagonId) {
+	public List<SearchWagonsQueryResponseItem> query(List<String> wagonId) {
 		Wagon wagon = orientExpressFirstCoach();
-		return ResponseEntity.ok(List.of(new SearchWagonsQueryResponseItem()
+		return List.of(new SearchWagonsQueryResponseItem()
 				.id(wagon.id().id())
 				.serialNumber(wagon.serialNumber().sn())
 				.decommissioned(wagon.decommissioned())
 				.model(new WagonModelResponse()
 						.id(wagonModelTypeId.id())
-						.gauge(wagon.gauge().type()))));
+						.gauge(wagon.gauge().type())));
 	}
 }

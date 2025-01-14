@@ -5,15 +5,15 @@ import static be.gert.trainapp.sm.assets._model.AssetType.LOCOMOTIVE;
 import static be.gert.trainapp.sm.assets._model.AssetType.WAGON;
 
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
 
+import be.gert.trainapp.sm._shared.usecase.DomainUseCase;
 import be.gert.trainapp.sm.assets.AssetId;
-import be.gert.trainapp.sm.assets._repository.AssetJpaRepository;
 import be.gert.trainapp.sm.assets._events.LocomotiveAddedEvent;
 import be.gert.trainapp.sm.assets._events.WagonAddedEvent;
+import be.gert.trainapp.sm.assets._repository.AssetJpaRepository;
 import lombok.RequiredArgsConstructor;
 
-@Component
+@DomainUseCase
 @RequiredArgsConstructor
 public class AddAssetUseCase {
 	private final AssetJpaRepository assetJpaRepository;

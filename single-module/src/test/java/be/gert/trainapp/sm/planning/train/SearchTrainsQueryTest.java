@@ -29,7 +29,7 @@ class SearchTrainsQueryTest {
 		jpa.save(emptyOrientExpress());
 
 		// when
-		var response = query.query().getBody();
+		var response = query.query();
 
 		// then
 		assertValid(response);

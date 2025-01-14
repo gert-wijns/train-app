@@ -20,7 +20,7 @@ public class SearchLocomotive {
 	private final SearchLocomotivesQueryApi searchLocomotivesQueryApi;
 
 	public Locomotive getById(LocomotiveId id) {
-		var response = requireNonNull(searchLocomotivesQueryApi.query(List.of(id.id())).getBody()).getFirst();
+		var response = requireNonNull(searchLocomotivesQueryApi.query(List.of(id.id()))).getFirst();
 		return new Locomotive(
 				id,
 				new SerialNumber(response.getSerialNumber()),

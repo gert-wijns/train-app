@@ -19,7 +19,7 @@ public class SearchWagon {
 	private final SearchWagonsQueryApi searchWagonQueryApi;
 
 	public Wagon getById(WagonId id) {
-		var response = requireNonNull(searchWagonQueryApi.query(List.of(id.id())).getBody()).getFirst();
+		var response = requireNonNull(searchWagonQueryApi.query(List.of(id.id()))).getFirst();
 		return new Wagon(
 				id,
 				new SerialNumber(response.getSerialNumber()),

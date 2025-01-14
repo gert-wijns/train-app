@@ -28,7 +28,7 @@ class SearchLocomotiveModelsQueryTest {
 		modelJpa.save(locomotiveModelLMSStainierBlack5());
 
 		// when
-		var response = query.query().getBody();
+		var response = query.query();
 		assertValid(response);
 		assertThat(response)
 				.containsExactly(new SearchLocomotiveModelsQueryResponseItem()

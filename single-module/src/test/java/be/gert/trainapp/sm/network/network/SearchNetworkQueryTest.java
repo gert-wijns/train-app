@@ -23,7 +23,7 @@ class SearchNetworkQueryTest {
 	void selectsWhenQuerying() {
 		jpa.save(networkBelgium());
 
-		var result = query.query().getBody();
+		var result = query.query();
 
 		assertValid(result);
 		assertThat(result).containsExactly(new SearchNetworkQueryResponseItem()

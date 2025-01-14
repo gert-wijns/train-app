@@ -3,13 +3,8 @@ package be.gert.trainapp.sm.planning.trainengineer;
 import static be.gert.trainapp.sm.planning._mapper.LocalDateRangeMapper.toLocalDateRangeBody;
 import static be.gert.trainapp.sm.planning._model.QTrainEngineer.trainEngineer;
 import static be.gert.trainapp.sm.planning._model.QTrainEngineerCertification.trainEngineerCertification;
-import static org.springframework.http.ResponseEntity.ok;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -17,24 +12,24 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import be.gert.trainapp.api.planning.generated.SearchTrainEngineersDetailQueryApi;
 import be.gert.trainapp.api.planning.generated.model.SearchTrainEngineersDetailQueryCertificationItemResponse;
 import be.gert.trainapp.api.planning.generated.model.SearchTrainEngineersDetailQueryResponse;
+import be.gert.trainapp.sm._shared.query.DomainQuery;
 import be.gert.trainapp.sm.personnel.EmployeeId;
 import lombok.RequiredArgsConstructor;
 
-@Component
-@RestController
+@DomainQuery
 @RequiredArgsConstructor
 public class SearchTrainEngineersDetailQuery implements SearchTrainEngineersDetailQueryApi {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public ResponseEntity<SearchTrainEngineersDetailQueryResponse> query(String employeeIdStr) {
+	public SearchTrainEngineersDetailQueryResponse query(String employeeIdStr) {
 		var employeeId = new EmployeeId(employeeIdStr);
 		var certifications = fetchCertifications(employeeId);
 		var query = queryFactory.from(trainEngineer)
 				.select(trainEngineer.id.id, trainEngineer.active)
 				.where(trainEngineer.id.eq(employeeId));
-		return ok(toResponse(query.fetch().getFirst())
-				.certifications(certifications));
+		return toResponse(query.fetch().getFirst())
+				.certifications(certifications);
 	}
 
 	private List<SearchTrainEngineersDetailQueryCertificationItemResponse> fetchCertifications(EmployeeId employeeId) {

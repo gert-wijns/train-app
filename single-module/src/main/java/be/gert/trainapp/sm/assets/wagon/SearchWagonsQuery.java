@@ -3,13 +3,8 @@ package be.gert.trainapp.sm.assets.wagon;
 import static be.gert.trainapp.sm.assets._model.QWagon.wagon;
 import static be.gert.trainapp.sm.assets._model.QWagonModel.wagonModel;
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
-import static org.springframework.http.ResponseEntity.ok;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,16 +13,16 @@ import be.gert.trainapp.api.assets.generated.SearchWagonsQueryApi;
 import be.gert.trainapp.api.assets.generated.model.SearchWagonsQueryResponseItem;
 import be.gert.trainapp.api.assets.generated.model.WagonModelResponse;
 import be.gert.trainapp.api.assets.generated.model.WagonTypeEnum;
+import be.gert.trainapp.sm._shared.query.DomainQuery;
 import lombok.RequiredArgsConstructor;
 
-@Component
+@DomainQuery
 @RequiredArgsConstructor
-@RestController
 public class SearchWagonsQuery implements SearchWagonsQueryApi {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public ResponseEntity<List<SearchWagonsQueryResponseItem>> query(List<String> wagonId) {
+	public List<SearchWagonsQueryResponseItem> query(List<String> wagonId) {
 		var query = queryFactory.from(wagon)
 				.join(wagonModel).on(wagonModel.id.eq(wagon.modelId))
 				.select(wagon.id.id,
@@ -41,7 +36,7 @@ public class SearchWagonsQuery implements SearchWagonsQueryApi {
 		if (isNotEmpty(wagonId)) {
 			query.where(wagon.id.id.in(wagonId));
 		}
-		return ok(query.fetch().stream().map(this::toResponseItem).toList());
+		return query.fetch().stream().map(this::toResponseItem).toList();
 	}
 
 	private SearchWagonsQueryResponseItem toResponseItem(Tuple tuple) {
