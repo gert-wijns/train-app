@@ -13,16 +13,16 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.tngtech.archunit.base.DescribedPredicate;
-import com.tngtech.archunit.core.domain.JavaClass;
+import com.tngtech.archunit.core.domain.JavaAnnotation;
+import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.domain.JavaMethodCall;
 import com.tngtech.archunit.core.domain.properties.HasName.Predicates;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
-import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ArchRule;
-import com.tngtech.archunit.lang.ConditionEvents;
-import com.tngtech.archunit.lang.SimpleConditionEvent;
+
+import be.gert.trainapp.sm._shared.event.PublicEvent;
 
 @AnalyzeClasses(packages = "be.gert.trainapp.sm", importOptions = ImportOption.DoNotIncludeTests.class)
 public class ProductionCodeArchitectureTest {
@@ -58,17 +58,34 @@ public class ProductionCodeArchitectureTest {
 	public static final ArchRule localhostPackageComponentsRequiresLocalhostProfile = classes()
 			.that().resideInAPackage("be.gert.trainapp.sm._localhost")
 				.and(annotatedWith(Component.class))
-			.should().beAnnotatedWith(Profile.class)
-			.andShould(new ArchCondition<>("") {
+			.should().beAnnotatedWith(new DescribedPredicate<>("") {
 				@Override
-				public void check(JavaClass item, ConditionEvents events) {
-					boolean satisfied = Arrays.stream(item.getAnnotationOfType(Profile.class).value())
-							.anyMatch(profile -> profile.equals("localhost"));
-					if (!satisfied) {
-						events.add(SimpleConditionEvent.violated(item,
-								String.format("Class %s has is in _localhost but lacks @Profiles(\"localhost\")",
-										item.getFullName())));
+				public boolean test(JavaAnnotation<?> javaAnnotation) {
+					if (javaAnnotation.getRawType().isAssignableFrom(Profile.class)) {
+						var value = javaAnnotation.getProperties().get("value");
+						return value instanceof String[] profiles && Arrays.asList(profiles).contains("localhost");
 					}
+					return false;
 				}
 			});
+
+	@ArchTest
+	public static void eventsWithoutPublicEventShouldNotBeUsedInOtherModule(JavaClasses classes) {
+		var modulePackages = classes.getPackage("be.gert.trainapp.sm")
+				.getSubpackages().stream()
+				.filter(p -> !p.getRelativeName().startsWith("_"))
+				.toList();
+		for (var modulePackage: modulePackages) {
+			classes()
+					.that().resideInAPackage(modulePackage.getName()+"._events")
+					.and().areNotAnnotatedWith(PublicEvent.class)
+					.should()
+					.onlyBeAccessed()
+					.byClassesThat()
+					.resideInAPackage(modulePackage.getName() + ".*")
+					.because("adr-001-package-structure.md - only @PublicEvent may be used by another module")
+					.allowEmptyShould(true)
+					.check(classes);
+		}
+	}
 }

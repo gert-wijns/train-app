@@ -52,11 +52,6 @@ public class TranslatableMessage {
 		return new TranslatableMessage(Severity.ERROR, key, message);
 	}
 
-	public TranslatableMessage withParam(TranslatableMessageParam param) {
-		params.add(param);
-		return this;
-	}
-
 	public record KeyParam(String key) {
 		public static KeyParam key(String key) {
 			return new KeyParam(key);

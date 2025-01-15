@@ -1,7 +1,5 @@
 package be.gert.trainapp.sm.planning._adapter;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -20,7 +18,7 @@ public class SearchLocomotive {
 	private final SearchLocomotivesQueryApi searchLocomotivesQueryApi;
 
 	public Locomotive getById(LocomotiveId id) {
-		var response = requireNonNull(searchLocomotivesQueryApi.query(List.of(id.id()))).getFirst();
+		var response = searchLocomotivesQueryApi.query(List.of(id.id())).getFirst();
 		return new Locomotive(
 				id,
 				new SerialNumber(response.getSerialNumber()),
