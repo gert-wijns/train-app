@@ -9,7 +9,6 @@ import java.lang.annotation.Target;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.event.RecordApplicationEvents;
@@ -21,6 +20,7 @@ import jakarta.transaction.Transactional;
 @Target(TYPE)
 @SpringBootTest
 @ComponentScan
+// TODO: exclude adapters
 @ActiveProfiles("module-test")
 @Transactional
 @EnableJpaAuditing

@@ -6,8 +6,6 @@ import static be.gert.trainapp.sm.planning._model.TrainLocomotiveDefaults.orient
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-
 import be.gert.trainapp.api.assets.generated.SearchLocomotivesQueryApi;
 import be.gert.trainapp.api.assets.generated.model.LocomotiveModelResponse;
 import be.gert.trainapp.api.assets.generated.model.LocomotivePowerType;

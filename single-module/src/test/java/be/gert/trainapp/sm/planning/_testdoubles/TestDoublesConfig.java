@@ -3,7 +3,10 @@ package be.gert.trainapp.sm.planning._testdoubles;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+
+import be.gert.trainapp.sm.planning._adapter.SearchLocomotive;
 
 @Configuration
 @Profile("module-test")
@@ -23,4 +26,9 @@ public class TestDoublesConfig {
 		return Mockito.spy(new SearchLocomotivesQueryApiFake());
 	}
 
+	@Bean
+	@Primary
+	SearchLocomotive searchLocomotiveFake() {
+		return Mockito.spy(new SearchLocomotiveFake());
+	}
 }
