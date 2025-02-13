@@ -10,7 +10,7 @@ import be.gert.trainapp.sm._shared.exception.DomainException;
 import be.gert.trainapp.sm._shared.usecase.DomainUseCase;
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.planning.TrainId;
-import be.gert.trainapp.sm.planning._adapter.SearchLocomotive;
+import be.gert.trainapp.sm.planning._port.SearchLocomotive;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

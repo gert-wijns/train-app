@@ -10,11 +10,12 @@ import be.gert.trainapp.sm.assets.LocomotivePowerType;
 import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.network.TrackGauge;
 import be.gert.trainapp.sm.planning._model.Locomotive;
+import be.gert.trainapp.sm.planning._port.SearchLocomotive;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class SearchLocomotiveImpl implements SearchLocomotive {
+public class SearchLocomotiveUsingAssetsApi implements SearchLocomotive {
 	private final SearchLocomotivesQueryApi searchLocomotivesQueryApi;
 
 	public Locomotive getById(LocomotiveId id) {

@@ -11,7 +11,7 @@ import be.gert.trainapp.sm._shared.clock.AppClock;
 
 @EnableAsync
 @Modulith(sharedModules = "_shared")
-@SpringBootApplication
+//@SpringBootApplication
 public class TrainAppApplication {
 
 	public static void main(String[] args) {

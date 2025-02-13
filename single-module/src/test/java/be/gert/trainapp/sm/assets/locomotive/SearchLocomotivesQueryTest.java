@@ -22,14 +22,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import be.gert.trainapp.api.assets.generated.model.LocomotiveModelResponse;
 import be.gert.trainapp.api.assets.generated.model.LocomotivePowerType;
 import be.gert.trainapp.api.assets.generated.model.SearchLocomotivesQueryResponseItem;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.assets.LocomotiveId;
 import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets._model.Locomotive;
 import be.gert.trainapp.sm.assets._repository.LocomotiveJpaRepository;
 import be.gert.trainapp.sm.assets._repository.LocomotiveModelJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class SearchLocomotivesQueryTest {
 	@Autowired
 	LocomotiveModelJpaRepository modelJpa;

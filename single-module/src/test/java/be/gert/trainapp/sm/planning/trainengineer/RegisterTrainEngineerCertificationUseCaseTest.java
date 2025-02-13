@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.planning.generated.model.LocalDateRangeBody;
 import be.gert.trainapp.api.planning.generated.model.RegisterTrainEngineerCertificationRequest;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm._shared.values.LocalDateRange;
 import be.gert.trainapp.sm.planning._model.TrainEngineer;
 import be.gert.trainapp.sm.planning._model.TrainEngineerCertification;
 import be.gert.trainapp.sm.planning._model.TrainEngineerCertificationId;
 import be.gert.trainapp.sm.planning._repository.TrainEngineerJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class RegisterTrainEngineerCertificationUseCaseTest {
 	@Autowired
 	TrainEngineerJpaRepository jpa;

@@ -18,11 +18,11 @@ import be.gert.trainapp.api.assets.generated.model.LocomotivePowerType;
 import be.gert.trainapp.api.assets.generated.model.SearchLocomotivesQueryResponseItem;
 
 @ExtendWith(MockitoExtension.class)
-public class SearchLocomotiveImplTest {
+class SearchLocomotiveUsingAssetsApiTest {
 	@Mock
 	SearchLocomotivesQueryApi searchLocomotivesQueryApi;
 	@InjectMocks
-	SearchLocomotiveImpl searchLocomotive;
+	SearchLocomotiveUsingAssetsApi adapter;
 
 	SearchLocomotivesQueryResponseItem item = new SearchLocomotivesQueryResponseItem()
 			.id(locomotiveOrientExpress.id().id())
@@ -39,7 +39,7 @@ public class SearchLocomotiveImplTest {
 		when(searchLocomotivesQueryApi.query(List.of(locomotiveOrientExpress.id().id())))
 				.thenReturn(List.of(item));
 
-		var actual = searchLocomotive.getById(locomotiveOrientExpress.id());
+		var actual = adapter.getById(locomotiveOrientExpress.id());
 
 		assertThat(actual).isEqualTo(locomotiveOrientExpress);
 	}

@@ -16,11 +16,11 @@ import org.springframework.security.authorization.AuthorizationDeniedException;
 
 import be.gert.trainapp.api.personnel.generated.model.FullNameBody;
 import be.gert.trainapp.api.personnel.generated.model.NewEmployeeRequest;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.personnel._model.PersonnelAuthRoles;
 import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class NewEmployeeUseCaseTest {
 	@Autowired
 	EmployeeJpaRepository jpa;

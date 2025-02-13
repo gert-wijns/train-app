@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-@Profile("module-test")
+@Profile("module-core-test")
 public class ModuleTestListener implements ApplicationContextAware {
 	private Map<String, Object> testDoubles;
 

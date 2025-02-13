@@ -10,9 +10,7 @@ public class WagonDefaults {
 	public static final WagonId trainOrientExpressFirstCoachId = new WagonId("OrientExpress-firstCoach");
 	public static final WagonModelId wagonModelTypeId = new WagonModelId("wagon-model-123");
 
-	public static Wagon orientExpressFirstCoach() {
-		return new Wagon(trainOrientExpressFirstCoachId,
+	public static Wagon orientExpressFirstCoach = new Wagon(trainOrientExpressFirstCoachId,
 				new SerialNumber("trainOrientExpressFirstCoach-sn"),
 				standardGauge, false);
-	}
 }

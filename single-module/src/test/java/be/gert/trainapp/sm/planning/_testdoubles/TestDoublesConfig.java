@@ -6,29 +6,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
-import be.gert.trainapp.sm.planning._adapter.SearchLocomotive;
+import be.gert.trainapp.sm.planning._port.SearchLocomotive;
+import be.gert.trainapp.sm.planning._port.SearchWagon;
 
 @Configuration
-@Profile("module-test")
+@Profile("module-core-test")
 public class TestDoublesConfig {
-
-	/**
-	 * Can create a spy bean of a fake if a one-off mockito.when is useful?
-	 * (like when needing to throw an exception or so to test an edge case?)
-	 */
 	@Bean
-	SearchWagonsQueryApiFake searchWagonsQueryApiFake() {
-		return Mockito.spy(new SearchWagonsQueryApiFake());
-	}
-
-	@Bean
-	SearchLocomotivesQueryApiFake searchLocomotivesQueryApiFake() {
-		return Mockito.spy(new SearchLocomotivesQueryApiFake());
-	}
-
-	@Bean
-	@Primary
 	SearchLocomotive searchLocomotiveFake() {
 		return Mockito.spy(new SearchLocomotiveFake());
+	}
+
+	@Bean
+	SearchWagon searchWagonFake() {
+		return Mockito.spy(new SearchWagonFake());
 	}
 }

@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.AopTestUtils;
 
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.assets._events.LocomotiveDecommissioned;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class TrainLocomotiveDecommissionedUseCaseTest {
 	@Autowired
 	TrainJpaRepository jpa;

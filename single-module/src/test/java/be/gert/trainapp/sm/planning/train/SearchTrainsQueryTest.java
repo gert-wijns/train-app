@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.planning.generated.model.SearchTrainsQueryResponseItem;
 import be.gert.trainapp.api.planning.generated.model.TrainLocomotiveResponse;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class SearchTrainsQueryTest {
 	@Autowired
 	TrainJpaRepository jpa;

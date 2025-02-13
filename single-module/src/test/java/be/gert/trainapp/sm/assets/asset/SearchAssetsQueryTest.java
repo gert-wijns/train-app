@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.assets.generated.model.SearchAssetsQueryResponseItem;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.assets.AssetId;
 import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets._model.Asset;
 import be.gert.trainapp.sm.assets._model.AssetType;
 import be.gert.trainapp.sm.assets._repository.AssetJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class SearchAssetsQueryTest {
 	@Autowired
 	AssetJpaRepository jpa;

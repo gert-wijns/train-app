@@ -11,9 +11,8 @@ import be.gert.trainapp.sm._shared.testdoubles.UserDetailsServiceFake;
 
 @Configuration
 @Import({
-		ModuleTestAutowireCandidateResolverConfigurer.class,
 		SyncTaskExecutorTestConfig.class})
-@Profile("module-test")
+@Profile("module-core-test")
 public class ModuleTestConfig {
 
 	@Bean

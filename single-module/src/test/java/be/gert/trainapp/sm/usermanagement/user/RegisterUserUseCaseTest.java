@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.usermanagement.generated.model.RegisterUserRequest;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.usermanagement._repository.UserJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class RegisterUserUseCaseTest {
 
 	@Autowired

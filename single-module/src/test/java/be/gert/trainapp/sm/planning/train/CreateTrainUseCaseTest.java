@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.planning.generated.model.CreateTrainRequest;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class CreateTrainUseCaseTest {
 	@Autowired
 	TrainJpaRepository jpa;

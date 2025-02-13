@@ -30,7 +30,7 @@ Test doubles in a broad sense are anything which replaces the 'real' behaviour w
   - Pitfall: making the fake a swiss army knife to handle all possible cases increases complexity
 
 ### <span style="color:#4863A0;">Spies</span>
-  - wrapper of an instance (usually a real instance, but can also be fake/stub, or event a mock though that would be quite silly)
+  - wrapper of an instance (usually a real instance, but can also be fake/stub, or even a mock though let me know when this is interesting!)
   - use to verify interactions
   - can also be used as a mock in certain conditions (doReturn("x").when(spy).getX())
 
@@ -48,11 +48,10 @@ While the fakes may stay simple and cover the most used cases using defaults.
 
 ## Decision
 
-- Create Fake implementations for used external/other module APIs, returning data based on the standard defaults.
+- Create Fake implementations for adapters, returning data based on the standard defaults.
 - Load the fakes into the application context as Spy
 - Tests needing fine-grained control will use the mock capability of the spy
 - Tests not needing fine-grained control will use the fake as is
-
 
 ## Compliance
 

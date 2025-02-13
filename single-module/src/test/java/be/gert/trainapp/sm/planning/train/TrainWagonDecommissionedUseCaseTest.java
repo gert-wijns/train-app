@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.AopTestUtils;
 
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.assets._events.WagonDecommissioned;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class TrainWagonDecommissionedUseCaseTest {
 	@Autowired
 	TrainJpaRepository jpa;
@@ -26,7 +26,7 @@ class TrainWagonDecommissionedUseCaseTest {
 	@Test
 	void success() {
 		// given
-		jpa.save(emptyOrientExpress().attachWagon(orientExpressFirstCoach()));
+		jpa.save(emptyOrientExpress().attachWagon(orientExpressFirstCoach));
 
 		// when
 		TrainWagonDecommissionedUseCase unproxied = AopTestUtils.getTargetObject(this.usecase);

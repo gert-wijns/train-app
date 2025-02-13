@@ -14,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.network.generated.model.AddNodeRequest;
 import be.gert.trainapp.api.network.generated.model.GeoPositionBody;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.network._repository.NetworkJpaRepository;
 import be.gert.trainapp.sm.network._repository.NodeJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class AddNodeUseCaseTest {
 	@Autowired
 	NetworkJpaRepository networkJpa;

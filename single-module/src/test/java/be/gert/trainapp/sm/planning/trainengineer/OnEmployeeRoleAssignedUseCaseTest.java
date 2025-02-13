@@ -11,12 +11,12 @@ import org.junit.jupiter.params.provider.EnumSource.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.AopTestUtils;
 
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.personnel._event.EmployeeRoleAssigned;
 import be.gert.trainapp.sm.personnel.EmployeeRole;
 import be.gert.trainapp.sm.planning._repository.TrainEngineerJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class OnEmployeeRoleAssignedUseCaseTest {
 	@Autowired
 	TrainEngineerJpaRepository jpa;

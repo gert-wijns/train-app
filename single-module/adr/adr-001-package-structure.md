@@ -56,6 +56,9 @@ Though only events having a @PublicEvent will be allowed to be used elsewhere.
 This package contains adapters which will pull in data from other modules or external sources and push data when applicable as well.
 The adapters exist to protect the internal parts of the domain from external pollution.
 
+### <span style="color:#4863A0;">be.gert.trainapp.sm.xxxxxxxxxx._port</span>
+This package contains the interfaces for the adapters so that we may replace them with testdoubles during testing.
+
 ### <span style="color:#4863A0;">be.gert.trainapp.sm.xxxxxxxxxx._mapper</span>
 This package contains mappers which can be shared in the domain. Consider adding a mapper when multiple pieces of code
 require the same mapping. Avoid putting mappers for mappings which are only used in a single place.

@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.planning.generated.model.SearchTrainEngineersResponseItem;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.planning._repository.TrainEngineerJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class SearchTrainEngineersQueryTest {
 	@Autowired
 	TrainEngineerJpaRepository jpa;

@@ -22,14 +22,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.assets.generated.model.SearchWagonsQueryResponseItem;
 import be.gert.trainapp.api.assets.generated.model.WagonModelResponse;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.assets._model.Wagon;
 import be.gert.trainapp.sm.assets._repository.WagonJpaRepository;
 import be.gert.trainapp.sm.assets._repository.WagonModelJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class SearchWagonsQueryTest {
 	@Autowired
 	WagonModelJpaRepository modelJpa;

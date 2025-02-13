@@ -14,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import be.gert.trainapp.api.network.generated.model.AddTrackRequest;
 import be.gert.trainapp.api.network.generated.model.SpeedBody;
 import be.gert.trainapp.api.network.generated.model.SpeedBody.MeasurementEnum;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.network._repository.TrackJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class AddTrackUseCaseTest {
 	@Autowired
 	TrackJpaRepository jpa;

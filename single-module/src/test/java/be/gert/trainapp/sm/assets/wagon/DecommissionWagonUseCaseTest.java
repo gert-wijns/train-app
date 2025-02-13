@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.event.ApplicationEvents;
 
 import be.gert.trainapp.api.assets.generated.model.DecommissionWagonRequest;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.assets._events.WagonDecommissioned;
 import be.gert.trainapp.sm.assets._repository.WagonJpaRepository;
 import be.gert.trainapp.sm.assets._repository.WagonModelJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class DecommissionWagonUseCaseTest {
 	@Autowired
 	WagonModelJpaRepository modelJpa;

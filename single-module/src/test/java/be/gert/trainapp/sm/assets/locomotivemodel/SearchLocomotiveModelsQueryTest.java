@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.assets.generated.model.LocomotivePowerType;
 import be.gert.trainapp.api.assets.generated.model.SearchLocomotiveModelsQueryResponseItem;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.assets._repository.LocomotiveModelJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class SearchLocomotiveModelsQueryTest {
 	@Autowired
 	LocomotiveModelJpaRepository modelJpa;

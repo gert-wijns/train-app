@@ -5,7 +5,7 @@ import be.gert.trainapp.api.planning.generated.model.AddWagonToTrainRequest;
 import be.gert.trainapp.sm._shared.usecase.DomainUseCase;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.planning.TrainId;
-import be.gert.trainapp.sm.planning._adapter.SearchWagon;
+import be.gert.trainapp.sm.planning._port.SearchWagon;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

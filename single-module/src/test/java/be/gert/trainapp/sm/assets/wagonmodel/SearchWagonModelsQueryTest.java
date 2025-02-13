@@ -12,10 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.assets.generated.model.SearchWagonModelsQueryResponseItem;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.assets._repository.WagonModelJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class SearchWagonModelsQueryTest {
 	@Autowired
 	WagonModelJpaRepository modelJpa;

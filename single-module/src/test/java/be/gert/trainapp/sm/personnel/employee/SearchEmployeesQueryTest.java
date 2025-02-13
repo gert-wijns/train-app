@@ -13,13 +13,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.personnel.generated.model.SearchEmployeesQueryResponseItem;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.personnel.EmployeeId;
 import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-@ModuleTest
+@ModuleCoreTest
 class SearchEmployeesQueryTest {
 	@Autowired
 	EmployeeJpaRepository jpa;

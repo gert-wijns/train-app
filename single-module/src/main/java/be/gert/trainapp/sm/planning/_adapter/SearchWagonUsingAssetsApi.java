@@ -9,11 +9,12 @@ import be.gert.trainapp.sm.assets.SerialNumber;
 import be.gert.trainapp.sm.assets.WagonId;
 import be.gert.trainapp.sm.network.TrackGauge;
 import be.gert.trainapp.sm.planning._model.Wagon;
+import be.gert.trainapp.sm.planning._port.SearchWagon;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class SearchWagon {
+public class SearchWagonUsingAssetsApi implements SearchWagon {
 	private final SearchWagonsQueryApi searchWagonQueryApi;
 
 	public Wagon getById(WagonId id) {

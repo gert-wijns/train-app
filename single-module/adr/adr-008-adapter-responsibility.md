@@ -6,7 +6,7 @@ Draft
 
 ## Context
 Pulls in data from other modules or external sources, mapping them to our domain and protecting the internal code
-from external pollution.
+from external changes.
 
 Pushes data to other modules or external sources, hiding their api from our internal code.
 
@@ -18,7 +18,7 @@ Pushes data to other modules or external sources, hiding their api from our inte
 - Adapters are never RestControllers.
 
 ## Decision
-Adapters will be used as an anti corruption layer to protect the domain from external pollution.
+Adapters will be used as an anti corruption layer to protect the domain from external changes.
 
 ## Compliance
 Code reviews.

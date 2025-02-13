@@ -13,11 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.planning.generated.model.AddWagonToTrainRequest;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.planning._model.Train;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class AddWagonToTrainUseCaseTest {
 	@Autowired
 	TrainJpaRepository jpa;
@@ -28,7 +28,7 @@ class AddWagonToTrainUseCaseTest {
 			.trainId(trainOrientExpressId.id())
 			.wagonId(trainOrientExpressFirstCoachId.id());
 	Train orientExpressWithWagon = emptyOrientExpress()
-			.attachWagon(orientExpressFirstCoach());
+			.attachWagon(orientExpressFirstCoach);
 
 	@Test
 	void success() {

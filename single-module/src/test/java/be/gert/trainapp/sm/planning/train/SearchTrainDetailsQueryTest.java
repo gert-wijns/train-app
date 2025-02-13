@@ -22,10 +22,10 @@ import be.gert.trainapp.api.planning.generated.model.SearchTrainDetailsQueryResp
 import be.gert.trainapp.api.planning.generated.model.SearchTrainDetailsQueryResponseTrainEngineer;
 import be.gert.trainapp.api.planning.generated.model.SearchTrainDetailsWagonQueryResponse;
 import be.gert.trainapp.api.planning.generated.model.TrainLocomotiveResponse;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.planning._repository.TrainJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class SearchTrainDetailsQueryTest {
 	@Autowired
 	TrainJpaRepository jpa;
@@ -39,7 +39,7 @@ class SearchTrainDetailsQueryTest {
 		jpa.save(emptyOrientExpress().toBuilder()
 				.trainEngineer(employeeChristineGonzalesId)
 				.build()
-				.attachWagon(orientExpressFirstCoach()));
+				.attachWagon(orientExpressFirstCoach));
 
 		// when
 		var response = query.query(trainOrientExpressId.id());
@@ -59,7 +59,7 @@ class SearchTrainDetailsQueryTest {
 								.decommissioned(orientExpressLocomotive.decommissioned()))
 						.wagons(List.of(new SearchTrainDetailsWagonQueryResponse()
 								.id(trainOrientExpressFirstCoachId.id())
-								.serialNumber(orientExpressFirstCoach().serialNumber().sn())
+								.serialNumber(orientExpressFirstCoach.serialNumber().sn())
 								.decommissioned(false)))
 		);
 	}

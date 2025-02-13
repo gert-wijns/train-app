@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.personnel.generated.model.AssignEmployeeRoleRequest;
 import be.gert.trainapp.api.personnel.generated.model.EmployeeRole;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.personnel._repository.EmployeeJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class AssignEmployeeRoleUseCaseTest {
 	@Autowired
 	EmployeeJpaRepository jpa;

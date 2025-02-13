@@ -16,12 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.event.ApplicationEvents;
 
 import be.gert.trainapp.api.assets.generated.model.AddLocomotiveRequest;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.assets._events.LocomotiveAddedEvent;
 import be.gert.trainapp.sm.assets._repository.LocomotiveJpaRepository;
 import be.gert.trainapp.sm.assets._repository.LocomotiveModelJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class AddLocomotiveUseCaseTest {
 	@Autowired
 	LocomotiveModelJpaRepository modelJpa;

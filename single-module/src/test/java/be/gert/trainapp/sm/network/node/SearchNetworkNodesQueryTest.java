@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import be.gert.trainapp.api.network.generated.model.GeoPositionBody;
 import be.gert.trainapp.api.network.generated.model.SearchNetworkNodesQueryResponseItem;
 import be.gert.trainapp.api.network.generated.model.SearchNetworkNodesQueryResponseItemNetwork;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.network._repository.NetworkJpaRepository;
 import be.gert.trainapp.sm.network._repository.NodeJpaRepository;
 import jakarta.validation.Validator;
 
-@ModuleTest
+@ModuleCoreTest
  class SearchNetworkNodesQueryTest {
 	@Autowired
 	NetworkJpaRepository networkJpa;

@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import be.gert.trainapp.api.network.generated.model.SearchNetworkQueryResponseItem;
-import be.gert.trainapp.sm.ModuleTest;
+import be.gert.trainapp.sm.ModuleCoreTest;
 import be.gert.trainapp.sm.network._repository.NetworkJpaRepository;
 
-@ModuleTest
+@ModuleCoreTest
 class SearchNetworkQueryTest {
 	@Autowired
 	NetworkJpaRepository jpa;
